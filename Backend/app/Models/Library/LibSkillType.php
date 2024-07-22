@@ -18,3 +18,4 @@ class LibSkillType extends Model
         return $this->hasMany(LibSkill::class, 'lib_skill_type_id');
     }
 }
+ 
