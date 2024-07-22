@@ -3,7 +3,18 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Models\Applicant\ApplicantExperience;
+use App\Models\Applicant\ApplicantSkill;
+use App\Models\Employer\Company;
+use App\Models\Employer\JobApplicant;
+use App\Models\Employer\JobPost;
+use App\Models\Library\LibGender;
+use App\Models\Library\LibProfession;
+use App\Models\Library\LibRole;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -17,9 +28,19 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
         'email',
         'password',
+        'username',
+        'phone_no',
+        'first_name',
+        'last_name',
+        'middle_name',
+        'address',
+        'rating',
+        'desc',
+        'lib_profession_id',
+        'lib_gender_id',
+        'lib_role_id',
     ];
 
     /**
@@ -43,5 +64,35 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function profession():BelongsTo{
+        return $this->belongsTo(LibProfession::class, 'lib_profession_id');
+    }
+    public function gender():BelongsTo{
+        return $this->belongsTo(LibGender::class, 'lib_gender_id');
+    }
+    public function role():BelongsTo{
+        return $this->belongsTo(LibRole::class, 'lib_role_id');
+    }
+    public function skill(): HasMany{
+        return $this->hasMany(ApplicantSkill::class, 'applicant_id');
+    }
+    public function reviewedBy(): HasMany{
+        return $this->hasMany(Review::class, 'reviewed_by');
+    }
+    public function reviewedFor(): HasMany{
+        return $this->hasMany(Review::class, 'reviewed_for');
+    }
+    public function experience(): HasMany{
+        return $this->hasMany(ApplicantExperience::class, 'applicant_id');
+    }
+    public function application(): HasMany{
+        return $this->hasMany(JobApplicant::class, 'applicant_id');
+    }
+    public function jobPost(): HasMany{
+        return $this->hasMany(JobPost::class, 'employer_id');
+    }
+    public function company(): HasMany{
+        return $this->hasMany(Company::class, 'owner_id');
     }
 }
