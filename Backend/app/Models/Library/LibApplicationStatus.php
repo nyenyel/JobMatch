@@ -14,6 +14,7 @@ class LibApplicationStatus extends Model
     protected $fillable = [
         'desc'
     ];
+    
     public function jobApplication() : HasMany{
         return $this->hasMany(JobApplicant::class, 'lib_status_id');
     }

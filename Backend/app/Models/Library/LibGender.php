@@ -16,7 +16,7 @@ class LibGender extends Model
         'desc'
     ];
     
-    public function jobApplication() : HasMany{
+    public function user() : HasMany{
         return $this->hasMany(User::class, 'lib_gender_id');
     }
 }
