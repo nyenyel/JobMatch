@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('email')->unique();
+            $table->string('password');
             $table->string('username');
             $table->string('phone_no');
             $table->string('first_name');
@@ -23,14 +25,12 @@ return new class extends Migration
             $table->unsignedBigInteger('lib_role_id');
             $table->unsignedBigInteger('lib_gender_id');
             $table->unsignedBigInteger('lib_profession_id');
+            $table->float('rating');
+            $table->timestamp('email_verified_at')->nullable();
+            $table->rememberToken();
             $table->foreign('lib_role_id')->references('id')->on('lib_roles');
             $table->foreign('lib_gender_id')->references('id')->on('lib_genders');
             $table->foreign('lib_profession_id')->references('id')->on('lib_professions');
-            $table->float('rating');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
             $table->timestamps();
         });
 

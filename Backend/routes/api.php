@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\v1\BasicController\AuthController;
 use App\Http\Controllers\API\v1\BasicController\Library\LibProfessionController;
 use App\Http\Controllers\API\v1\BasicController\Library\LibSkillController;
 use App\Http\Controllers\API\v1\BasicController\Library\LibSkillTypeController;
@@ -15,6 +16,13 @@ Route::prefix('v1')->group( function (){
         Route::apiResource('skill', LibSkillController::class);
     });
 });
+
+Route::prefix('auth')->group(function(){
+    Route::post('register', [AuthController::class, 'register']);
+    Route::post('login', [AuthController::class, 'login']);
+    Route::get('user', [AuthController::class, 'user']);
+});
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
