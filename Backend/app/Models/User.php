@@ -78,10 +78,10 @@ class User extends Authenticatable
     public function skill(): HasMany{
         return $this->hasMany(ApplicantSkill::class, 'applicant_id');
     }
-    public function reviewedBy(): HasMany{
+    public function reviews(): HasMany{
         return $this->hasMany(Review::class, 'reviewed_by');
     }
-    public function reviewedFor(): HasMany{
+    public function myReviews(): HasMany{
         return $this->hasMany(Review::class, 'reviewed_for');
     }
     public function experience(): HasMany{

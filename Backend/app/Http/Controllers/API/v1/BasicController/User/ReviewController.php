@@ -30,10 +30,10 @@ class ReviewController
     {
         $data = $request->validated();
         $userToReview = User::where('id', $data['reviewed_for'])->first();
-        $userToReview->load(['reviewedFor']);
-        $denaminator = $userToReview->reviewedFor->count();
+        $userToReview->load(['myReviews']);
+        $denaminator = $userToReview->myReviews->count();
         $sum = 0;
-        foreach($userToReview->reviewedFor as $review){
+        foreach($userToReview->myReviews as $review){
             $sum += $review->rate;
         }
         $rating = (($sum/$denaminator)+ $data['rate'])/2;
@@ -61,9 +61,9 @@ class ReviewController
     public function update(ReviewUpdateRequest $request, Review $review)
     {
         $review->update($request->validated());
-        $review->load(['reviewedFor.reviewedFor']);
+        $review->load(['reviewedFor.myReviews']);
         $user = $review->reviewedFor;
-        $newReviews = $user->reviewedFor;
+        $newReviews = $user->myReviews;
         
         $denaminator = $newReviews->count();
         $sum = 0;
@@ -82,7 +82,7 @@ class ReviewController
      */
     public function destroy(Review $review)
     {
-        $review->load(['reviewedFor.reviewedFor']);
+        $review->load(['reviewedFor.myReviews']);
         $user = $review->reviewedFor;
         $review->delete();
         $existingReview = Review::where('reviewed_for', $user->id)->get();
