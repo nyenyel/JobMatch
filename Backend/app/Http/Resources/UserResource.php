@@ -24,10 +24,11 @@ class UserResource extends JsonResource
             'last_name'=> $this->last_name,
             'address'=> $this->address,
             'desc'=> $this->desc,
-            'rating'=> $this->raiting,
+            'rating'=> $this->rating,
             'role'=> new LibraryResource($this->whenLoaded('role')),
             'gender'=> new LibraryResource($this->whenLoaded('gender')),
             'profession'=> new LibraryResource($this->whenLoaded('profession')),
+            'review'=> ReviewResource::collection($this->whenLoaded('reviewedFor')),
         ];
     }
 }
