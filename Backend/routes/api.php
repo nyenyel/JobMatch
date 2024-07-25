@@ -4,7 +4,10 @@ use App\Http\Controllers\API\v1\BasicController\AuthController;
 use App\Http\Controllers\API\v1\BasicController\Library\LibProfessionController;
 use App\Http\Controllers\API\v1\BasicController\Library\LibSkillController;
 use App\Http\Controllers\API\v1\BasicController\Library\LibSkillTypeController;
+use App\Http\Controllers\API\v1\BasicController\User\ApplicantExperienceController;
+use App\Http\Controllers\API\v1\BasicController\User\ExperienceController;
 use App\Http\Controllers\API\v1\BasicController\User\ReviewController;
+use App\Http\Resources\ApplicantExperienceResource;
 use App\Models\Library\LibProfession;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +19,7 @@ Route::prefix('v1')->group( function (){
         Route::apiResource('skill-type', LibSkillTypeController::class);
         Route::apiResource('skill', LibSkillController::class);
         Route::apiResource('review', ReviewController::class);
+        Route::apiResource('experience', ExperienceController::class);
     });
 });
 
