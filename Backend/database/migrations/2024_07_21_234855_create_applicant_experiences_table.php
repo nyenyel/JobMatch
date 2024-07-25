@@ -15,8 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('desc');
+            $table->integer('duration');
             $table->unsignedBigInteger('applicant_id');
+            $table->unsignedBigInteger('profession_id');
             $table->foreign('applicant_id')->references('id')->on('users');
+            $table->foreign('profession_id')->references('id')->on('lib_professions');
             $table->timestamps();
         });
     }

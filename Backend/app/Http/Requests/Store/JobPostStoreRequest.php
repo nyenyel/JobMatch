@@ -25,6 +25,7 @@ class JobPostStoreRequest extends FormRequest
             'title' => 'required|string',
             'desc' => 'required|string',
             'post_duration' => 'required|date',
+            'experience' => 'required|integer|min:1',
             'employer_id' => 'required|integer|exists:users,id',
             'lib_profession_id' => 'required|integer|exists:lib_professions,id',
             'company_id' => 'required|integer|exists:companies,id',

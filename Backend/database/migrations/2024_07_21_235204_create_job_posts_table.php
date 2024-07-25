@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('desc');
             $table->date('post_duration');
+            $table->integer('experience');
             $table->unsignedBigInteger('employer_id');
             $table->unsignedBigInteger('lib_profession_id');
             $table->unsignedBigInteger('company_id');

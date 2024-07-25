@@ -18,7 +18,8 @@ class ApplicantExperienceResource extends JsonResource
             'id'=> $this->id,
             'title'=> $this->title,
             'desc'=> $this->desc,
-            'applicant_id'=> new UserResource($this->whenLoaded('applicant'))
+            'applicant'=> new UserResource($this->whenLoaded('applicant')),
+            'profession' => new LibraryResource($this->whenLoaded('profession'))
         ];
     }
 }

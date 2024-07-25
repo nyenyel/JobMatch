@@ -18,6 +18,7 @@ class JobPostResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'desc' => $this->desc,
+            'experience' => $this->experience,
             'post_duration' => $this->post_duration,
             'employer' => new UserResource($this->whenLoaded('employer')),
             'profession' => new LibraryResource($this->whenLoaded('profession')),

@@ -10,13 +10,17 @@ use Illuminate\Http\Request;
 
 class ExperienceController
 {
+    private $relation = [
+        'applicant',
+        'profession'
+    ];
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $experience = ApplicantExperience::all();
-        $experience->load(['applicant']);
+        $experience->load($this->relation);
         return ApplicantExperienceResource::collection($experience);
     }
 
@@ -28,7 +32,7 @@ class ExperienceController
     public function store(ApplicantExperienceStoreRequest $request)
     {
         $experience = ApplicantExperience::create($request->validated());
-        $experience->load(['applicant']);
+        $experience->load($this->relation);
         return  ApplicantExperienceResource::make($experience);
 
     }
@@ -38,7 +42,7 @@ class ExperienceController
      */
     public function show(ApplicantExperience $experience)
     {
-        $experience->load(['applicant']);
+        $experience->load($this->relation);
         return ApplicantExperienceResource::make($experience);
     }
 
@@ -50,7 +54,7 @@ class ExperienceController
     public function update(ApplicantExperienceUpdateRequest $request, ApplicantExperience $experience)
     {
         $experience->update($request->validated());
-        $experience->load(['applicant']);
+        $experience->load($this->relation);
         return ApplicantExperienceResource::make($experience);
     }
 
