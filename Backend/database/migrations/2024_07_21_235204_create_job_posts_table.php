@@ -19,6 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('employer_id');
             $table->unsignedBigInteger('lib_profession_id');
             $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('lib_job_status_id');
+            $table->foreign('lib_job_status_id')->references('id')->on('lib_job_statuses');
             $table->foreign('employer_id')->references('id')->on('users');
             $table->foreign('lib_profession_id')->references('id')->on('lib_professions');
             $table->foreign('company_id')->references('id')->on('companies');

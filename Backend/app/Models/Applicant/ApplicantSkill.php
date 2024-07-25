@@ -14,12 +14,12 @@ class ApplicantSkill extends Model
     protected $guarded = ['id'];
     protected $fillable = [
         'lib_skill_id',
-        'applicant_id',
+        'lib_applicant_id',
     ];
     public function skill():BelongsTo{
         return $this->belongsTo(LibSkill::class, 'lib_skill_id');
     }
     public function applicant():BelongsTo{
-        return $this->belongsTo(User::class, 'applicant_id');
+        return $this->belongsTo(User::class, 'lib_applicant_id');
     }
 }

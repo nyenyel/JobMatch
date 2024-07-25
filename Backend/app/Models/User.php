@@ -17,10 +17,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, HasApiTokens, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -77,10 +78,10 @@ class User extends Authenticatable
     public function skill(): HasMany{
         return $this->hasMany(ApplicantSkill::class, 'applicant_id');
     }
-    public function reviewedBy(): HasMany{
+    public function reviews(): HasMany{
         return $this->hasMany(Review::class, 'reviewed_by');
     }
-    public function reviewedFor(): HasMany{
+    public function myReviews(): HasMany{
         return $this->hasMany(Review::class, 'reviewed_for');
     }
     public function experience(): HasMany{

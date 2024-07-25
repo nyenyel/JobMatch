@@ -30,6 +30,6 @@ class LibSkill extends Model
         return $this->belongsTo(LibProfession::class, 'lib_profession_id');
     }
     public function skillType() : BelongsTo{
-        return $this->belongsTo(LibProfession::class, 'lib_skill_type_id');
+        return $this->belongsTo(LibSkillType::class, 'lib_skill_type_id');
     }
 }
