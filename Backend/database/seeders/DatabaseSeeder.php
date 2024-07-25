@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
 
         LibApplicationStatus::upsert([
             ['desc' => 'Accepted'],
+            ['desc' => 'Pending'],
             ['desc' => 'Rejected'],
         ], ['desc']);
         LibJobStatus::upsert([
