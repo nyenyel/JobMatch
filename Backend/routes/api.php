@@ -6,6 +6,7 @@ use App\Http\Controllers\API\v1\BasicController\Library\LibSkillController;
 use App\Http\Controllers\API\v1\BasicController\Library\LibSkillTypeController;
 use App\Http\Controllers\API\v1\BasicController\User\ApplicantExperienceController;
 use App\Http\Controllers\API\v1\BasicController\User\ApplicantSkillController;
+use App\Http\Controllers\API\v1\BasicController\User\CompanyController;
 use App\Http\Controllers\API\v1\BasicController\User\ExperienceController;
 use App\Http\Controllers\API\v1\BasicController\User\ReviewController;
 use App\Http\Resources\ApplicantExperienceResource;
@@ -22,6 +23,7 @@ Route::prefix('v1')->group( function (){
         Route::apiResource('review', ReviewController::class);
         Route::apiResource('experience', ExperienceController::class);
         Route::apiResource('applicant-skill', ApplicantSkillController::class);
+        Route::apiResource('company', CompanyController::class);
     });
 });
 
