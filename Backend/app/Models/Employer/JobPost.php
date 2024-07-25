@@ -2,6 +2,7 @@
 
 namespace App\Models\Employer;
 
+use App\Models\Library\LibJobStatus;
 use App\Models\Library\LibProfession;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,7 +20,8 @@ class JobPost extends Model
         'post_duration',
         'employer_id',
         'lib_profession_id',
-        'company_id'
+        'company_id',
+        'lib_job_status_id'
     ];
     public function skill() : HasMany{
         return $this->hasMany(JobSkill::class, 'job_id');
@@ -32,7 +34,12 @@ class JobPost extends Model
     }
     public function profession(): BelongsTo{
         return $this->belongsTo(LibProfession::class, 'lib_profession_id');
-    }public function company(): BelongsTo{
+    }
+    public function company(): BelongsTo{
         return $this->belongsTo(Company::class, 'company_id');
     }
+    public function status(): BelongsTo{
+        return $this->belongsTo(LibJobStatus::class, 'lib_job_status_id');
+    }
+    
 }

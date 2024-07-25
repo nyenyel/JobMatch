@@ -24,13 +24,11 @@ class LibrarySkillStoreRequest extends FormRequest
     public function rules(): array
     {
 
-        $maxProfession = LibProfession::count();
-        $maxSkillType = LibSkillType::count();
 
         return [
             'desc' => 'required|string',
-            'lib_profession_id' => 'sometimes|integer|between:1,'.$maxProfession,
-            'lib_skill_type_id' => 'required|integer|between:1,'.$maxSkillType,
+            'lib_profession_id' => 'sometimes|integer|exists:lib_professions,id',
+            'lib_skill_type_id' => 'required|integer|exists:lib_skill_types,id',
         ];
     }
 }

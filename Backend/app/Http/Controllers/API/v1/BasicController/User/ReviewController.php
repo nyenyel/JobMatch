@@ -8,6 +8,7 @@ use App\Http\Resources\ReviewResource;
 use App\Http\Resources\UserResource;
 use App\Models\Review;
 use App\Models\User;
+use DivisionByZeroError;
 use Illuminate\Http\Request;
 
 class ReviewController
@@ -29,21 +30,29 @@ class ReviewController
     public function store(ReviewStoreRequest $request)
     {
         $data = $request->validated();
-        $userToReview = User::where('id', $data['reviewed_for'])->first();
-        $userToReview->load(['myReviews']);
-        $denaminator = $userToReview->myReviews->count();
-        $sum = 0;
-        foreach($userToReview->myReviews as $review){
-            $sum += $review->rate;
+        try{
+            $userToReview = User::where('id', $data['reviewed_for'])->first();
+            $userToReview->load(['myReviews']);
+            $denaminator = $userToReview->myReviews->count();
+            $sum = 0;
+            foreach($userToReview->myReviews as $review){
+                $sum += $review->rate;
+            }
+            $rating = (($sum/$denaminator)+ $data['rate'])/2;
+            $newRating = number_format($rating, 2);
+            $userToReview['rating'] = $newRating;
+            $userToReview->update();
+    
+            $review = Review::create($data);
+            $review->load(['reviewedFor','reviewedBy']);
+            return ReviewResource::make($review);
+        } catch(DivisionByZeroError $e){
+            $review = Review::create($data);
+            $review->load(['reviewedFor','reviewedBy']);
+            $newRating = ['rating' => $review->rate];
+            $review->reviewedFor->update($newRating);
+            return ReviewResource::make($review);
         }
-        $rating = (($sum/$denaminator)+ $data['rate'])/2;
-        $newRating = number_format($rating, 2);
-        $userToReview['rating'] = $newRating;
-        $userToReview->update();
-
-        $review = Review::create($data);
-        $review->load(['reviewedFor','reviewedBy']);
-        return ReviewResource::make($review);
     }
 
     /**

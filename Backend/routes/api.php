@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\v1\BasicController\AuthController;
+use App\Http\Controllers\API\v1\BasicController\Job\JobPostController;
 use App\Http\Controllers\API\v1\BasicController\Library\LibProfessionController;
 use App\Http\Controllers\API\v1\BasicController\Library\LibSkillController;
 use App\Http\Controllers\API\v1\BasicController\Library\LibSkillTypeController;
@@ -24,6 +25,7 @@ Route::prefix('v1')->group( function (){
         Route::apiResource('experience', ExperienceController::class);
         Route::apiResource('applicant-skill', ApplicantSkillController::class);
         Route::apiResource('company', CompanyController::class);
+        Route::apiResource('job', JobPostController::class);
     });
 });
 

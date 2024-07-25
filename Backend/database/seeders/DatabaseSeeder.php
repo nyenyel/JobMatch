@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Library\LibApplicationStatus;
 use App\Models\Library\LibGender;
+use App\Models\Library\LibJobStatus;
 use App\Models\Library\LibRole;
 use App\Models\Library\LibSkillType;
 use App\Models\User;
@@ -38,6 +39,10 @@ class DatabaseSeeder extends Seeder
         LibApplicationStatus::upsert([
             ['desc' => 'Accepted'],
             ['desc' => 'Rejected'],
+        ], ['desc']);
+        LibJobStatus::upsert([
+            ['desc' => 'Open'],
+            ['desc' => 'Close'],
         ], ['desc']);
         // User::factory()->create([
         //     'name' => 'Test User',
