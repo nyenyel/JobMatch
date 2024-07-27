@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ApplicantExperienceResource extends JsonResource
+class JobRecommendationController extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,9 +18,12 @@ class ApplicantExperienceResource extends JsonResource
             'id'=> $this->id,
             'title'=> $this->title,
             'desc'=> $this->desc,
-            'duration'=> $this->duration,
-            'applicant'=> new UserResource($this->whenLoaded('applicant')),
-            'profession' => new LibraryResource($this->whenLoaded('profession'))
+            'experience'=> $this->experience,
+            'post_duration'=> $this->post_duration,
+            'employer_id'=> $this->employer_id,
+            'lib_profession_id'=> $this->lib_profession_id,
+            'company_id'=> $this->company_id,
+            'lib_job_status_id'=> $this->lib_job_status_id,
         ];
     }
 }

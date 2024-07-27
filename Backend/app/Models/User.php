@@ -76,7 +76,7 @@ class User extends Authenticatable
         return $this->belongsTo(LibRole::class, 'lib_role_id');
     }
     public function skill(): HasMany{
-        return $this->hasMany(ApplicantSkill::class, 'applicant_id');
+        return $this->hasMany(ApplicantSkill::class, 'lib_applicant_id');
     }
     public function reviews(): HasMany{
         return $this->hasMany(Review::class, 'reviewed_by');

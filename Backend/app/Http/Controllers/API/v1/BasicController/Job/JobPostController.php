@@ -15,6 +15,8 @@ class JobPostController
         'profession',
         'company',
         'status',
+        'skill.skill'
+        
     ];
     /**
      * Display a listing of the resource.
