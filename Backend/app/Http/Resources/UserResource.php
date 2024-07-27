@@ -26,6 +26,8 @@ class UserResource extends JsonResource
             'desc'=> $this->desc,
             'rating'=> $this->rating,
             'role'=> new LibraryResource($this->whenLoaded('role')),
+            'experience'=> ApplicantExperienceResource::collection($this->whenLoaded('experience')),
+            'skill'=> ApplicantSkillResource::collection($this->whenLoaded('skill')),
             'gender'=> new LibraryResource($this->whenLoaded('gender')),
             'profession'=> new LibraryResource($this->whenLoaded('profession')),
             'review'=> ReviewResource::collection($this->whenLoaded('myReviews')),
