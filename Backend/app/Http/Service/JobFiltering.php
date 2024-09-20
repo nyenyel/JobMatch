@@ -80,7 +80,6 @@ class JobFiltering{
             ];
         }
         return $data;
-
     }
 
     public function openJob(){
