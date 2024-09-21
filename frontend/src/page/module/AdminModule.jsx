@@ -26,7 +26,9 @@ export default function AdminModule() {
                 <div className=''>
                     <TopBar links={links} />
                 </div>
+                <div className='mt-3 mx-5'>
                 <Outlet />
+                </div>
             </div>
         </>
     )

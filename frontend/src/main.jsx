@@ -8,46 +8,46 @@ import AdminModule from './page/module/AdminModule'
 import MessageComponent from './page/component/MessageComponent'
 import VerifyComponent from './page/component/VerifyComponent'
 import AccountComponent from './page/component/AccountComponent'
-import ErrorPage from './page/component/ErrorPage'
+import ErrorComponent from './page/component/ErrorComponent'
 
 const router = createBrowserRouter([
   
   {
     path: '/',
     element: <Home />,
-    errorElement: <ErrorPage />
+    errorElement: <ErrorComponent />
 
   },
   {
     path: '/login',
     element: <Login />,
-    errorElement: <ErrorPage />
+    errorElement: <ErrorComponent />
 
   },
   {
     path: '/admin',
     element: <AdminModule />,
-    errorElement: <ErrorPage />,
+    errorElement: <ErrorComponent />,
     children: [
-      // {
-      //   index: true,
-      //   path: <Navigate to={'message'} replace/>,
-      // },
       {
         path: 'message',
         element: <MessageComponent />,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorComponent />,
       },
       {
         path: 'verify',
         element: <VerifyComponent />,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorComponent />,
       },
       {
         path: 'accounts',
         element: <AccountComponent />,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorComponent />,
       },
+      {
+        index: true,
+        element: <Navigate to={'message'} replace/>
+      }
     ]
   },
 ])

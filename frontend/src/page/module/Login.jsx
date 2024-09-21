@@ -6,10 +6,12 @@ import axios from 'axios';
 import { auth } from '../resource/api';
 import Warning from '../cards/Warning';
 import { Navigate } from 'react-router-dom';
+import Loading from '../cards/Loading';
 
 export default function Login() {
     const {setToken, token, setRole} = useContext(AppContext)
     const [warning, setWarning] = useState()
+    const [loading, setLoading]  = useState(false)
     const [route, setRoute] = useState('')
     const [loginForm, setLoginForm] = useState({
         email: '',
@@ -26,6 +28,7 @@ export default function Login() {
     
     const handleSubmit = async (e) =>{
         e.preventDefault()
+        setLoading(true)
         try{
             const response = await axios.post(auth.concat('login'), loginForm, {
                 'Content-Type': 'application/json'
@@ -38,12 +41,15 @@ export default function Login() {
         }catch (error){
             console.log("Error: ", error.response.data)
             setWarning(error.response.data.message)
-        } 
+        }finally{
+            setLoading(false)
+        }
     }
 
     return (
     <>
     {token != null && (<Navigate to={`/${route}`} replace={true} />)}
+    {loading && (<Loading/>)}
     <div className='flex items-center justify-center h-screen w-screen overflow-hidden bg-cover bg-center bg-no-repeat' 
         style={{ backgroundImage: `url(${bgImage})` }}>
         <div className=' absolute inset-0 backdrop-blur-md flex items-center justify-center'>
