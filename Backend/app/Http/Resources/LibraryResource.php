@@ -17,6 +17,7 @@ class LibraryResource extends JsonResource
         return [
             'id' => $this->id,
             'desc' =>$this->desc,
+            'application' =>  JobApplicantResource::collection($this->whenLoaded('jobApplication'))
         ];
     }
 }
