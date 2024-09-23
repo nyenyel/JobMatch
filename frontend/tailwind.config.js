@@ -36,7 +36,8 @@ export default {
       'ph',
       'mdi-light',
       'ic',
-      'tabler'
+      'tabler',
+      'fluent'
     ]),
   ],
 }

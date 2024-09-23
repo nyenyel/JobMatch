@@ -13,6 +13,7 @@ use App\Http\Controllers\API\v1\BasicController\User\ApplicantSkillController;
 use App\Http\Controllers\API\v1\BasicController\User\CompanyController;
 use App\Http\Controllers\API\v1\BasicController\User\ExperienceController;
 use App\Http\Controllers\API\v1\BasicController\User\ReviewController;
+use App\Http\Controllers\api\v1\basiccontroller\user\UserController;
 use App\Http\Controllers\API\v1\RuleBased\PersonalizeRecommendationController;
 use App\Http\Resources\ApplicantExperienceResource;
 use App\Models\Library\LibApplicationStatus;
@@ -34,6 +35,8 @@ Route::prefix('v1')->group( function (){
         Route::apiResource('job', JobPostController::class);
         Route::apiResource('job-skill', JobSkillController::class);
         Route::apiResource('job-applicant', JobApplicantController::class);
+        Route::apiResource('user', UserController::class)->middleware('auth:sanctum');
+
     });
     Route::prefix('rule-base')->group(function(){
         Route::get('recommend/{user}', [PersonalizeRecommendationController::class, 'recommend'])->middleware('auth:sanctum');

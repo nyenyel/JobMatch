@@ -9,6 +9,13 @@ import MessageComponent from './page/component/MessageComponent'
 import VerifyComponent from './page/component/VerifyComponent'
 import AccountComponent from './page/component/AccountComponent'
 import ErrorComponent from './page/component/ErrorComponent'
+import EmployerModule from './page/module/EmployerModule'
+import JobComponent from './page/component/JobComponent'
+import ApplicantConmponent from './page/component/ApplicantConmponent'
+import CompanyComponent from './page/component/CompanyComponent'
+import ApplicantModule from './page/module/ApplicantModule'
+import JobListComponent from './page/component/JobListComponent'
+import ApplicationComponent from './page/component/ApplicationComponent'
 
 const router = createBrowserRouter([
   
@@ -47,6 +54,53 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Navigate to={'message'} replace/>
+      }
+    ]
+  },
+  {
+    path: '/employer',
+    element: <EmployerModule />,
+    errorElement: <ErrorComponent />,
+    children: [
+      {
+        path: 'jobs',
+        element: <JobComponent />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        path: 'applicants',
+        element: <ApplicantConmponent />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        path: 'company',
+        element: <CompanyComponent />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        index: true,
+        element: <Navigate to={'jobs'} replace />
+      }
+    ]
+  },
+  {
+    path: '/applicant',
+    element: <ApplicantModule />,
+    errorElement: <ErrorComponent />,
+    children: [
+      {
+        path: 'jobs',
+        element: <JobListComponent />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        path: 'application',
+        element: <ApplicationComponent />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        index: true,
+        element: <Navigate to={'jobs'} replace />
       }
     ]
   },

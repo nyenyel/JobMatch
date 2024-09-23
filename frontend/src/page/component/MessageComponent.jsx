@@ -5,6 +5,7 @@ import axios from 'axios'
 import { crud } from '../resource/api'
 import Loading from '../cards/Loading'
 import { Box, Modal } from '@mui/material'
+import Redirect, { ApplicantRedirect, EmployerRedirect, RoleCheck } from '../context/Redirect'
 
 export default function MessageComponent() {
   const { token } = useContext(AppContext);
@@ -21,6 +22,7 @@ export default function MessageComponent() {
           }
         });
         setAcceptedApplicant(response.data.data.application);
+        console.log(response.data.data)
       } catch (error) {
         console.log('Error: ', error);
       } finally {
@@ -32,7 +34,9 @@ export default function MessageComponent() {
   
   return (
     <>
-    {token == null && (<Navigate to={'/login'} replace={true} />)}
+    <Redirect/>
+    <EmployerRedirect />
+    <ApplicantRedirect />
     {loading && (<Loading />)}
     <div className=''>
       <div className='text-text text-xl font-bold'>Accepted Applicants</div>
