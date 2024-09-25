@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('desc');
             $table->integer('verified')->nullable();
+            $table->integer('partnered')->nullable();
             $table->unsignedBigInteger('owner_id');
             $table->foreign('owner_id')->references('id')->on('users');
             $table->timestamps();

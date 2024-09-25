@@ -172,7 +172,7 @@ export default function CompanyComponent() {
               </div>
             </div>
             <div className='bg-black w-full h-0.5 bg-opacity-20 rounded-full my-3'></div>
-            {data && (
+            {data == null && (
                 <div className='flex justify-center items-center h-96'>
                     <div className='text-2xl font-thin text-center'>
                         No Company

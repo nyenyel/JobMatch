@@ -16,7 +16,9 @@ class Company extends Model
     protected $fillable = [
         'desc',
         'title',
-        'owner_id'
+        'owner_id',
+        'verified',
+        'partnered'
     ];
     
     public function jobApplication() : HasMany  {
@@ -27,5 +29,8 @@ class Company extends Model
     }
     public function owner(): BelongsTo {
         return $this->belongsTo(User::class, 'owner_id');
+    }
+    public function jobs(): HasMany {
+        return $this->hasMany(JobPost::class, 'company_id');
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Requests\Update\CompanyUpdateRequest;
 use App\Http\Resources\CompanyResource;
 use App\Models\Employer\Company;
 use App\Models\Library\LibCompanyVerificationImage;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -19,7 +20,7 @@ class CompanyController
     public function index()
     {
         $company = Company::all();
-        $company->load(['owner']);
+        $company->load(['owner', 'jobs']);
         return CompanyResource::collection($company);
     }
 
@@ -113,7 +114,7 @@ class CompanyController
         $data = Company::where('owner_id', $request->input('owner_id'))
                         ->whereNotNull('verified')
                         ->get();
-        $data->load('owner');
+        $data->load('owner', 'jobs');
         
         // Return the data as a resource collection
         return CompanyResource::collection($data);
@@ -124,5 +125,23 @@ class CompanyController
         $data = Company::whereNull('verified')->get();
         $data->load('owner' ,'image');
         return CompanyResource::collection($data);
+    }
+    public function notifyTheVerification(Company $company){
+
+        $data = 'You Company (Company name) has been verified';
+        $company->update(['verified' => 1]);
+        return response()->json([
+            'message' => $data,
+            'company' => $company
+        ]);
+    }
+    public function givePartnership(Company $company) {
+
+        if($company->partnered == null){
+            $company->update(['partnered' => 1]);
+        } else {
+            $company->update(['partnered' => null]);
+        }
+        return response()->json(['data' => $company]);
     }
 }

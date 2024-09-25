@@ -8,3 +8,12 @@ export default function Warning({message}) {
     </div>
   )
 }
+
+export function Success({message}) {
+  return (
+    <div className='sticky top-0 mb-2 flex items-center bg-green-800 bg-opacity-90 text-white rounded-md p-3'>
+        <div className='icon-[ic--round-warning] bg-white w-5 h-5 flex items-center justify-center mr-2'></div>
+        {message}
+    </div>
+  )
+}
