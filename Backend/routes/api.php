@@ -36,7 +36,9 @@ Route::prefix('v1')->group( function (){
         Route::apiResource('job-skill', JobSkillController::class);
         Route::apiResource('job-applicant', JobApplicantController::class);
         Route::apiResource('user', UserController::class)->middleware('auth:sanctum');
-
+        Route::post('verify-company', [CompanyController::class, 'storeCompany'])->name('storeCompany');
+        Route::get('my-verified-company', [CompanyController::class, 'verifiedCompany'])->name('verifiedCompany');
+        Route::get('to-verify-company', [CompanyController::class, 'toVerifyCompany'])->name('toVerifyCompany');
     });
     Route::prefix('rule-base')->group(function(){
         Route::get('recommend/{user}', [PersonalizeRecommendationController::class, 'recommend'])->middleware('auth:sanctum');

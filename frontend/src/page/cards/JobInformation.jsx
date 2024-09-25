@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import Skill from './Skill'
 import { AppContext } from '../context/AppContext'
+import ProfessionLevel from './ProfessionLevel'
 
 export default function JobInformation({isApplication = false}) {
   const {role} = useContext(AppContext)
@@ -15,6 +16,7 @@ export default function JobInformation({isApplication = false}) {
             <div className='font-base text-sm mb-2'>Another description for the employers job post.</div>
             <div className='font-bold text-sm'>Requirements</div>
             <div className='flex flex-wrap pt-1 gap-1 mb-2'>
+                <ProfessionLevel />
                 <Skill />
                 <Skill />
                 <Skill />

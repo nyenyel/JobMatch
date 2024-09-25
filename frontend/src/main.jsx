@@ -5,8 +5,7 @@ import AppProvider from './page/context/AppContext'
 import Login from './page/module/Login'
 import Home from './page/module/Home'
 import AdminModule from './page/module/AdminModule'
-import MessageComponent from './page/component/MessageComponent'
-import VerifyComponent from './page/component/VerifyComponent'
+import MessageComponent from './page/component/VerifyComponent'
 import AccountComponent from './page/component/AccountComponent'
 import ErrorComponent from './page/component/ErrorComponent'
 import EmployerModule from './page/module/EmployerModule'
@@ -16,6 +15,8 @@ import CompanyComponent from './page/component/CompanyComponent'
 import ApplicantModule from './page/module/ApplicantModule'
 import JobListComponent from './page/component/JobListComponent'
 import ApplicationComponent from './page/component/ApplicationComponent'
+import VerifyComponent from './page/component/VerifyComponent'
+import PartnerComponent from './page/component/PartnerComponent'
 
 const router = createBrowserRouter([
   
@@ -37,11 +38,6 @@ const router = createBrowserRouter([
     errorElement: <ErrorComponent />,
     children: [
       {
-        path: 'message',
-        element: <MessageComponent />,
-        errorElement: <ErrorComponent />,
-      },
-      {
         path: 'verify',
         element: <VerifyComponent />,
         errorElement: <ErrorComponent />,
@@ -52,8 +48,13 @@ const router = createBrowserRouter([
         errorElement: <ErrorComponent />,
       },
       {
+        path: 'partner',
+        element: <PartnerComponent />,
+        errorElement: <ErrorComponent />,
+      },
+      {
         index: true,
-        element: <Navigate to={'message'} replace/>
+        element: <Navigate to={'verify'} replace/>
       }
     ]
   },
