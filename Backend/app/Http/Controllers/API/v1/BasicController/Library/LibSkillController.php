@@ -9,13 +9,18 @@ use Illuminate\Http\Request;
 
 class LibSkillController
 {
+    protected $relation = [
+        'profession',
+        'skillType',
+        'links'
+    ];
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $skill = LibSkill::all();
-        $skill->load(['profession','skillType']);
+        $skill->load($this->relation);
         return SkillResource::collection($skill);
     }
 
@@ -25,7 +30,7 @@ class LibSkillController
     public function store(LibrarySkillStoreRequest $request)
     {
         $skill = LibSkill::create($request->validated());
-        $skill->load(['profession','skillType']);
+        $skill->load($this->relation);
         return SkillResource::make($skill);
     }
 
@@ -34,7 +39,7 @@ class LibSkillController
      */
     public function show(LibSkill $skill)
     {
-        $skill->load(['profession','skillType']);
+        $skill->load($this->relation);
         return SkillResource::make($skill);
     }
 
@@ -44,7 +49,7 @@ class LibSkillController
     public function update(LibrarySkillStoreRequest $request, LibSkill $skill)
     {
         $skill->update($request->validated());
-        $skill->load(['profession','skillType']);
+        $skill->load($this->relation);
         return SkillResource::make($skill);
     }
 

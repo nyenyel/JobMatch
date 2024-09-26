@@ -4,6 +4,7 @@ namespace App\Models\Library;
 
 use App\Models\Applicant\ApplicantSkill;
 use App\Models\Employer\JobSkill;
+use App\Models\Library\LibSkillLink;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -22,6 +23,9 @@ class LibSkill extends Model
     
     public function applicantSkill() : HasMany{
         return $this->hasMany(ApplicantSkill::class, 'lib_skill_id');
+    }
+    public function links(): HasMany {
+        return $this->hasMany(LibSkillLink::class, 'lib_skill_id');
     }
     public function jobSkill() : HasMany{
         return $this->hasMany(JobSkill::class, 'lib_skill_id');

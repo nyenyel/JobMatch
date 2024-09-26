@@ -52,3 +52,25 @@ export default function TopBar({links}) {
     </>
   )
 }
+
+
+export function SettingTopBar({links}) {
+
+  return (
+    <>
+    <div className=' flex'>
+
+      <div className=' flex'>
+      {links.map((item, index) => (
+        <NavLink key={index} to={item} 
+        className={({ isActive }) => {
+          return ` hover:bg-black hover:bg-opacity-5 content-center py-2 px-8 ${isActive ? 'border-b-3 border-prc font-bold text-prc': ''}`
+        }}>
+          {item}
+        </NavLink>
+      ))}
+      </div>
+    </div>
+    </>
+  )
+}

@@ -25,11 +25,12 @@ class JobPostStoreRequest extends FormRequest
             'title' => 'required|string',
             'desc' => 'required|string',
             'post_duration' => 'required|date',
-            'experience' => 'required|integer|min:1',
+            'experience' => 'required|integer|min:0',
             'employer_id' => 'required|integer|exists:users,id',
             'lib_profession_id' => 'required|integer|exists:lib_professions,id',
             'company_id' => 'required|integer|exists:companies,id',
             'lib_job_status_id' => 'required|integer|exists:lib_job_statuses,id',
+            'lib_profession_level' => 'required|integer|exists:lib_profession_levels,id',
 
         ];
     }

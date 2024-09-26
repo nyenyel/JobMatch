@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div>
       {/* <Loading /> */}
-      {role!=null &&(<Navigate to={role} replace={true} />)}
+      {/* {role!=null &&(<Navigate to={role} replace={true} />)} */}
       Home
     </div>
   )

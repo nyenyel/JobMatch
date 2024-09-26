@@ -31,6 +31,8 @@ class UserResource extends JsonResource
             'gender'=> new LibraryResource($this->whenLoaded('gender')),
             'profession'=> new LibraryResource($this->whenLoaded('profession')),
             'review'=> ReviewResource::collection($this->whenLoaded('myReviews')),
+            'company'=> CompanyResource::collection($this->whenLoaded('company')),
+            'jobs'=> JobPostResource::collection($this->whenLoaded('jobPost')),
         ];
     }
 }

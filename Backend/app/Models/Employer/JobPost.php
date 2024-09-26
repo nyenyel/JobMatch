@@ -4,6 +4,7 @@ namespace App\Models\Employer;
 
 use App\Models\Library\LibJobStatus;
 use App\Models\Library\LibProfession;
+use App\Models\Library\LibProfessionLevel;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -21,6 +22,7 @@ class JobPost extends Model
         'post_duration',
         'employer_id',
         'lib_profession_id',
+        'lib_profession_level',
         'company_id',
         'lib_job_status_id'
     ];
@@ -32,6 +34,9 @@ class JobPost extends Model
     }
     public function employer(): BelongsTo{
         return $this->belongsTo(User::class, 'employer_id');
+    }
+    public function level(): BelongsTo{
+        return $this->belongsTo(LibProfessionLevel::class, 'lib_profession_level');
     }
     public function profession(): BelongsTo{
         return $this->belongsTo(LibProfession::class, 'lib_profession_id');

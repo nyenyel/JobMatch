@@ -17,8 +17,12 @@ class CompanyResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'partnered' => $this->partnered,
             'desc' => $this->desc,
-            'owner' => new UserResource($this->whenLoaded('owner')),
+            'length' => $this->length,
+            'owner' => new UserResource(resource: $this->whenLoaded('owner')),
+            'image' => ImageResource::collection($this->whenLoaded('image')),
+            'jobs' => JobPostResource::collection($this->whenLoaded('jobs')),
         ];
     }
 }
