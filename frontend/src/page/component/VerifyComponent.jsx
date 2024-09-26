@@ -92,6 +92,9 @@ function CompanyToVerify({data}) {
   }
   return (
     <>
+    <Redirect />
+    <EmployerRedirect />
+    <ApplicantRedirect />
     {loading && (<Loading />)}
     {message && (<Success message={message}/>)}
       <div className='bg-white h-full flex p-4 mt-2  rounded-lg text-text mb-2 hover:bg-white hover:bg-opacity-80'>

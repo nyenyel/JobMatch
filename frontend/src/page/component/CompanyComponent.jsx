@@ -9,13 +9,14 @@ import axios from 'axios';
 import { AppContext } from '../context/AppContext';
 
 export default function CompanyComponent() {
+  const {user} = useContext(AppContext)
+  const company = user?.data?.company
   const [loading, setLoading] = useState(false); // Loading state for API calls
   const [modalIsOpen, setModalIsOpen] = useState(false); // Modal visibility state
   const [images, setImages] = useState([]); // State for uploaded images
   const [imagePreviews, setImagePreviews] = useState([]); // State for image previews
   const [companyName, setCompanyName] = useState(''); // State for company name
   const [companyDesc, setCompanyDesc] = useState(''); // State for company description
-  const {user} = useContext(AppContext)
   const [data, setData] = useState()  
   // Toggle modal visibility
   const handleModal = () => setModalIsOpen(!modalIsOpen);
@@ -49,7 +50,7 @@ export default function CompanyComponent() {
     // Append company name and description to form data
     formData.append('company', companyName);
     formData.append('desc', companyDesc); // Append description
-    formData.append('owner_id', user.id); // Append description
+    formData.append('owner_id', user.data.id); // Append description
   
     // Append each image file to the form data
     for (let i = 0; i < images.length; i++) {
@@ -78,16 +79,15 @@ export default function CompanyComponent() {
     
     const getData = async () => {
         try {
-            // Make a GET request to fetch verified companies using owner_id
-            const response = await axios.get(crud.concat('my-verified-company'), {
-                params: {
-                    owner_id: user?.id, // Make sure user.id is defined
-                }
-            });
+            // // Make a GET request to fetch verified companies using owner_id
+            // const response = await axios.get(crud.concat('my-verified-company'), {
+            //     params: {
+            //         owner_id: user?.id, // Make sure user.id is defined
+            //     }
+            // });
 
             // Set the retrieved data in the state
-            setData(response.data.data);
-            console.log(response.data.data);
+            // setData(user.data.data.company);
         } catch (e) {
             console.log("Error: ", e); // Log any error
         } finally {
@@ -98,8 +98,7 @@ export default function CompanyComponent() {
 
     // Call the getData function
     getData();
-}, [user?.id]);
-
+  }, [user]);
   return (
     <>
       <Redirect />
@@ -161,7 +160,7 @@ export default function CompanyComponent() {
       </Modal>
       <div className='flex'>
         <div className='sticky h-full top-0'>
-          <EmployerProfileSummary />
+          <EmployerProfileSummary data={user} />  
         </div>
         <div className='flex-1 ml-3 w-full'>
           <div>
@@ -172,14 +171,14 @@ export default function CompanyComponent() {
               </div>
             </div>
             <div className='bg-black w-full h-0.5 bg-opacity-20 rounded-full my-3'></div>
-            {data == null && (
+            {company ==null && (
                 <div className='flex justify-center items-center h-96'>
                     <div className='text-2xl font-thin text-center'>
                         No Company
                     </div>
                 </div>
             )}
-            {data?.map((item, index) => (
+            {company?.map((item, index) => (
               <CompanyInformation data={item} key={index}/>
             ))}
           </div>

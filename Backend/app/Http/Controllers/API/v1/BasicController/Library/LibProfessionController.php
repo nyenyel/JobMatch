@@ -34,6 +34,7 @@ class LibProfessionController
      */
     public function show(LibProfession $profession)
     {
+        $profession->load(['skill', 'skill.links']);
         return LibraryResource::make($profession);
     }
 

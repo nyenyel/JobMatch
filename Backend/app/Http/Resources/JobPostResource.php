@@ -24,6 +24,8 @@ class JobPostResource extends JsonResource
             'profession' => new LibraryResource($this->whenLoaded('profession')),
             'company' => new CompanyResource($this->whenLoaded('company')),
             'status' => new LibraryResource($this->whenLoaded('status')),
+            'level' => new LibraryResource($this->whenLoaded('level')),
+            'application' => JobApplicantResource::collection($this->whenLoaded('application')),
             'skill' => JobSkillResource::collection($this->whenLoaded('skill'))
         ];
     }

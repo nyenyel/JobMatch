@@ -20,6 +20,7 @@ class SkillResource extends JsonResource
             'desc' => $this->desc,
             'profession' => new LibraryResource($this->whenLoaded('profession')),
             'skillType' => new LibraryResource($this->whenLoaded('skillType')),
+            'links' => LinkResource::collection($this->whenLoaded('links')),
         ];
     }
 }

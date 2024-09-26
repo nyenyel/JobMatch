@@ -5,7 +5,6 @@ import AppProvider from './page/context/AppContext'
 import Login from './page/module/Login'
 import Home from './page/module/Home'
 import AdminModule from './page/module/AdminModule'
-import MessageComponent from './page/component/VerifyComponent'
 import AccountComponent from './page/component/AccountComponent'
 import ErrorComponent from './page/component/ErrorComponent'
 import EmployerModule from './page/module/EmployerModule'
@@ -17,6 +16,12 @@ import JobListComponent from './page/component/JobListComponent'
 import ApplicationComponent from './page/component/ApplicationComponent'
 import VerifyComponent from './page/component/VerifyComponent'
 import PartnerComponent from './page/component/PartnerComponent'
+import ProfessionComponent from './page/component/ProfessionComponent'
+import SkillComponent from './page/component/SkillComponent'
+import LinkComponent from './page/component/LinkComponent'
+import NewJobComponent from './page/component/NewJobComponent'
+import JobSettingComponent from './page/component/JobSettingComponent'
+import JobSkillComponent from './page/component/JobSkillComponent'
 
 const router = createBrowserRouter([
   
@@ -53,6 +58,22 @@ const router = createBrowserRouter([
         errorElement: <ErrorComponent />,
       },
       {
+        path: 'profession',
+        element: <ProfessionComponent />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        path: 'profession/:id',
+        element: <SkillComponent />,
+        errorElement: <ErrorComponent />,
+        children: [
+          {
+            path: ':skillID',
+            element: <LinkComponent />
+          }
+        ]
+      },
+      {
         index: true,
         element: <Navigate to={'verify'} replace/>
       }
@@ -67,6 +88,37 @@ const router = createBrowserRouter([
         path: 'jobs',
         element: <JobComponent />,
         errorElement: <ErrorComponent />,
+      },
+      {
+        path: 'jobs/new-job-post',
+        element: <NewJobComponent />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        path: 'jobs/:jobID',
+        element: <JobSettingComponent />,
+        errorElement: <ErrorComponent />,
+        children: [
+          {
+            path:'applicant',
+            element: <ApplicantConmponent />,
+            errorElement: <ErrorComponent />,
+          },
+          {
+            path:'skill',
+            element: <JobSkillComponent />,
+            errorElement: <ErrorComponent />,
+          },
+          {
+            path:'modify',
+            element: <Home />,
+            errorElement: <ErrorComponent />,
+          },
+          {
+            index: true,
+            element: <Navigate to={'applicant'} replace />
+          }
+        ]
       },
       {
         path: 'applicants',

@@ -6,7 +6,7 @@ import Redirect, { AdminRedirect, ApplicantRedirect } from '../context/Redirect'
 
 export default function EmployerModule() {
   const {token, role} = useContext(AppContext)
-  const links = ['Jobs', 'Applicants', 'Company']
+  const links = ['Jobs', 'Company']
   return (
     <>
     <Redirect />
