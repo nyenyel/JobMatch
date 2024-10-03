@@ -22,8 +22,10 @@ class JobSkillStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lib_skill_id'=> 'required|integer|exists:lib_skills,id',
-            'job_id'=> 'required|integer|exists:job_posts,id' 
+            'desc'=> 'required|string' ,
+            'lib_skill_id'=> 'sometimes|integer|exists:lib_skills,id',
+            'job_id'=> 'required|integer|exists:job_posts,id' ,
+            'lib_profession_id'=> 'required|integer|exists:lib_professions,id' 
         ];
     }
 }

@@ -15,15 +15,11 @@ export default function ApplicantConmponent() {
     <Redirect />
     <AdminRedirect />
     <ApplicantRedirect/>
-    
-    <ApplicantInformation />
-    <ApplicantInformation />
-    <ApplicantInformation />
-    <ApplicantInformation />
-    <ApplicantInformation />
-    <ApplicantInformation />
-    <ApplicantInformation />
-
+    <div>
+      {data?.application?.map((item, index) => (
+        <ApplicantInformation key={index} data={item}/>
+      ))}
+    </div>
     </>
   )
 }

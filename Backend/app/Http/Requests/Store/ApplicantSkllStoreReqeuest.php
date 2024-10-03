@@ -22,8 +22,10 @@ class ApplicantSkllStoreReqeuest extends FormRequest
     public function rules(): array
     {
         return [
-            'lib_skill_id' => 'required|exists:lib_skills,id',
+            'desc' => 'required|string',
+            'lib_skill_id' => 'sometimes|exists:lib_skills,id',
             'lib_applicant_id' => 'required|exists:users,id',
+            'lib_profession_id' => 'required'
         ];
     }
 }

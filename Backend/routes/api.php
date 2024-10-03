@@ -65,7 +65,19 @@ Route::prefix('auth')->group(function(){
             'company.owner',
             'jobPost.level', // Correct way to load the owner of the company
             'jobPost.skill',
-            'jobPost.application' // Correct way to load the owner of the company
+            'jobPost.skill.skill',
+            'jobPost.application',
+            'skill.skill',
+            'experience.profession',
+            'application.job',
+            'application.job.employer',
+            'application.job.profession',
+            'application.job.company',
+            'application.job.level',
+            'application.job.skill',
+            'application.job.skill.skill',
+            'application.status',
+            'profession',
         ]);
         return UserResource::make($user);
     })->middleware('auth:sanctum');

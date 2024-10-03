@@ -12,11 +12,14 @@ class JobPostController
 {
     private $relation = [
         'employer',
+        'employer.company',
         'profession',
         'company',
         'status',
         'skill.skill',
-        'application',
+        'application.applicant.profession',
+        'application.applicant.skill.skill',
+        'application.applicant.experience.profession',
         'level'
     ];
     /**

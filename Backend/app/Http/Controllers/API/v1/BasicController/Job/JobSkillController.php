@@ -6,6 +6,7 @@ use App\Http\Requests\Store\JobSkillStoreRequest;
 use App\Http\Requests\Update\JobSkillUpdateRequest;
 use App\Http\Resources\JobSkillResource;
 use App\Models\Employer\JobSkill;
+use App\Models\Library\LibSkill;
 use Illuminate\Http\Request;
 
 class JobSkillController
@@ -28,9 +29,31 @@ class JobSkillController
      */
     public function store(JobSkillStoreRequest $request)
     {
-        $skill = JobSkill::create($request->validated());
-        return JobSkillResource::make($skill->load($this->relation));
-        
+        $validated = $request->validated();
+        $skillExist = LibSkill::where('desc', $validated['desc'])
+                            ->where('lib_profession_id',$validated['lib_profession_id'])
+                            ->first();
+        if($skillExist){
+            $skillID = $skillExist->id;
+            $skill = JobSkill::create([
+                'lib_skill_id' => $skillID,
+                'job_id' => $validated['job_id'],
+            ]);
+
+            return JobSkillResource::make($skill->load($this->relation));
+        }
+        else{
+            $newSkill = LibSkill::create([
+                'lib_skill_type_id' => '1',
+                'desc' => $validated['desc'],
+                'lib_profession_id' =>  $validated['lib_profession_id']
+            ]);
+            $data = JobSkill::create([
+                'lib_skill_id' => $newSkill->id,
+                'job_id' => $validated['job_id'],
+            ]);
+            return JobSkillResource::make($data->load($this->relation));
+        }
     }
 
     /**

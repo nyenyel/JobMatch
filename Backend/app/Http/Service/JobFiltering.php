@@ -23,39 +23,98 @@ class JobFiltering{
         'skill.skill',
         'experience',
     ];
+    // public function JobRecommendation(User $user){
+    //     $jobPost = $this->openJob();
+    //     $jobPost->load($this->jobRelation);
+
+    //     $user->load($this->userRelation);
+    //     $user = UserResource::make($user);
+        
+    //     $data = [];
+    //     $skillReq = [];
+    //     $pj = 2;
+
+    //     foreach($jobPost as $job){
+    //         $jobProfession =$job->lib_profession_id;
+    //         $pa = 0;
+    //         $sa = 0;
+    //         $sj = $job->skill->count();        
+    //         $ae = 0;
+    //         $je = $job->experience;
+
+    //         if($user->lib_profession_id == $jobProfession){
+    //             $pa += 2;
+    //         }
+
+    //         foreach($job->skill as $jobSkills){
+    //             $skillExist = false;
+    //             foreach($user->skill as $userSkills){
+    //                 if($jobSkills->lib_skill_id == $userSkills->lib_skill_id ){
+    //                     $sa +=1;
+    //                     $skillExist = true;
+    //                 }
+    //             }
+    //             if(!$skillExist){
+    //                 $skillReq[] =$jobSkills->skill;
+    //             }
+    //         }
+    //         foreach($user->experience as $experience){
+    //             if($experience->profession_id == $jobProfession){
+    //                 $ae += $experience->duration;
+    //             }
+    //         }
+    //         if($ae > $je){
+    //             $ae = $je;
+    //         }
+
+    //         $Ep = .45*($pj+$sj);
+    //         $e = ($ae/$je)*$Ep;
+    //         $numerator = $pa + $sa + $e;
+    //         $denaminator = $Ep + $pj + $sj;
+    //         $x = ($numerator/$denaminator)*100 ;
+    //         $data[] = [
+    //             'percentate' => number_format($x,2),
+    //             'req' => SkillResource::collection($skillReq),
+    //             'job' => JobPostResource::make($job)
+
+    //         ];
+    //     }
+    //     return $data;
+    // }
+
     public function JobRecommendation(User $user){
         $jobPost = $this->openJob();
         $jobPost->load($this->jobRelation);
-
+    
         $user->load($this->userRelation);
         $user = UserResource::make($user);
-        
+    
         $data = [];
         $skillReq = [];
         $pj = 2;
-
+    
         foreach($jobPost as $job){
-            $jobProfession =$job->lib_profession_id;
+            $jobProfession = $job->lib_profession_id;
             $pa = 0;
             $sa = 0;
             $sj = $job->skill->count();        
             $ae = 0;
             $je = $job->experience;
-
+    
             if($user->lib_profession_id == $jobProfession){
                 $pa += 2;
             }
-
+    
             foreach($job->skill as $jobSkills){
                 $skillExist = false;
                 foreach($user->skill as $userSkills){
-                    if($jobSkills->lib_skill_id == $userSkills->lib_skill_id ){
-                        $sa +=1;
+                    if($jobSkills->lib_skill_id == $userSkills->lib_skill_id ||  $jobSkills->skill->desc === $userSkills->skill->desc){
+                        $sa += 1;
                         $skillExist = true;
                     }
                 }
                 if(!$skillExist){
-                    $skillReq[] =$jobSkills->skill;
+                    $skillReq[] = $jobSkills->skill;
                 }
             }
             foreach($user->experience as $experience){
@@ -66,22 +125,28 @@ class JobFiltering{
             if($ae > $je){
                 $ae = $je;
             }
-
-            $Ep = .45*($pj+$sj);
-            $e = ($ae/$je)*$Ep;
+    
+            $Ep = .45 * ($pj + $sj);
+            
+            // Check to prevent division by zero for $je and $denaminator
+            $e = ($je > 0) ? ($ae / $je) * $Ep : 0;
             $numerator = $pa + $sa + $e;
             $denaminator = $Ep + $pj + $sj;
-            $x = ($numerator/$denaminator)*100 ;
+            $x = ($denaminator > 0) ? ($numerator / $denaminator) * 100 : 0;
+    
             $data[] = [
-                'percentate' => number_format($x,2),
+                'percentage' => number_format($x, 2),
                 'req' => SkillResource::collection($skillReq),
-                'job' => JobPostResource::make($job)
-
+                'job' => JobPostResource::make($job->load('level'))
             ];
         }
+        usort($data, function ($a, $b) {
+            return $b['percentage'] <=> $a['percentage'];
+        });
+
         return $data;
     }
-
+    
     public function openJob(){
         $openJob = JobPost::where('lib_job_status_id', 1)->get();
         return $openJob;

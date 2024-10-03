@@ -27,7 +27,7 @@ class ApplicantExperienceStoreRequest extends FormRequest
             'desc' => 'required|string',
             'duration' => 'required|integer|min:1',
             'applicant_id' => 'required|integer|exists:users,id',
-            'profession_id' => 'required|integer|exists:lib_professions,id',
+            'profession_id' => 'required|string',
         ];
     }
 }
