@@ -12,13 +12,17 @@ class JobPostController
 {
     private $relation = [
         'employer',
+        'employer.company',
         'profession',
         'company',
         'status',
         'skill.skill',
-        'application',
+        'application.applicant.profession',
+        'application.applicant.skill.skill',
+        'application.applicant.experience.profession',
         'level'
     ];
+
     /**
      * Display a listing of the resource.
      */
@@ -43,8 +47,23 @@ class JobPostController
      */
     public function show(JobPost $job)
     {
-        return JobPostResource::make($job->load($this->relation));
-        
+        $relationWithCondition = [
+            'employer',
+            'employer.company',
+            'profession',
+            'company',
+            'status',
+            'skill.skill',
+            'application' => function ($query) {
+                $query->where('lib_status_id', 2);
+            },
+            'application.applicant.profession',
+            'application.applicant.skill.skill',
+            'application.applicant.experience.profession',
+            'level'
+        ];
+        $loadedJob =$job->load($relationWithCondition);
+        return JobPostResource::make( $loadedJob);
     }
 
 

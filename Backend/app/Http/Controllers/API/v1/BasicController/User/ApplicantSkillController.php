@@ -6,10 +6,15 @@ use App\Http\Requests\Store\ApplicantSkllStoreReqeuest;
 use App\Http\Requests\Update\ApplicantSkllUpdateReqeuest;
 use App\Http\Resources\ApplicantSkillResource;
 use App\Models\Applicant\ApplicantSkill;
+use App\Models\Library\LibSkill;
 use Illuminate\Http\Request;
 
 class ApplicantSkillController
 {
+    protected $relation = [
+        'skill',
+        'applicant'
+    ];
     /**
      * Display a listing of the resource.
      */
@@ -27,9 +32,31 @@ class ApplicantSkillController
      */
     public function store(ApplicantSkllStoreReqeuest $request)
     {
-        $skill = ApplicantSkill::create($request->validated());
-        $skill->load(['skill', 'applicant']);
-        return ApplicantSkillResource::make($skill);
+        $validated = $request->validated();
+        $skillExist = LibSkill::where('desc', $validated['desc'])
+                            ->where('lib_profession_id',$validated['lib_profession_id'])
+                            ->first();
+        if($skillExist){
+            $skillID = $skillExist->id;
+            $skill = ApplicantSkill::create([
+                'lib_skill_id' => $skillID,
+                'lib_applicant_id' => $validated['lib_applicant_id'],
+            ]);
+
+            return ApplicantSkillResource::make($skill->load($this->relation));
+        }
+        else{
+            $newSkill = LibSkill::create([
+                'lib_skill_type_id' => '1',
+                'desc' => $validated['desc'],
+                'lib_profession_id' =>  $validated['lib_profession_id']
+            ]);
+            $data = ApplicantSkill::create([
+                'lib_skill_id' => $newSkill->id,
+                'lib_applicant_id' => $validated['lib_applicant_id'],
+            ]);
+            return ApplicantSkillResource::make($data->load($this->relation));
+        }
     }
 
     /**

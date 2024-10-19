@@ -4,10 +4,10 @@ import { AppContext } from '../context/AppContext'
 import ProfessionLevel from './ProfessionLevel'
 import { NavLink } from 'react-router-dom'
 
-export default function JobInformation({data}) {
-  // console.log(data)
+
+export default function JobApplication({data ,status}) {
   return (
-    <NavLink to={`${data?.id}`} className='bg-white flex p-4 rounded-lg text-text mb-2 hover:bg-white hover:bg-opacity-80 cursor-pointer'>
+    <div className='bg-white flex p-4 rounded-lg text-text mb-2 hover:bg-white hover:bg-opacity-80 cursor-pointer'>
         <div className=' flex-1'>
             <div className='font-bold text-xl'>{data?.title}</div>
             <div className='font-base text-sm'>Duration untill: {data?.post_duration}</div>
@@ -23,9 +23,9 @@ export default function JobInformation({data}) {
             </div>
         </div>
         <div className="flex-none  flex flex-col items-center justify-center p-4">
-            <div className="text-center text-4xl mb-2 font-bold">{data?.application?.length}</div>
-            <div className="text-center">Applicants</div>
+            <div className="text-center text-2xl mb-2 font-bold">{status?.desc}</div>
+            <div className="text-center">Status</div>
         </div>
-    </NavLink>
+    </div>
   )
 }

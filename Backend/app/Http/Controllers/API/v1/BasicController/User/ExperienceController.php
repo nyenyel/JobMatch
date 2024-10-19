@@ -6,6 +6,7 @@ use App\Http\Requests\Store\ApplicantExperienceStoreRequest;
 use App\Http\Requests\Update\ApplicantExperienceUpdateRequest;
 use App\Http\Resources\ApplicantExperienceResource;
 use App\Models\Applicant\ApplicantExperience;
+use App\Models\Library\LibProfession;
 use Illuminate\Http\Request;
 
 class ExperienceController
@@ -31,9 +32,20 @@ class ExperienceController
      */
     public function store(ApplicantExperienceStoreRequest $request)
     {
-        $experience = ApplicantExperience::create($request->validated());
-        $experience->load($this->relation);
-        return  ApplicantExperienceResource::make($experience);
+        $validated = $request->validated();
+        $professionExist = LibProfession::where('desc', $validated['profession_id'])->first();
+        if($professionExist){
+            $validated['profession_id'] = $professionExist->id;
+            $experience = ApplicantExperience::create($validated);
+            $experience->load($this->relation);
+            return  ApplicantExperienceResource::make($experience);
+        } else {
+            $newProfession = LibProfession::create(['desc' => $validated['profession_id']]);
+            $validated['profession_id'] = $newProfession->id;
+            $experience = ApplicantExperience::create($validated);
+            $experience->load($this->relation);
+            return  ApplicantExperienceResource::make($experience);
+        }
 
     }
 

@@ -25,15 +25,23 @@ class JobApplicantController
     }
 
 
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(JobApplicantStoreRequest $request)
     {
-        $applicant = JobApplicant::create($request->validated());
-        return JobApplicantResource::make($applicant->load($this->relation));
-        
+        $validated = $request->validated();
+        $alreadyApplied = JobApplicant::where('job_id', $validated['job_id'])
+                                    ->where('applicant_id' , $validated['applicant_id'])
+                                    ->first();
+        if($alreadyApplied){
+            return response()->json(['message' => 'You already applied for this job post.']);
+        } else {
+            $applicant = JobApplicant::create($validated);
+            return response()->json(['message' => 'Applied Succesfully.']);
+            // return JobApplicantResource::make($applicant->load($this->relation));
+        }
+
     }
 
     /**
@@ -61,5 +69,11 @@ class JobApplicantController
     {
         $jobApplicant->delete();
         return "Data Deleted";
+    }
+
+    public function updateApplicationStatus(Request $request, JobApplicant $jobApplicant){
+        $validated = $request->validate(['lib_status_id' => 'required|integer']);
+        $jobApplicant->update($validated);
+        return JobApplicantResource::make($jobApplicant);
     }
 }

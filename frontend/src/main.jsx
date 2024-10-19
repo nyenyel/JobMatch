@@ -22,6 +22,12 @@ import LinkComponent from './page/component/LinkComponent'
 import NewJobComponent from './page/component/NewJobComponent'
 import JobSettingComponent from './page/component/JobSettingComponent'
 import JobSkillComponent from './page/component/JobSkillComponent'
+import JobPostModify from './page/component/JobPostModify'
+import ApplicantSkillComponent from './page/component/ApplicantSkillComponent'
+import ApplicantExperienceComponent from './page/component/ApplicantExperienceComponent'
+import ViewJobPostComponent from './page/component/ViewJobPostComponent'
+import ApplicantSummaryComponent from './page/component/ApplicantSummaryComponent'
+import DashboardComponent from './page/component/DashboardComponent'
 
 const router = createBrowserRouter([
   
@@ -45,6 +51,11 @@ const router = createBrowserRouter([
       {
         path: 'verify',
         element: <VerifyComponent />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        path: 'dashboard',
+        element: <DashboardComponent />,
         errorElement: <ErrorComponent />,
       },
       {
@@ -105,13 +116,18 @@ const router = createBrowserRouter([
             errorElement: <ErrorComponent />,
           },
           {
+            path:'applicant/:username',
+            element: <ApplicantSummaryComponent />,
+            errorElement: <ErrorComponent />,
+          },
+          {
             path:'skill',
             element: <JobSkillComponent />,
             errorElement: <ErrorComponent />,
           },
           {
             path:'modify',
-            element: <Home />,
+            element: <JobPostModify />,
             errorElement: <ErrorComponent />,
           },
           {
@@ -147,8 +163,23 @@ const router = createBrowserRouter([
         errorElement: <ErrorComponent />,
       },
       {
+        path: 'jobs/:id',
+        element: <ViewJobPostComponent />,
+        errorElement: <ErrorComponent />,
+      },
+      {
         path: 'application',
         element: <ApplicationComponent />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        path:'skill',
+        element: <ApplicantSkillComponent />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        path:'experience',
+        element: <ApplicantExperienceComponent />,
         errorElement: <ErrorComponent />,
       },
       {

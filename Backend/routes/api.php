@@ -16,6 +16,7 @@ use App\Http\Controllers\API\v1\BasicController\User\CompanyController;
 use App\Http\Controllers\API\v1\BasicController\User\ExperienceController;
 use App\Http\Controllers\API\v1\BasicController\User\ReviewController;
 use App\Http\Controllers\api\v1\basiccontroller\user\UserController;
+use App\Http\Controllers\api\v1\RuleBased\DashboardController;
 use App\Http\Controllers\API\v1\RuleBased\PersonalizeRecommendationController;
 use App\Http\Resources\ApplicantExperienceResource;
 use App\Http\Resources\UserResource;
@@ -41,6 +42,7 @@ Route::prefix('v1')->group( function (){
         Route::apiResource('link', LibLinkController::class);
         Route::apiResource('level', LibProfessionLevelController::class);
         Route::apiResource('user', UserController::class)->middleware('auth:sanctum');
+        Route::put('update-application/{jobApplicant}', [JobApplicantController::class, 'updateApplicationStatus'])->name('updateApplicationStatus');
         Route::post('verify-company', [CompanyController::class, 'storeCompany'])->name('storeCompany');
         Route::get('my-verified-company', [CompanyController::class, 'verifiedCompany'])->name('verifiedCompany');
         Route::get('to-verify-company', [CompanyController::class, 'toVerifyCompany'])->name('toVerifyCompany');
@@ -49,6 +51,7 @@ Route::prefix('v1')->group( function (){
     });
     Route::prefix('rule-base')->group(function(){
         Route::get('recommend/{user}', [PersonalizeRecommendationController::class, 'recommend'])->middleware('auth:sanctum');
+        Route::get('dashboard', [DashboardController::class, 'getDashboardData'])->middleware('auth:sanctum');
     });
 });
 
@@ -65,7 +68,21 @@ Route::prefix('auth')->group(function(){
             'company.owner',
             'jobPost.level', // Correct way to load the owner of the company
             'jobPost.skill',
-            'jobPost.application' // Correct way to load the owner of the company
+            'jobPost.skill.skill',
+            'jobPost.application' => function ($query) {
+                $query->where('lib_status_id', 2);
+            },
+            'skill.skill',
+            'experience.profession',
+            'application.job',
+            'application.job.employer',
+            'application.job.profession',
+            'application.job.company',
+            'application.job.level',
+            'application.job.skill',
+            'application.job.skill.skill',
+            'application.status',
+            'profession',
         ]);
         return UserResource::make($user);
     })->middleware('auth:sanctum');
