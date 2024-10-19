@@ -70,4 +70,10 @@ class JobApplicantController
         $jobApplicant->delete();
         return "Data Deleted";
     }
+
+    public function updateApplicationStatus(Request $request, JobApplicant $jobApplicant){
+        $validated = $request->validate(['lib_status_id' => 'required|integer']);
+        $jobApplicant->update($validated);
+        return JobApplicantResource::make($jobApplicant);
+    }
 }

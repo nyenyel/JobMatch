@@ -1,12 +1,33 @@
-import React from 'react'
-import { useLocation } from 'react-router-dom'
+import React, { useState } from 'react'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import Skill from '../cards/Skill'
 import { Experience } from '../cards/ApplicantProfileSummary'
+import axios from 'axios'
+import { crud } from '../resource/api'
 
 export default function ApplicantSummaryComponent() {
     const location = useLocation()
-    const {applicantData} = location.state || {}
-    // console.log(applicantData)
+    const {applicantData, applicationID} = location.state || {}
+    const [loading, setLoading] = useState(false)
+    const navigate = useNavigate()
+    const updateData = async (data)=> {
+        setLoading(true)
+        try {
+            const response = await axios.put(crud.concat(`update-application/${applicationID}`), {lib_status_id: data},{
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            navigate('/employer/Jobs')
+        } catch(error) {
+            console.error(error.response)
+        } finally { 
+            setLoading(false)
+        }
+    }
+
+    const hadnleSubmit = (des) => {updateData(des)}
+
     return (
         <>   
         <div className='bg-white flex p-4 rounded-lg text-text mb-2 hover:bg-white hover:bg-opacity-80 cursor-pointer'>
@@ -48,8 +69,8 @@ export default function ApplicantSummaryComponent() {
             </div>
         </div>
         <div className='flex gap-2 text-center mt-4 text-white font-bold'>
-            <div className='flex-1 bg-red-700 rounded-md py-2 select-none cursor-pointer'>Reject</div>
-            <div className='flex-1 bg-prc rounded-md py-2 select-none cursor-pointer'>Accept</div>
+            <div onClick={() => hadnleSubmit(3)} className='flex-1 bg-red-700 rounded-md py-2 select-none cursor-pointer'>Reject</div>
+            <div onClick={() => hadnleSubmit(1)} className='flex-1 bg-prc rounded-md py-2 select-none cursor-pointer'>Accept</div>
         </div>
         </>
     )

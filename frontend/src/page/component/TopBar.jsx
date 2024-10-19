@@ -9,6 +9,8 @@ import Loading from '../cards/Loading'
 export default function TopBar({links}) {
   const {token, setToken, setRole} = useContext(AppContext)
   const [loading, setLoading] = useState(false)
+  const [logoutIsVissible, setLogoutIsVissible] = useState(false)
+  const handleVissibility = () => setLogoutIsVissible(!logoutIsVissible)
   const handleLogout = async (e) => {
     e.preventDefault()
     setLoading(true)
@@ -27,7 +29,6 @@ export default function TopBar({links}) {
       setLoading(false)
     }
   }
-
   return (
     <>
     {loading &&  (<Loading />)}
@@ -46,7 +47,21 @@ export default function TopBar({links}) {
       ))}
       </div>
       <div className='flex h-auto items-center justify-center'>
-        <div className='bg-black cursor-pointer bg-opacity-20 w-11 h-11 ml-6 rounded-full' onClick={handleLogout}></div>
+      <div>
+        <div className="relative inline-block text-left">
+          <div>
+            <button type="button" onClick={handleVissibility} className="inline-flex w-full justify-center gap-x-1.5 rounded-full  p-5 text-sm font-semibold bg-prc text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" id="menu-button" aria-expanded="true" aria-haspopup="true">
+              
+            </button>
+          </div>
+          <div className={`${logoutIsVissible ? 'absolute' : 'hidden'} right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`} role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+            <div className="py-1" role="none">
+                <button onClick={handleLogout} className="block w-full px-4 py-2 text-left text-sm text-gray-700" role="menuitem" tabindex="-1" id="menu-item-3">Sign out</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       </div>
     </div>
     </>

@@ -27,6 +27,7 @@ import ApplicantSkillComponent from './page/component/ApplicantSkillComponent'
 import ApplicantExperienceComponent from './page/component/ApplicantExperienceComponent'
 import ViewJobPostComponent from './page/component/ViewJobPostComponent'
 import ApplicantSummaryComponent from './page/component/ApplicantSummaryComponent'
+import DashboardComponent from './page/component/DashboardComponent'
 
 const router = createBrowserRouter([
   
@@ -50,6 +51,11 @@ const router = createBrowserRouter([
       {
         path: 'verify',
         element: <VerifyComponent />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        path: 'dashboard',
+        element: <DashboardComponent />,
         errorElement: <ErrorComponent />,
       },
       {

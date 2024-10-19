@@ -9,7 +9,10 @@ export default function ApplicantInformation({data}) {
     <>
     <NavLink 
         to={`${applicant?.username}`} 
-        state={{applicantData: data?.applicant}} 
+        state={{
+            applicantData: data?.applicant,
+            applicationID: data?.id
+        }} 
         className='bg-white flex p-4 rounded-lg text-text mb-2 hover:bg-white hover:bg-opacity-80 cursor-pointer'
     >
         <div className=' flex-1'>
