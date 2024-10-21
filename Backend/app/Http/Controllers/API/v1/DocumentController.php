@@ -8,6 +8,7 @@ use App\Models\Library\LibProfession;
 use App\Models\Library\LibSkill;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpWord\IOFactory;
 
 class DocumentController
@@ -17,7 +18,7 @@ class DocumentController
         // Validate the request
         $request->validate([
             'file' => 'required|file|mimes:docx|max:2048', // Adjust the max size as needed
-            'password' => 'required|confirmed', // Adjust the max size as needed
+            'password' => 'required|confirmed|min:8', // Adjust the max size as needed
         ]);
 
         // Store the uploaded file
@@ -63,6 +64,14 @@ class DocumentController
             "lib_gender_id" => 1,
             "lib_profession_id" => 3
         ];
+
+        $validator = Validator::make($userData, [
+            'email' => 'required|email|unique:users,email'
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422); // Return errors as JSON response
+        }
+
         $profession = LibProfession::where('desc' , $data[1])->first();
         if($profession){
             $userData['lib_profession_id'] = $profession->id;

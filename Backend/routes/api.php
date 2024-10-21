@@ -49,6 +49,7 @@ Route::prefix('v1')->group( function (){
         Route::get('to-verify-company', [CompanyController::class, 'toVerifyCompany'])->name('toVerifyCompany');
         Route::post('notify-owner/{company}', [CompanyController::class, 'notifyTheVerification'])->name('notifyTheVerification');
         Route::post('give-partnership/{company}', [CompanyController::class, 'givePartnership'])->name('givePartnership');
+        Route::get('partnered-job', [JobPostController::class, 'partneredJob'])->name('partneredJob');
     });
     Route::prefix('rule-base')->group(function(){
         Route::get('recommend/{user}', [PersonalizeRecommendationController::class, 'recommend'])->middleware('auth:sanctum');
