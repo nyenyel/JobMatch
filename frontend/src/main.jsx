@@ -28,6 +28,8 @@ import ApplicantExperienceComponent from './page/component/ApplicantExperienceCo
 import ViewJobPostComponent from './page/component/ViewJobPostComponent'
 import ApplicantSummaryComponent from './page/component/ApplicantSummaryComponent'
 import DashboardComponent from './page/component/DashboardComponent'
+import DocumentUpload from './page/component/DocumentUpload'
+import RegisterComponent from './page/component/RegisterComponent'
 
 const router = createBrowserRouter([
   
@@ -36,6 +38,16 @@ const router = createBrowserRouter([
     element: <Home />,
     errorElement: <ErrorComponent />
 
+  },
+  {
+    path: '/register',
+    element: <RegisterComponent />,
+    errorElement: <ErrorComponent />
+  },
+  {
+    path: '/register/applicant',
+    element: <DocumentUpload />,
+    errorElement: <ErrorComponent />
   },
   {
     path: '/login',

@@ -8,7 +8,7 @@ import Warning from '../cards/Warning';
 import { Navigate, NavLink } from 'react-router-dom';
 import Loading from '../cards/Loading';
 
-export default function Login() {
+export default function RegisterComponent() {
     const {setToken, token, setRole} = useContext(AppContext)
     const [warning, setWarning] = useState()
     const [loading, setLoading]  = useState(false)
@@ -74,37 +74,18 @@ export default function Login() {
                 </div>
                 <div className='bg-white rounded-r-md py-14 px-8 text-text'>
                     <div className='font-extralight text-2xl'>
-                        Login
+                        Register
                     </div>
-                    <div className='mb-8 text-sm'>Please Enter your Login Information.</div>
+                    <div className='mb-8 text-sm'>Please Select your Account</div>
                     {warning && (<Warning message={warning}/>)}
-                    <form onSubmit={handleSubmit}>
-                        <label className='font-sans font-medium text-sm'>E-mail</label>
-                        <br />
-                        <input 
-                            onChange={handleChane}
-                            type='text' 
-                            name='email' 
-                            placeholder='example@gmail.com' 
-                            className='rounded-sm mb-2 p-3 py-2 border-b-2 min-w-64 -mt-1 focus:border-b-2 focus:border-prc focus:outline-none focus:ring-0 ring-0' 
-                        />
-                        <br />
-                        <label className='font-sans font-medium text-sm'>Password</label>
-                        <br />
-                        <input 
-                            onChange={handleChane}
-                            type='password' 
-                            name='password' 
-                            placeholder='Password' 
-                            className='rounded-sm p-3 py-2 border-b-2 min-w-64 -mt-1 focus:border-b-2 focus:border-prc focus:outline-none focus:ring-0 ring-0' 
-                        />
-                        <br />
-                        <div className='font-sans font-normal opacity-70 text-xs mb-5 mt-1 flex'>
-                            Doesn't have an Account? 
-                            <NavLink to={'/register'} className='ml-1 text-blue-700 underline'>Register</NavLink>
-                        </div>
-                        <button type='submit' className='font-bold text-white w-full px-5 py-2 rounded-full bg-prc'>SIGN IN</button>
-                    </form>
+                    <div className='flex flex-col'>
+                        <NavLink to={'applicant'} className='bg-prc rounded-md cursor-pointer text-white text-center py-2 mb-2 select-none'>Applicant</NavLink>
+                        <NavLink to={'employer'}  className='bg-src rounded-md cursor-pointer text-white text-center py-2 mb-2 select-none'>Employer</NavLink>
+                    </div>
+                    <div className='font-sans font-normal opacity-70 text-xs mb-5 mt-1 flex'>
+                        Already have an Account? 
+                        <NavLink to={'/login'} className='ml-1 text-blue-700 underline'>Login</NavLink>
+                    </div>
                 </div>
             </div>
         </div>
