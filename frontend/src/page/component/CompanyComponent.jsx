@@ -9,7 +9,7 @@ import axios from 'axios';
 import { AppContext } from '../context/AppContext';
 
 export default function CompanyComponent() {
-  const {user} = useContext(AppContext)
+  const {user, apiClient} = useContext(AppContext)
   const company = user?.data?.company
   const [loading, setLoading] = useState(false); // Loading state for API calls
   const [modalIsOpen, setModalIsOpen] = useState(false); // Modal visibility state
@@ -59,7 +59,7 @@ export default function CompanyComponent() {
     
     // Send a POST request with the image data
     try {
-      const response = await axios.post(crud.concat('verify-company'), formData, {
+      const response = await apiClient.post(crud.concat('verify-company'), formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -80,7 +80,7 @@ export default function CompanyComponent() {
     const getData = async () => {
         try {
             // // Make a GET request to fetch verified companies using owner_id
-            // const response = await axios.get(crud.concat('my-verified-company'), {
+            // const response = await apiClient.get(crud.concat('my-verified-company'), {
             //     params: {
             //         owner_id: user?.id, // Make sure user.id is defined
             //     }

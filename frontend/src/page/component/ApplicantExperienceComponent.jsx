@@ -12,7 +12,7 @@ import ApplcantExperience from '../cards/ApplcantExperience'
 
 
 export default function ApplicantExperienceComponent() {
-    const {user} = useContext(AppContext)
+    const {user ,apiClient} = useContext(AppContext)
     const navigate = useNavigate()
     const [applicantExperienceForm, setApplicantExperienceForm] = useState()
     const [apiResponse, setApiResponse] = useState()
@@ -29,7 +29,7 @@ export default function ApplicantExperienceComponent() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await axios.post(crud.concat('experience'), applicantExperienceForm, {
+            const response = await apiClient.post(crud.concat('experience'), applicantExperienceForm, {
                     headers: {
                             'Content-Type': 'application/json'
                         }

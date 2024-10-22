@@ -4,7 +4,7 @@ import { AppContext } from '../context/AppContext';
 import axios from 'axios';
 import { ruleBased } from '../resource/api';
 export default function DashboardComponent() {
-    const {token} = useContext(AppContext)
+    const {token , apiClient} = useContext(AppContext)
     const [loading, setLoading] = useState(false)
     const dummy = { id: 0, value: 1, label: 'dummy' };
     const [jobApplicant, setJobApplicant] = useState([dummy])
@@ -14,7 +14,7 @@ export default function DashboardComponent() {
     const getData = async () => {
         setLoading(true)
         try {
-            const response = await axios.get(ruleBased.concat('dashboard'), {
+            const response = await apiClient.get(ruleBased.concat('dashboard'), {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

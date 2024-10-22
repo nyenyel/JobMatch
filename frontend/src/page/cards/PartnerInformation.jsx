@@ -1,10 +1,12 @@
 import { Box, Modal } from '@mui/material'
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { crud } from '../resource/api'
 import Loading from './Loading'
+import { AppContext } from '../context/AppContext'
 
 export default function PartnerInformation({data}) {
+    const {apiClient} = useContext(AppContext)
     const [loading, setLoading]= useState(false)
     const [modalIsOpen, setModalIsOpen]= useState(false)
     const handleModal = () => setModalIsOpen(!modalIsOpen)
@@ -14,7 +16,7 @@ export default function PartnerInformation({data}) {
         setLoading(true)
         const updateData =  async (e) =>{
             try{
-                const response = await axios.post(crud.concat(`give-partnership/${data.id}`))
+                const response = await apiClient.post(crud.concat(`give-partnership/${data.id}`))
                 console.log(response.data.data)
             } catch (e){
                 console.log(e)

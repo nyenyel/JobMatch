@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Redirect, { AdminRedirect, EmployerRedirect } from '../context/Redirect'
 import ApplicantProfileSummary from '../cards/ApplicantProfileSummary'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -8,8 +8,10 @@ import Loading from '../cards/Loading'
 import axios from 'axios'
 import { crud } from '../resource/api'
 import Warning from '../cards/Warning'
+import { AppContext } from '../context/AppContext'
 
 export default function ViewJobPostComponent() {
+    const {apiClient} = useContext(AppContext)
     const navigate = useNavigate()
     const location = useLocation()
     const { jobData, percentage, user } = location.state || {}
@@ -25,7 +27,7 @@ export default function ViewJobPostComponent() {
         e.preventDefault()
         setLoading(true)
         try{
-            const response = await axios.post(crud.concat('job-applicant'), data, {
+            const response = await apiClient.post(crud.concat('job-applicant'), data, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

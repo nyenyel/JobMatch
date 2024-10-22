@@ -7,7 +7,7 @@ import Redirect, { AdminRedirect, ApplicantRedirect } from '../context/Redirect'
 import { useNavigate } from 'react-router-dom'
 
 export default function NewJobComponent() {
-    const {user} = useContext(AppContext)
+    const {user, apiClient} = useContext(AppContext)
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
     const [professions, setProfession] = useState()
@@ -36,7 +36,7 @@ export default function NewJobComponent() {
         setLoading(true)
         const storeData = async (e) => {
             try {
-                const response = await axios.post(crud.concat('job'), jobForm, {
+                const response = await apiClient.post(crud.concat('job'), jobForm, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -60,7 +60,7 @@ export default function NewJobComponent() {
             setLoading(true)
 
             try{
-                const response = await axios.get(crud.concat('profession'))
+                const response = await apiClient.get(crud.concat('profession'))
                 setProfession(response.data.data)
             } catch (e){
                 console.log("error",e)
@@ -72,7 +72,7 @@ export default function NewJobComponent() {
             setLoading(true)
 
             try{
-                const response = await axios.get(crud.concat('level'))
+                const response = await apiClient.get(crud.concat('level'))
                 setLevel(response.data.data)
             } catch (e){
                 console.log("error",e)

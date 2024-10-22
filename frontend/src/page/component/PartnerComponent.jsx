@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Redirect, { ApplicantRedirect, EmployerRedirect } from '../context/Redirect'
 import CompanyInformation from '../cards/CompanyInformation'
 import PartnerInformation from '../cards/PartnerInformation'
 import axios from 'axios'
 import { crud } from '../resource/api'
 import Loading from '../cards/Loading'
+import { AppContext } from '../context/AppContext'
 
 export default function PartnerComponent() {
     const [ loading ,setLoading] = useState (false)
     const [data ,setData] = useState()
+    const {apiClient} = useContext(AppContext)
     useEffect(() => {
         setLoading(true)
         const getData = async (e) => {
             try{
 
-                const response = await axios.get(crud.concat('company'))
+                const response = await apiClient.get(crud.concat('company'))
                 setData(response.data.data)
             } catch (e) {
                 console.log('Error: ', e)

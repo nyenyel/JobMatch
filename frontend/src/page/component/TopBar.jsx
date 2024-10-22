@@ -7,7 +7,7 @@ import { auth } from '../resource/api'
 import Loading from '../cards/Loading'
 
 export default function TopBar({links}) {
-  const {token, setToken, setRole} = useContext(AppContext)
+  const {token, setToken, setRole,apiClient} = useContext(AppContext)
   const [loading, setLoading] = useState(false)
   const [logoutIsVissible, setLogoutIsVissible] = useState(false)
   const handleVissibility = () => setLogoutIsVissible(!logoutIsVissible)
@@ -15,7 +15,7 @@ export default function TopBar({links}) {
     e.preventDefault()
     setLoading(true)
     try{
-      const response = await axios.post(auth.concat('logout'), {}, {
+      const response = await apiClient.post(auth.concat('logout'), {}, {
         headers:{
           'Authorization': `Bearer ${token}`
         }

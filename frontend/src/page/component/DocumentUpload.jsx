@@ -10,7 +10,7 @@ import { Navigate, NavLink } from 'react-router-dom';
 import Loading from '../cards/Loading';
 
 export default function DocumentUpload() {
-    const {setToken, token, setRole} = useContext(AppContext)
+    const {setToken, token, setRole , apiClient} = useContext(AppContext)
     const [file, setFile] = useState(null);
     const [responseData, setResponseData] = useState(null);
     const [password, setPassword] = useState(null);
@@ -45,7 +45,7 @@ export default function DocumentUpload() {
         formData.append('password_confirmation', password?.password_confirmation);
 
         try {
-            const response = await axios.post(`${baseURL}api/scan-docx`, formData, {
+            const response = await apiClient.post(`${baseURL}api/scan-docx`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

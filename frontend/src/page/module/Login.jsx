@@ -9,7 +9,7 @@ import { Navigate, NavLink } from 'react-router-dom';
 import Loading from '../cards/Loading';
 
 export default function Login() {
-    const {setToken, token, setRole} = useContext(AppContext)
+    const {setToken, token, setRole,apiClient} = useContext(AppContext)
     const [warning, setWarning] = useState()
     const [loading, setLoading]  = useState(false)
     const [route, setRoute] = useState('')
@@ -30,7 +30,7 @@ export default function Login() {
         e.preventDefault()
         setLoading(true)
         try{
-            const response = await axios.post(auth.concat('login'), loginForm, {
+            const response = await apiClient.post(auth.concat('login'), loginForm, {
                 'Content-Type': 'application/json'
             })
             setToken(response.data.token)

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Redirect, { ApplicantRedirect, EmployerRedirect } from '../context/Redirect';
 import Loading from '../cards/Loading';
 import axios from 'axios';
 import { crud } from '../resource/api';
 import { Box, Modal } from '@mui/material';
+import { AppContext } from '../context/AppContext';
 
 export default function LinkComponent() {
     const {skillID} = useParams()
@@ -12,6 +13,7 @@ export default function LinkComponent() {
     const [newLink, setNewLink] = useState()
     const [loading, setLoading] = useState(false)
     const [modalIsOpen, setModalIsOpen] = useState(false)
+    const {apiClient} = useContext(AppContext)
     const handleModal = () => setModalIsOpen(!modalIsOpen)
     const handleChange =  (e) => {
         const {name, value} = e.target
@@ -26,7 +28,7 @@ export default function LinkComponent() {
         setLoading(true)
         const storeData = async () => {
             try{
-                const response = await axios.post(crud.concat('link'), newLink, {
+                const response = await apiClient.post(crud.concat('link'), newLink, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -46,7 +48,7 @@ export default function LinkComponent() {
         setLoading(true)
         const getData = async () => {
             try{
-                const response =await axios.get(crud.concat(`skill/${skillID}`))
+                const response =await apiClient.get(crud.concat(`skill/${skillID}`))
                 setData(response.data.data)
             } catch (e){
                 console.log('Error', e)

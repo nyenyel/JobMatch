@@ -9,7 +9,7 @@ import { crud } from '../resource/api'
 import Loading from '../cards/Loading'
 
 export default function JobSettingComponent() {
-    const {user} =useContext(AppContext)
+    const {user , apiClient} =useContext(AppContext)
     const {jobID} = useParams()
     const [laoding, setLoading] =useState(false)
     const [data, setData] =useState()
@@ -18,7 +18,7 @@ export default function JobSettingComponent() {
         setLoading(true)
         const getData = async () => {
             try {
-                const response = await axios.get(crud.concat(`job/${jobID}`))
+                const response = await apiClient.get(crud.concat(`job/${jobID}`))
                 setData(response.data.data)
                 console.log(response.data.data)
             } catch (e){

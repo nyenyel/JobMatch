@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate, useOutletContext } from 'react-router-dom'
 import Skill from '../cards/Skill'
 import SkillComponent from './SkillComponent'
 import { Box, Modal } from '@mui/material'
 import axios from 'axios'
 import { crud } from '../resource/api'
+import { AppContext } from '../context/AppContext'
 
 export default function JobSkillComponent() {
     const data = useOutletContext()
+    const {apiClient} = useContext(AppContext)
     const navigate = useNavigate()
     const [jobSkillForm, setJobSkillForm] = useState()
     const [apiResponse, setApiResponse] = useState()
@@ -25,7 +27,7 @@ export default function JobSkillComponent() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await axios.post(crud.concat('job-skill'), jobSkillForm, {
+            const response = await apiClient.post(crud.concat('job-skill'), jobSkillForm, {
                     headers: {
                             'Content-Type': 'application/json'
                         }

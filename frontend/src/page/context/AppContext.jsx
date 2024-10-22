@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { createContext, useEffect, useState } from 'react'
 import { auth } from '../resource/api'
+import Cookie from 'js-cookie'
 
 
 export const AppContext = createContext()
@@ -10,9 +11,29 @@ export default function AppProvider( {children} ) {
     const [user,setUser] = useState()
     const [role, setRole] = useState(localStorage.getItem('role'))
 
+    const apiClient = axios.create({
+        withCredentials: true, 
+        headers: {
+            'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
+            'Content-Type': 'application/json'
+        }
+    })
+
+    apiClient.interceptors.request.use(
+        (config) => {
+            const token = localStorage.getItem('token'); // Get token from localStorage
+            if (token) {
+                config.headers['X-XSRF-TOKEN'] = getCookie('XSRF-TOKEN')// Set the token dynamically
+            }
+            return config;
+        }, (error) => {
+            return Promise.reject(error);
+        }
+    );
+
     const getUser = async () => {
         try{
-            const response =await axios.get(auth.concat('user'), {
+            const response =await apiClient.get(auth.concat('user'), {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -36,9 +57,13 @@ export default function AppProvider( {children} ) {
     }, [token])
   return (
     <>
-        <AppContext.Provider value={{ token, user, role, setToken, setUser, setRole }}>
+        <AppContext.Provider value={{ token, user, role, setToken, setUser, setRole, apiClient }}>
             {children}
         </AppContext.Provider>
     </>
   )
+}
+
+const getCookie = (cookieName) => {
+    return Cookie.get(cookieName)
 }

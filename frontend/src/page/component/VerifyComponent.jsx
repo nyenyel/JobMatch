@@ -9,7 +9,7 @@ import Redirect, { ApplicantRedirect, EmployerRedirect, RoleCheck } from '../con
 import { Success } from '../cards/Warning'
 
 export default function VerifyComponent() {
-  const { token } = useContext(AppContext);
+  const { token ,apiClient} = useContext(AppContext);
   const [toVerifyCompany, setToVerifyCompany] = useState();
   const [loading, setLoading] = useState(false);
 
@@ -17,7 +17,7 @@ export default function VerifyComponent() {
     const getData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(crud.concat('to-verify-company'))
+        const response = await apiClient.get(crud.concat('to-verify-company'))
         setToVerifyCompany(response.data.data);
       } catch (error) {
         console.log('Error: ', error);
@@ -71,7 +71,7 @@ function CompanyToVerify({data}) {
     setLoading(true)
     const storeData = async (e) => {
       try{
-        const response = await axios.post(crud.concat(`notify-owner/${data?.id}`),{
+        const response = await apiClient.post(crud.concat(`notify-owner/${data?.id}`),{
           headers: {
             'Content-Type': 'multipart/form-data',
           },
