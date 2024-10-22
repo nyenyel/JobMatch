@@ -7,7 +7,7 @@ import Redirect, { AdminRedirect, ApplicantRedirect } from '../context/Redirect'
 import { useNavigate, useOutletContext } from 'react-router-dom'
 
 export default function JobPostModify() {
-    const {user} = useContext(AppContext)
+    const {user , apiClient} = useContext(AppContext)
     const data = useOutletContext()
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
@@ -38,7 +38,7 @@ export default function JobPostModify() {
         setLoading(true)
         const storeData = async (e) => {
             try {
-                const response = await axios.put(crud.concat(`job/${data?.id}`), jobForm, {
+                const response = await apiClient.put(crud.concat(`job/${data?.id}`), jobForm, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -71,7 +71,7 @@ export default function JobPostModify() {
             setLoading(true)
 
             try{
-                const response = await axios.get(crud.concat('profession'))
+                const response = await apiClient.get(crud.concat('profession'))
                 setProfession(response.data.data)
             } catch (e){
                 console.log("error",e)
@@ -83,7 +83,7 @@ export default function JobPostModify() {
             setLoading(true)
 
             try{
-                const response = await axios.get(crud.concat('level'))
+                const response = await apiClient.get(crud.concat('level'))
                 setLevel(response.data.data)
             } catch (e){
                 console.log("error",e)

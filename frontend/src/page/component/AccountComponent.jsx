@@ -8,14 +8,14 @@ import Loading from '../cards/Loading'
 import Redirect, { ApplicantRedirect, EmployerRedirect, RoleCheck } from '../context/Redirect'
 
 export default function AccountComponent() {
-  const {token ,role} = useContext(AppContext)
+  const {token ,role, apiClient} = useContext(AppContext)
   const [data, setData] = useState()
   const [loading, setLoading] = useState(false)
   useEffect(()=> {
     setLoading(true)
     const getData = async () =>{
       try{
-        const response = await axios.get(crud.concat('user'), {
+        const response = await apiClient.get(crud.concat('user'), {
           headers:{
             'Authorization': `Bearer ${token}`
           }

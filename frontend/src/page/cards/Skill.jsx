@@ -1,20 +1,23 @@
 import { Box, Modal } from '@mui/material'
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { crud } from '../resource/api'
+import { AppContext } from '../context/AppContext'
 
 export default function Skill({data , isEmployer = false, isApplicant = false}) {
   const navigate = useNavigate()
+  const {apiClient} = useContext(AppContext)
+
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const handleModal = () => setModalIsOpen(!modalIsOpen)
   const handleSubmit = async (e) =>{
     e.preventDefault()
     try{
         if(isEmployer){
-          const response = await axios.delete(crud.concat(`job-skill/${data.id}`))
+          const response = await apiClient.delete(crud.concat(`job-skill/${data.id}`))
         }else if (isApplicant){
-          const response = await axios.delete(crud.concat(`applicant-skill/${data.id}`))
+          const response = await apiClient.delete(crud.concat(`applicant-skill/${data.id}`))
         }
         navigate(0)
     }catch (error) {

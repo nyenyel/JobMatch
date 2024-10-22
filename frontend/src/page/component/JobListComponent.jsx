@@ -9,13 +9,13 @@ import { ruleBased } from '../resource/api'
 import ApplicantJobInformation from '../cards/ApplicantJobInformation'
 
 export default function JobListComponent() {
-  const { user, token } = useContext(AppContext); // Get user and token from context
+  const { user, token , apiClient} = useContext(AppContext); // Get user and token from context
   const [jobs, setJobs] = useState(null); // State to store the job recommendations
   const [error, setError] = useState(null); // State to store errors if any
 
   const getRecommendation = async () => {
     try {
-      const response = await axios.get(ruleBased.concat(`recommend/${user?.data.id}`), {
+      const response = await apiClient.get(ruleBased.concat(`recommend/${user?.data.id}`), {
         headers: {
           'Authorization': `Bearer ${token}`
         }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Redirect, { ApplicantRedirect, EmployerRedirect } from '../context/Redirect'
 import { NavLink, Outlet, useParams } from 'react-router-dom'
 import Loading from '../cards/Loading'
@@ -6,9 +6,11 @@ import axios from 'axios'
 import { crud } from '../resource/api'
 import { Box, Modal } from '@mui/material'
 import { Success } from '../cards/Warning'
+import { AppContext } from '../context/AppContext'
 
 export default function SkillComponent() {
     const {id} = useParams()
+    const {apiClient} =useContext(AppContext)
     const [data, setData] = useState ({})
     const [loading, setLoading] = useState (false)
     const [message, setMessage] =useState(null)
@@ -31,7 +33,7 @@ export default function SkillComponent() {
         setLoading(true)
         const storeData = async () => {
             try {
-                const response = await axios.post(crud.concat('skill'), skillForm, {
+                const response = await apiClient.post(crud.concat('skill'), skillForm, {
                     headers:{
                         'Content-Type': 'application/json'
                     }
@@ -54,7 +56,7 @@ export default function SkillComponent() {
         setLoading(true)
         const getData = async () => {
             try{
-                const response = await axios.get(crud.concat(`profession/${id}`))
+                const response = await apiClient.get(crud.concat(`profession/${id}`))
                 setData(response.data.data)
                 setSkillForm({
                     ...skillForm,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Loading from '../cards/Loading'
 import axios from 'axios'
 import { crud } from '../resource/api'
@@ -6,8 +6,10 @@ import { NavLink } from 'react-router-dom'
 import Redirect, { ApplicantRedirect, EmployerRedirect } from '../context/Redirect'
 import { Box, Modal } from '@mui/material'
 import { Success } from '../cards/Warning'
+import { AppContext } from '../context/AppContext'
 
 export default function ProfessionComponent() {
+    const {apiClient} = useContext(AppContext)
     const [loading, setLoading] =useState(false)
     const [data, setData] =useState()
     const [message, setMessage] =useState(null)
@@ -27,7 +29,7 @@ export default function ProfessionComponent() {
         setLoading(true)
         const storeData = async () =>{
             try{
-                const response = await axios.post(crud.concat('profession'), professionForm, {
+                const response = await apiClient.post(crud.concat('profession'), professionForm, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -49,7 +51,7 @@ export default function ProfessionComponent() {
         const getData = async (e) => {
             setLoading(true)
             try{
-                const response = await axios.get(crud.concat('profession'))
+                const response = await apiClient.get(crud.concat('profession'))
                 setData(response.data.data)
             } catch (e) {
                 console.log(e)

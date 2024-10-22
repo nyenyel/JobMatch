@@ -11,7 +11,7 @@ import { AppContext } from '../context/AppContext'
 
 
 export default function ApplicantSkillComponent() {
-    const {user} = useContext(AppContext)
+    const {user, apiClient} = useContext(AppContext)
     const navigate = useNavigate()
     const [applicantSkillForm, setApplicantSkillForm] = useState()
     const [apiResponse, setApiResponse] = useState()
@@ -29,7 +29,7 @@ export default function ApplicantSkillComponent() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await axios.post(crud.concat('applicant-skill'), applicantSkillForm, {
+            const response = await apiClient.post(crud.concat('applicant-skill'), applicantSkillForm, {
                     headers: {
                             'Content-Type': 'application/json'
                         }

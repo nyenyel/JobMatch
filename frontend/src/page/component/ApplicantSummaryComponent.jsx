@@ -1,19 +1,21 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import Skill from '../cards/Skill'
 import { Experience } from '../cards/ApplicantProfileSummary'
 import axios from 'axios'
 import { crud } from '../resource/api'
+import { AppContext } from '../context/AppContext'
 
 export default function ApplicantSummaryComponent() {
     const location = useLocation()
+    const {apiClient} = useContext(AppContext)
     const {applicantData, applicationID} = location.state || {}
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const updateData = async (data)=> {
         setLoading(true)
         try {
-            const response = await axios.put(crud.concat(`update-application/${applicationID}`), {lib_status_id: data},{
+            const response = await apiClient.put(crud.concat(`update-application/${applicationID}`), {lib_status_id: data},{
                 headers: {
                     'Content-Type': 'application/json'
                 }

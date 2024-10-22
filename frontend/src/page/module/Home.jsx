@@ -9,13 +9,13 @@ import axios from 'axios'
 import { crud } from '../resource/api'
 
 export default function Home() {
-  const {role} = useContext(AppContext)
+  const {role, apiClient} = useContext(AppContext)
   const [loading, setLoading] =useState(false)
   const [data, setData] = useState() 
   const getData = async () => {
     try{
       setLoading(true)
-      const response = await axios.get(crud.concat('partnered-job'))
+      const response = await apiClient.get(crud.concat('partnered-job'))
       setData(response.data.data)
     } catch (error) {
       console.error("Error: ",error.response)
