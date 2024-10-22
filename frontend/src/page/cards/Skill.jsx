@@ -1,8 +1,9 @@
 import { Box, Modal } from '@mui/material'
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { crud } from '../resource/api'
+import { AppContext } from '../context/AppContext'
 
 export default function Skill({data , isEmployer = false, isApplicant = false}) {
   const navigate = useNavigate()

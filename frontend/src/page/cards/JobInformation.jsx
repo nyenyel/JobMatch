@@ -7,6 +7,8 @@ import { NavLink } from 'react-router-dom'
 export default function JobInformation({data, isNotAdmin = false}) {
   // console.log(data)
   return (
+    
+    // to={isNotAdmin ? 'login': `${data?.id}`}
     <NavLink to={isNotAdmin ? 'login': `${data?.id}`}  className='bg-white flex p-4 rounded-lg text-text mb-2 hover:bg-white hover:bg-opacity-80 cursor-pointer'>
         <div className=' flex-1'>
             <div className='font-bold text-xl'>{data?.title}</div>
