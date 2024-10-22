@@ -16,6 +16,7 @@ use App\Http\Controllers\API\v1\BasicController\User\CompanyController;
 use App\Http\Controllers\API\v1\BasicController\User\ExperienceController;
 use App\Http\Controllers\API\v1\BasicController\User\ReviewController;
 use App\Http\Controllers\api\v1\basiccontroller\user\UserController;
+use App\Http\Controllers\api\v1\DocumentController;
 use App\Http\Controllers\api\v1\RuleBased\DashboardController;
 use App\Http\Controllers\API\v1\RuleBased\PersonalizeRecommendationController;
 use App\Http\Resources\ApplicantExperienceResource;
@@ -48,6 +49,7 @@ Route::prefix('v1')->group( function (){
         Route::get('to-verify-company', [CompanyController::class, 'toVerifyCompany'])->name('toVerifyCompany');
         Route::post('notify-owner/{company}', [CompanyController::class, 'notifyTheVerification'])->name('notifyTheVerification');
         Route::post('give-partnership/{company}', [CompanyController::class, 'givePartnership'])->name('givePartnership');
+        Route::get('partnered-job', [JobPostController::class, 'partneredJob'])->name('partneredJob');
     });
     Route::prefix('rule-base')->group(function(){
         Route::get('recommend/{user}', [PersonalizeRecommendationController::class, 'recommend'])->middleware('auth:sanctum');
@@ -88,3 +90,4 @@ Route::prefix('auth')->group(function(){
     })->middleware('auth:sanctum');
 });
 
+Route::post('/scan-docx', [DocumentController::class, 'scanDocx']);

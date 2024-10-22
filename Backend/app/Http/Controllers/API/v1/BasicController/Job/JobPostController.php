@@ -84,4 +84,11 @@ class JobPostController
         $job->delete();
         return "Data Deleted";
     }
+    public function partneredJob ()
+    {
+        $job = JobPost::whereHas('company', function ($query) {
+            $query->where('partnered', true);
+        })->get();
+        return JobPostResource::collection($job->load($this->relation));
+    }
 }
