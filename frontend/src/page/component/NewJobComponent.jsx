@@ -132,8 +132,8 @@ export default function NewJobComponent() {
                         <input type='text' name='title' onChange={handleChange} placeholder='Enter the job title' className='px-3 py-2 border-2 w-full rounded-md'/>
                     </div>
                     <div className='flex-none mr-2'>
-                        <label  className='text-sm'>Experience</label>
-                        <input type='number' name='experience' onChange={handleChange} placeholder='Enter years of experience' className='px-3 py-2 border-2 w-full rounded-md'/>
+                        <label  className='text-sm'>Experience (required)</label>
+                        <input required type='number' name='experience' onChange={handleChange} placeholder='Enter years of experience' className='px-3 py-2 border-2 w-full rounded-md'/>
                     </div>
                     <div className='flex-none'>
                         <label className='text-sm'>Post Duration</label>

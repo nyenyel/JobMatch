@@ -53,11 +53,10 @@ export default function PartnerInformation({data}) {
                    <div className='font-bold ml-2'> {data.title}?</div>
                 </div>
                 <form onSubmit={handleSubmit} className='flex flex-col'>
-                   
                     <div className='flex'>  
                       <div className='flex-1'></div>
-                      <div className=' cursor-pointer flex-none content-center mr-5 text-prc underline' onClick={handleModal}>Cancel</div>
-                      <button type='submit' className='mt-2 bg-prc rounded-md py-2 font-bold px-4 text-white'>Yes</button>
+                      <div className=' cursor-pointer flex-none content-center mr-5 text-prc hover:underline' onClick={handleModal}>Cancel</div>
+                      <button type='submit' className={`mt-2 ${data?.partnered == null ? 'bg-prc ' : 'bg-red-600'} rounded-md py-2 hover:bg-opacity-85 font-bold px-4 text-white`}>Yes</button>
                     </div>
                 </form>
             </div>

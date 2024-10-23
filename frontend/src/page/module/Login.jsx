@@ -13,11 +13,18 @@ export default function Login() {
     const [warning, setWarning] = useState()
     const [loading, setLoading]  = useState(false)
     const [route, setRoute] = useState('')
+    const [passwordIsVissible, setPasswordIsVissible]  = useState('password')
     const [loginForm, setLoginForm] = useState({
         email: '',
         password: ''
     })
-
+    const handlePassword = (e) => {
+        if (e.target.checked) {
+            setPasswordIsVissible('text');  // Show password
+        } else {
+            setPasswordIsVissible('password');  // Hide password
+        }
+    }
     const handleChane = (e) =>{
         const {name, value} = e.target
         setLoginForm({
@@ -25,6 +32,8 @@ export default function Login() {
             [name]: value
         })
     }
+
+
     
     const handleSubmit = async (e) =>{
         e.preventDefault()
@@ -93,11 +102,15 @@ export default function Login() {
                         <br />
                         <input 
                             onChange={handleChane}
-                            type='password' 
+                            type={`${passwordIsVissible}`} 
                             name='password' 
                             placeholder='Password' 
                             className='rounded-sm p-3 py-2 border-b-2 min-w-64 -mt-1 focus:border-b-2 focus:border-prc focus:outline-none focus:ring-0 ring-0' 
                         />
+                        <div className='flex gap-2 mt-2'>
+                            <input className='flex-none' type='checkbox' onClick={handlePassword}/>
+                            <label className='flex-none'>Show Password</label>
+                        </div>
                         <br />
                         <div className='font-sans font-normal opacity-70 text-xs mb-5 mt-1 flex'>
                             Doesn't have an Account? 

@@ -71,8 +71,8 @@ export default function ApplicantSummaryComponent() {
             </div>
         </div>
         <div className='flex gap-2 text-center mt-4 text-white font-bold'>
-            <div onClick={() => hadnleSubmit(3)} className='flex-1 bg-red-700 rounded-md py-2 select-none cursor-pointer'>Reject</div>
-            <div onClick={() => hadnleSubmit(1)} className='flex-1 bg-prc rounded-md py-2 select-none cursor-pointer'>Accept</div>
+            <div onClick={() => hadnleSubmit(3)} className='flex-1 bg-red-700 rounded-md py-2 select-none cursor-pointer hover:bg-opacity-80'>Reject</div>
+            <div onClick={() => hadnleSubmit(1)} className='flex-1 bg-prc rounded-md py-2 select-none cursor-pointer hover:bg-opacity-80'>Accept</div>
         </div>
         </>
     )

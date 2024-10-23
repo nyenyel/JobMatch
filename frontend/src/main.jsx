@@ -30,6 +30,7 @@ import ApplicantSummaryComponent from './page/component/ApplicantSummaryComponen
 import DashboardComponent from './page/component/DashboardComponent'
 import DocumentUpload from './page/component/DocumentUpload'
 import RegisterComponent from './page/component/RegisterComponent'
+import ProfileComponent from './page/component/ProfileComponent'
 
 const router = createBrowserRouter([
   
@@ -61,6 +62,11 @@ const router = createBrowserRouter([
     errorElement: <ErrorComponent />,
     children: [
       {
+        path: 'profile',
+        element: <ProfileComponent />,
+        errorElement: <ErrorComponent />,
+      },
+      {
         path: 'verify',
         element: <VerifyComponent />,
         errorElement: <ErrorComponent />,
@@ -76,7 +82,7 @@ const router = createBrowserRouter([
         errorElement: <ErrorComponent />,
       },
       {
-        path: 'partner',
+        path: 'company',
         element: <PartnerComponent />,
         errorElement: <ErrorComponent />,
       },
@@ -107,6 +113,11 @@ const router = createBrowserRouter([
     element: <EmployerModule />,
     errorElement: <ErrorComponent />,
     children: [
+      {
+        path: 'profile',
+        element: <ProfileComponent />,
+        errorElement: <ErrorComponent />,
+      },
       {
         path: 'jobs',
         element: <JobComponent />,
@@ -169,6 +180,11 @@ const router = createBrowserRouter([
     element: <ApplicantModule />,
     errorElement: <ErrorComponent />,
     children: [
+      {
+        path: 'profile',
+        element: <ProfileComponent />,
+        errorElement: <ErrorComponent />,
+      },
       {
         path: 'jobs',
         element: <JobListComponent />,

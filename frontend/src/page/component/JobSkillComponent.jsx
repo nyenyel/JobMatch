@@ -52,7 +52,7 @@ export default function JobSkillComponent() {
     return (
         <>
         <div className='flex'>
-            <div className='flex-1 bg-gradient-to-tr hover:scale-101 drop-shadow from-prc to-[#c5f0d0] select-none p-4 rounded-md text-xl font-bold text-white cursor-pointer' onClick={handleModal}>
+            <div className='flex-1 bg-gradient-to-tr hover:opacity-80 drop-shadow from-prc to-[#c5f0d0] select-none p-4 rounded-md text-xl font-bold text-white cursor-pointer' onClick={handleModal}>
                 Add Required Skill
             </div>
             <div className='flex-1'/>
@@ -83,8 +83,8 @@ export default function JobSkillComponent() {
                         {apiResponse?.desc && (<div className='text-red-600 font-thin text-opacity-75 text-sm'>{apiResponse?.desc}</div>)}
                         <div className='flex'>  
                         <div className='flex-1'></div>
-                        <div className=' cursor-pointer flex-none content-center mr-5 text-prc underline' onClick={handleModal}>Cancel</div>
-                        <button type='submit' className='mt-2 bg-prc rounded-md py-2 font-bold px-4 text-white'>Add</button>
+                        <div className=' cursor-pointer flex-none content-center mr-5 text-prc hover:underline' onClick={handleModal}>Cancel</div>
+                        <button type='submit' className='mt-2 bg-prc rounded-md py-2 font-bold px-4 text-white hover:bg-opacity-80'>Add</button>
                         </div>
                     </form>
                 </div>
