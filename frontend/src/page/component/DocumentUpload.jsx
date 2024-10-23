@@ -114,7 +114,7 @@ export default function DocumentUpload() {
                                 className='rounded-sm mb-2 p-3 py-2 border-b-2 min-w-64 -mt-1 focus:border-b-2 focus:border-prc focus:outline-none focus:ring-0 ring-0' 
                             />
                             </div>
-                        {error && <div className="error text-red-600 text-sm opacity-0">{error}</div>}
+                        {error && <div className="error text-red-600 text-sm opacity-50">{error}</div>}
                             <button className='font-bold text-white w-full px-5 py-2 rounded-full bg-prc mt-2' type="submit">Register</button>
                         </form>
                         <div className='font-sans font-normal opacity-70 text-xs mb-5 mt-1 flex'>

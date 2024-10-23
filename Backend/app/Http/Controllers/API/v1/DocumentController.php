@@ -69,7 +69,7 @@ class DocumentController
             'email' => 'required|email|unique:users,email'
         ]);
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422); // Return errors as JSON response
+            return response()->json(['err' => $validator->errors(), 'user' => $userData,], 422); // Return errors as JSON response
         }
 
         $profession = LibProfession::where('desc' , $data[1])->first();
