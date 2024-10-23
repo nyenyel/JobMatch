@@ -119,7 +119,7 @@ function CompanyToVerify({data}) {
               </div>
             ))}
           </div>
-          <div className='bg-prc mt-4  cursor-pointer text-white text-center py-2 rounded-md' onClick={handleVerifyModal}>Verify</div>
+          <div className='bg-prc mt-4  cursor-pointer text-white text-center py-2 rounded-md hover:bg-prc hover:bg-opacity-85' onClick={handleVerifyModal}>Verify</div>
         </div>
       </div>
 
@@ -156,8 +156,8 @@ function CompanyToVerify({data}) {
               
               <div className='flex'>  
                 <div className='flex-1'></div>
-                <div className='cursor-pointer flex-none content-center mr-5 text-prc underline' onClick={handleModal}>Cancel</div>
-                <button type='submit' className='mt-2 bg-prc rounded-md py-2 font-bold px-4 text-white'>Yes</button>
+                <div className='cursor-pointer flex-none content-center mr-5 text-prc hover:underline' onClick={handleVerifyModal}>Cancel</div>
+                <button type='submit' className='mt-2 bg-prc rounded-md py-2 font-bold px-4 text-white hover:bg-prc hover:bg-opacity-85'>Yes</button>
               </div>
             </form>
           </div>

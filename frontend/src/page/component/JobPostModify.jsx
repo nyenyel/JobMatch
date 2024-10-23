@@ -166,7 +166,7 @@ export default function JobPostModify() {
                     </div>
                     <div className='flex-none mr-2'>
                         <label  className='text-sm'>Experience</label>
-                        <input type='number' name='experience' value={jobForm?.experience || ''} onChange={handleChange} placeholder='Enter years of experience' className='px-3 py-2 border-2 w-full rounded-md'/>
+                        <input type='number' required name='experience' value={jobForm?.experience || ''} onChange={handleChange} placeholder='Enter years of experience' className='px-3 py-2 border-2 w-full rounded-md'/>
                     </div>
                     <div className='flex-none'>
                         <label className='text-sm'>Post Duration</label>

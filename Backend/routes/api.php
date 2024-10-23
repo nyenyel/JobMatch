@@ -45,6 +45,7 @@ Route::prefix('v1')->group( function (){
         Route::apiResource('user', UserController::class)->middleware('auth:sanctum');
         Route::put('update-application/{jobApplicant}', [JobApplicantController::class, 'updateApplicationStatus'])->name('updateApplicationStatus');
         Route::post('verify-company', [CompanyController::class, 'storeCompany'])->name('storeCompany');
+        Route::post('user-update/{user}', [UserController::class, 'userUpdate'])->name('userUpdate')->middleware('auth:sanctum');
         Route::get('my-verified-company', [CompanyController::class, 'verifiedCompany'])->name('verifiedCompany');
         Route::get('to-verify-company', [CompanyController::class, 'toVerifyCompany'])->name('toVerifyCompany');
         Route::post('notify-owner/{company}', [CompanyController::class, 'notifyTheVerification'])->name('notifyTheVerification');

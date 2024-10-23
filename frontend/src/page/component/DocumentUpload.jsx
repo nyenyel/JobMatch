@@ -6,10 +6,11 @@ import { AppContext } from '../context/AppContext';
 import axios from 'axios';
 import { auth } from '../resource/api';
 import Warning from '../cards/Warning';
-import { Navigate, NavLink } from 'react-router-dom';
+import { Navigate, NavLink, useNavigate } from 'react-router-dom';
 import Loading from '../cards/Loading';
 
 export default function DocumentUpload() {
+    const navigate = useNavigate()
     const {setToken, token, setRole , apiClient} = useContext(AppContext)
     const [file, setFile] = useState(null);
     const [responseData, setResponseData] = useState(null);
@@ -17,9 +18,15 @@ export default function DocumentUpload() {
     const [warning, setWarning] = useState()
     const [loading, setLoading]  = useState(false)
     const [route, setRoute] = useState('')
-
     const [error, setError] = useState(null);
-
+    const [passwordIsVissible, setPasswordIsVissible]  = useState('password')
+    const handlePassword = (e) => {
+        if (e.target.checked) {
+            setPasswordIsVissible('text');  // Show password
+        } else {
+            setPasswordIsVissible('password');  // Hide password
+        }
+    }
 
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
@@ -35,16 +42,13 @@ export default function DocumentUpload() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if (!file) {
-            return;
-        }
-
         const formData = new FormData();
         formData.append('file', file);
         formData.append('password', password?.password);
         formData.append('password_confirmation', password?.password_confirmation);
-
+        
         try {
+            setLoading(true)
             const response = await apiClient.post(`${baseURL}api/scan-docx`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -52,10 +56,17 @@ export default function DocumentUpload() {
             });
             setResponseData(response.data.data);
             setError(null);
+            if(response.data){
+                navigate('/login')
+                // alert("User Registered")
+
+            }
         } catch (err) {
-            console.log(err)
-            setError(err.response ? err.response.data.message || err.response.data.email[0] : 'An error occurred.' );
+            console.log(err.response.data.errors)
+            setError(err.response.data.errors);
             setResponseData(null);
+        } finally {
+            setLoading(false)
         }
     };
 
@@ -87,7 +98,7 @@ export default function DocumentUpload() {
                     </div>
                     <div className='bg-white rounded-r-md py-14 px-8 text-text'>
                         <div className='font-extralight text-2xl'>
-                            Login
+                            Register
                         </div>
                         <div className='mb-8 text-sm'>Please Enter your Login Information.</div>
                        
@@ -95,26 +106,35 @@ export default function DocumentUpload() {
                             <div className='flex flex-col mb-4'>
                                 <label className='font-sans font-medium text-sm'>Select your resume (.docx)</label>
                                 <input className='border-b-2 mt-1 p-1 cursor-pointer' type="file" accept=".docx" onChange={handleFileChange} />
+                                {error?.file?.map((item, index) => <div className='error text-red-600 text-sm opacity-50' key={index}>{item}</div>)}
+                                {error?.email?.map((item, index) => <div className='error text-red-600 text-sm opacity-50' key={index}>{item}</div>)}
                             </div>
                             <div className='flex  flex-col gap-2'>
                             <label className='font-sans font-medium text-sm'>Password</label>
                             <input 
+                                required
                                 placeholder='password'
-                                type="password" 
+                                type={`${passwordIsVissible}`}
                                 name="password_confirmation" 
                                 onChange={handleChange}
                                 className='rounded-sm mb-2 p-3 py-2 border-b-2 min-w-64 -mt-1 focus:border-b-2 focus:border-prc focus:outline-none focus:ring-0 ring-0' 
                             />
                             <label className='font-sans font-medium text-sm'>Confirm Password</label>
                             <input 
+                                required
                                 placeholder='password'
-                                type="password" 
+                                type={`${passwordIsVissible}`}
                                 name='password' 
                                 onChange={handleChange}
                                 className='rounded-sm mb-2 p-3 py-2 border-b-2 min-w-64 -mt-1 focus:border-b-2 focus:border-prc focus:outline-none focus:ring-0 ring-0' 
                             />
                             </div>
-                        {error && <div className="error text-red-600 text-sm opacity-0">{error}</div>}
+                            <div className='flex gap-2'>
+                                <input className='flex-none' type='checkbox' onClick={handlePassword}/>
+                                <label className='flex-none'>Show Password</label>
+                            </div>
+                            {error?.password?.map((item, index) => <div className='error text-red-600 text-sm opacity-50' key={index}>{item}</div>)}
+
                             <button className='font-bold text-white w-full px-5 py-2 rounded-full bg-prc mt-2' type="submit">Register</button>
                         </form>
                         <div className='font-sans font-normal opacity-70 text-xs mb-5 mt-1 flex'>

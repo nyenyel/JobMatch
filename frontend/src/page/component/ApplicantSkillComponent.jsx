@@ -57,7 +57,7 @@ export default function ApplicantSkillComponent() {
             <ApplicantProfileSummary />
             <div className='flex-1 ml-4'>
                 <div className='flex'>
-                    <div className='flex-1 bg-gradient-to-tr hover:scale-101 drop-shadow from-prc to-[#c5f0d0] select-none p-4 rounded-md text-xl font-bold text-white cursor-pointer' onClick={handleModal}>
+                    <div className='flex-1 bg-gradient-to-tr hover:opacity-80 drop-shadow from-prc to-[#c5f0d0] select-none p-4 rounded-md text-xl font-bold text-white cursor-pointer' onClick={handleModal}>
                         Add Skill
                     </div>
                     <div className='flex-1'/>

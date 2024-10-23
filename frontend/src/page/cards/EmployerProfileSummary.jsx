@@ -6,7 +6,11 @@ export default function EmployerProfileSummary({data}) {
     <div className=' w-72 rounded-lg h-full flex-none pb-4 drop-shadow-sm bg-white'>
         <div className='bg-prc w-full min-h-20 rounded-t-lg'></div>
         <div className=' px-4 -mt-9 text-text'>
-            <div className=' w-16 h-16 bg-text rounded-full border-2 border-white'></div>
+            <div className=' w-16 h-16 bg-text rounded-full border-2 border-white' style={{
+                backgroundImage: `url(${user?.image})`,
+                backgroundSize: 'cover', // Optional: Make the image cover the entire div
+                backgroundPosition: 'center', // Optional: Center the image
+              }}></div>
             <div className='mt-2 font-bold text-xl'>{user?.last_name}, {user?.first_name}</div>
             <div className=' font-normal text-sm'>Employer</div>
         </div>
@@ -14,11 +18,7 @@ export default function EmployerProfileSummary({data}) {
         <div className=' px-4 text-text'>
             <div className=' font-normal text-sm'>My Rating</div>
             <div className='flex'>
-                <div>*</div>
-                <div>*</div>
-                <div>*</div>
-                <div>*</div>
-                <div>*</div>
+                {user?.rating} / 5
             </div>
         </div>
         <div className='bg-black w-full h-0.5 bg-opacity-5 rounded-full my-3'></div>
@@ -45,7 +45,7 @@ export function Company({data}){
     return (
     <div className=' flex'>
         <div className='font-bold flex-1'> {data?.title}</div>
-        <div className='underline text-xs content-center cursor-pointer'>Edit</div>
+        {/* <div className='underline text-xs content-center cursor-pointer'>Edit</div> */}
     </div>
     )
 }

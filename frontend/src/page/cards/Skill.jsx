@@ -40,7 +40,7 @@ export default function Skill({data , isEmployer = false, isApplicant = false}) 
     <>
     <div className='flex-grow flex bg-text text-white rounded-full px-5 py-2 text-xs font-bold'>
       <div className='flex-1 content-center'>{data?.skill?.desc}</div>
-      <div onClick={handleModal} className='content-center bg-white pb-1 font-light px-2  rounded-full bg-opacity-20 cursor-pointer hover:scale-95'>x</div>
+      <div onClick={handleModal} className='content-center bg-white pb-1 font-light px-2  rounded-full bg-opacity-20 cursor-pointer hover:scale-150'>x</div>
     </div>
     <Modal open={modalIsOpen} onClose={handleModal}
             aria-labelledby="modal-title" aria-describedby="modal-description"
@@ -55,8 +55,8 @@ export default function Skill({data , isEmployer = false, isApplicant = false}) 
                 </div>
                 <form onSubmit={handleSubmit} className='flex flex-row'>
                     <div className='flex-1'/>
-                    <div className=' cursor-pointer flex-none content-center mr-5 text-prc underline' onClick={handleModal}>Cancel</div>
-                    <button type='submit' className='mt-2 bg-prc rounded-md py-2 font-bold px-4 text-white'>Yes</button>
+                    <div className=' cursor-pointer flex-none content-center mr-5 text-prc hover:underline' onClick={handleModal}>Cancel</div>
+                    <button type='submit' className='mt-2 bg-prc rounded-md py-2 font-bold px-4 text-white hover:bg-opacity-80'>Yes</button>
                 </form>
             </div>
         </Box>

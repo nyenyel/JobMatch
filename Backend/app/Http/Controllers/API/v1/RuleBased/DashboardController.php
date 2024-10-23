@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\api\v1\RuleBased;
 
+use App\Models\Employer\Company;
 use App\Models\Employer\JobApplicant;
 use App\Models\Library\LibApplicationStatus;
 use App\Models\User;
@@ -24,6 +25,12 @@ class DashboardController
         $acceptedStatus = LibApplicationStatus::where('id', 1)->get();
         $pendingStatus = LibApplicationStatus::where('id', 2)->get();
         $rejectedStatus = LibApplicationStatus::where('id', 3)->get();
+
+        $verifiedComponies = Company::whereNotNull('verified')->count();
+        $notVerifiedComponies = Company::whereNull('verified')->count();
+
+        $applicantCount = User::where('lib_role_id', 3)->count();
+        $employerCount = User::where('lib_role_id', 2)->count();
 
         $searchWord = 'capas';
         $relation = [
@@ -54,6 +61,14 @@ class DashboardController
                 'pending' => $pendingInCapas,
                 'accepted' => $acceptedInCapas,
                 'rejected' => $rejectedInCapas,
+            ],
+            'company' => [
+                'verify' => $verifiedComponies,
+                'notVerified' => $notVerifiedComponies,
+            ],
+            'user' => [
+                'employer' => $employerCount,
+                'applicant' => $applicantCount,
             ],
         ];
 

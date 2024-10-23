@@ -2,7 +2,6 @@ import React from 'react'
 import Skill from './Skill'
 
 export default function CompanyInformation({data}) {
-  console.log(data)
   return (
     <>
     <div className='bg-white flex p-4 rounded-lg text-text mb-2 hover:bg-white hover:bg-opacity-80 cursor-pointer'>

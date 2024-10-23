@@ -15,15 +15,16 @@ export default function AppProvider( {children} ) {
         withCredentials: true, 
         headers: {
             'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
-            'Content-Type': 'application/json'
+            // Remove Content-Type here
         }
-    })
-
+    });
+    
     apiClient.interceptors.request.use(
         (config) => {
             const token = localStorage.getItem('token'); // Get token from localStorage
             if (token) {
-                config.headers['X-XSRF-TOKEN'] = getCookie('XSRF-TOKEN')// Set the token dynamically
+                config.headers['Authorization'] = `Bearer ${token}`; // Set the token dynamically
+                config.headers['X-XSRF-TOKEN'] = getCookie('XSRF-TOKEN'); // Set the CSRF token dynamically
             }
             return config;
         }, (error) => {
