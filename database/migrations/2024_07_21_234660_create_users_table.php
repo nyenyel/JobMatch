@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('middle_name')->nullable();
             $table->string('address');
             $table->string('desc');
+            $table->string('image')->nullable();
             $table->unsignedBigInteger('lib_role_id');
             $table->unsignedBigInteger('lib_gender_id');
             $table->unsignedBigInteger('lib_profession_id');
