@@ -20,7 +20,12 @@ export default function JobComponent() {
       <div className='flex-1 ml-3 w-full'>
         <div>
           <NavLink to={'new-job-post'} className='p-4 bg-white rounded-lg flex hover:bg-white hover:bg-opacity-70 cursor-pointer'>
-            <div className=' rounded-full h-10 w-10 bg-text mr-2'></div>
+            <div className=' rounded-full h-10 w-10 bg-text mr-2'
+              style={{
+                backgroundImage: `url(${user?.data?.image})`,
+                backgroundSize: 'cover', // Make the image cover the entire div
+                backgroundPosition: 'center', // Center the image
+            }}></div>
             <div className=' rounded-full h-10 w-full border-2 border-text content-center px-4 text-sm border-opacity-65 font-bold text-text text-opacity-50'>
             Start a job post for your company/business, try recruiting someone
             </div>

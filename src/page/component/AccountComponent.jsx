@@ -79,8 +79,8 @@ function TableRow ({data}) {
       <td>{data.gender.desc}</td>
       <td>{data.role.desc}</td>
       <td>
-        <span className="icon-[fluent--edit-20-filled] bg-prc w-6 h-6 cursor-pointer mr-3"></span>
-        <span className="icon-[ic--round-delete] bg-red-600 w-6 h-6 cursor-pointer"></span>
+        <span className="icon-[fluent--edit-20-filled] bg-prc w-6 h-6 cursor-pointer mr-3 hover:bg-opacity-70"></span>
+        <span className="icon-[ic--round-delete] bg-red-600 w-6 h-6 cursor-pointer hover:bg-opacity-70"></span>
       </td>
     </tr>
     </>

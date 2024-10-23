@@ -87,7 +87,7 @@ export default function SkillComponent() {
 
         <div className=' items-center flex '>
             <div className='bg-text flex-1 content-center h-0.5 bg-opacity-30'></div>
-            <div className=' content-center bg-prc text-white px-5 py-1 select-none cursor-pointer hover:scale-x-101 ml-2 rounded-md' onClick={handleModal}>
+            <div className=' content-center bg-prc text-white px-5 py-1 select-none cursor-pointer hover:bg-opacity-80 ml-2 rounded-md' onClick={handleModal}>
                 Add Skill 
             </div>        
         </div>
@@ -119,8 +119,8 @@ export default function SkillComponent() {
                     <input onChange={handleChange} type='text' name='desc' placeholder='Skill Name' className='w-full py-2 px-2 border-2 rounded-md mb-2' />
                     <div className='flex'>  
                     <div className='flex-1'></div>
-                    <div className=' cursor-pointer flex-none content-center mr-5 text-prc underline' onClick={handleModal}>Cancel</div>
-                    <button type='submit' className='mt-2 bg-prc rounded-md py-2 font-bold px-4 text-white'>Yes</button>
+                    <div className=' cursor-pointer flex-none content-center mr-5 text-prc hover:underline' onClick={handleModal}>Cancel</div>
+                    <button type='submit' className='mt-2 bg-prc rounded-md py-2 hover:bg-opacity-80 font-bold px-4 text-white'>Yes</button>
                     </div>
                 </form>
             </div>
@@ -134,7 +134,7 @@ export default function SkillComponent() {
 function SkillWithLinks ({data}){
     return (
     <>
-        <NavLink to={`${data.id}`} className='bg-white p-4 rounded-md flex-grow'>
+        <NavLink to={`${data.id}`} className='hover:bg-prc hover:bg-opacity-80 hover:text-white bg-white p-4 rounded-md flex-grow'>
             {data.desc}
         </NavLink>
     </>

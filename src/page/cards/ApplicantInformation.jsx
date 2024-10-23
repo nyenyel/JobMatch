@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom'
 
 export default function ApplicantInformation({data}) {
     const applicant = data?.applicant
-    // console.log(applicant)
     return (
     <>
     <NavLink 

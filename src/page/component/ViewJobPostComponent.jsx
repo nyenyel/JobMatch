@@ -22,7 +22,7 @@ export default function ViewJobPostComponent() {
         applicant_id: user?.id,
         lib_status_id:2
     }
-    // console.log(user)
+    console.log(jobData)
     const handleSubmit = async (e) => {
         e.preventDefault()
         setLoading(true)
@@ -60,9 +60,27 @@ export default function ViewJobPostComponent() {
         <div className='mr-4'>
             <ApplicantProfileSummary />
         </div>   
+        
         <div className='flex-1 flex h-full gap-2'>
-            <div className='flex-1 flex flex-col h-full'>
+            <div className='flex-1 flex flex-col h-full gap-2'>
                 {message && (<Warning message={message}/>)}
+                <div className='flex-1 p-4 bg-white rounded-md h-full'>
+                    <div className='font-bold text-xl'>{jobData?.company?.title}</div>
+                    <div className='font-base text-sm'>Employer: {jobData?.employer?.last_name}, {jobData?.employer?.first_name} {jobData?.employer?.middle_name.charAt(0)}. ({jobData?.employer?.rating}★)</div>
+                    <div className='bg-black max-w-80 h-0.5 bg-opacity-20 rounded-full my-1'></div>
+                    <div className='font-bold text-sm'>Description</div>
+                    <div className='font-base text-sm mb-2'>{jobData?.company?.desc}</div>
+                    <div className='flex gap-4'>
+                        <div className='flex flex-col'>
+                            <div className='font-bold text-sm'>Email</div>
+                            <div className='font-base text-sm mb-2'>{jobData?.employer?.email}</div>
+                        </div>
+                        <div className='flex flex-col'>
+                            <div className='font-bold text-sm'>Phone No.</div>
+                            <div className='font-base text-sm mb-2'>{jobData?.employer?.phone_no}</div>
+                        </div>
+                    </div>
+                </div>
                 <div className='flex-1 p-4 bg-white rounded-md h-full'>
                     <div className='font-bold text-xl'>{jobData?.title}</div>
                     <div className='font-base text-sm'>Duration untill: {jobData?.post_duration}</div>

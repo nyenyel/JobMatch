@@ -1,13 +1,14 @@
 import React, { useContext, useState } from 'react'
 import Logo from '../cards/Logo'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { AppContext } from '../context/AppContext'
 import { auth } from '../resource/api'
 import Loading from '../cards/Loading'
 
 export default function TopBar({links}) {
-  const {token, setToken, setRole,apiClient} = useContext(AppContext)
+  const navigate = useNavigate()
+  const {token, setToken, setRole,apiClient ,user} = useContext(AppContext)
   const [loading, setLoading] = useState(false)
   const [logoutIsVissible, setLogoutIsVissible] = useState(false)
   const handleVissibility = () => setLogoutIsVissible(!logoutIsVissible)
@@ -28,6 +29,10 @@ export default function TopBar({links}) {
     } finally {
       setLoading(false)
     }
+  }
+  const handleNavigate = () => {
+    navigate(`profile`)
+    handleVissibility()
   }
   return (
     <>
@@ -50,13 +55,21 @@ export default function TopBar({links}) {
       <div>
         <div className="relative inline-block text-left">
           <div>
-            <button type="button" onClick={handleVissibility} className="inline-flex w-full justify-center gap-x-1.5 rounded-full  p-5 text-sm font-semibold bg-prc text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" id="menu-button" aria-expanded="true" aria-haspopup="true">
+            <button type="button" onClick={handleVissibility} className="inline-flex w-full justify-center gap-x-1.5 rounded-full  p-5 text-sm font-semibold bg-prc text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" id="menu-button" aria-expanded="true" aria-haspopup="true"
+              style={{
+                backgroundImage: `url(${user?.data?.image})`,
+                backgroundSize: 'cover', // Optional: Make the image cover the entire div
+                backgroundPosition: 'center', // Optional: Center the image
+              }}>
               
             </button>
           </div>
-          <div className={`${logoutIsVissible ? 'absolute' : 'hidden'} right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`} role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+          <div className={`${logoutIsVissible ? 'absolute' : 'hidden'} right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`} role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
             <div className="py-1" role="none">
-                <button onClick={handleLogout} className="block w-full px-4 py-2 text-left text-sm text-gray-700" role="menuitem" tabindex="-1" id="menu-item-3">Sign out</button>
+                <button onClick={handleNavigate} className="block hover:bg-black hover:bg-opacity-5 w-full px-4 py-2 text-left text-sm text-gray-700" role="menuitem" tabIndex="-1" id="menu-item-3">Profile</button>
+            </div>
+            <div className="py-1" role="none">
+                <button onClick={handleLogout} className="block w-full hover:bg-black hover:bg-opacity-5 px-4 py-2 text-left text-sm text-gray-700" role="menuitem" tabIndex="-2" id="menu-item-4">Sign out</button>
             </div>
           </div>
         </div>

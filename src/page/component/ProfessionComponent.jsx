@@ -72,7 +72,7 @@ export default function ProfessionComponent() {
         <div className='text-2xl text-text font-bold'>Profession</div>
         <div className=' items-center flex '>
             <div className='bg-text flex-1 content-center h-0.5 bg-opacity-30'></div>
-            <div className=' content-center bg-prc text-white px-5 py-1 select-none cursor-pointer hover:scale-x-101 ml-2 rounded-md' onClick={handleModal}>
+            <div className=' content-center bg-prc text-white px-5 py-1 select-none cursor-pointer hover:bg-opacity-70 ml-2 rounded-md' onClick={handleModal}>
                 Add Profession
             </div>        
         </div>
@@ -97,8 +97,8 @@ export default function ProfessionComponent() {
                         <input onChange={handleChange} type='text' name='desc' placeholder='Profession Name' className='w-full py-2 px-2 border-2 rounded-md mb-2' />
                         <div className='flex'>  
                         <div className='flex-1'></div>
-                        <div className=' cursor-pointer flex-none content-center mr-5 text-prc underline' onClick={handleModal}>Cancel</div>
-                        <button type='submit' className='mt-2 bg-prc rounded-md py-2 font-bold px-4 text-white'>Yes</button>
+                        <div className=' cursor-pointer flex-none content-center mr-5 text-prc hover:underline' onClick={handleModal}>Cancel</div>
+                        <button type='submit' className='mt-2 bg-prc rounded-md py-2 font-bold px-4 text-white hover:bg-opacity-80'>Yes</button>
                         </div>
                     </form>
                 </div>
@@ -110,7 +110,7 @@ export default function ProfessionComponent() {
 
 function Profession({data}){
     return (
-        <NavLink to={`${data.id}`} className="bg-white p-4 rounded-md w-full md:w-auto flex-grow hover:bg-white hover:bg-opacity-70 select-none cursor-pointer">
+        <NavLink to={`${data.id}`} className="bg-white p-4 rounded-md w-full md:w-auto flex-grow hover:text-white hover:bg-opacity-70 hover:bg-prc select-none cursor-pointer">
             {data.desc}
         </NavLink>
     )
