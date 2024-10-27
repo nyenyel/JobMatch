@@ -54,13 +54,13 @@ export default function RegisterComponent() {
         style={{ backgroundImage: `url(${bgImage})` }}>
         <div className=' absolute inset-0 backdrop-blur-md flex items-center justify-center'>
             <div className='flex w-auto rounded-md p-5 drop-shadow-sm'>
-                <div className='bg-gradient-to-r from-prc to-white rounded-l-md p-5 pr-24 py-10 flex flex-col'>
+                <div className='bg-prc to-white rounded-l-md p-10  py-10 flex flex-col'>
                     <div className='flex-1 h-auto text-center text-white text-sm'>
                         Welcome to
                     </div>
                     <div className='flex-1'></div>
                     <div className='flex-none flex justify-center items-center'>
-                        <div className='bg-white p-1 rounded-lg'>
+                        <div className='bg-white p-1 py-4 rounded-lg'>
                             <Badge />
                         </div>
                     </div>

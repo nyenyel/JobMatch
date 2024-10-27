@@ -44,7 +44,7 @@ export default function Skill({data , isEmployer = false, isApplicant = false}) 
     </div>
     <Modal open={modalIsOpen} onClose={handleModal}
             aria-labelledby="modal-title" aria-describedby="modal-description"
-            className="flex justify-center items-center h-screen"
+            className="flex z-30 justify-center items-center h-screen"
     >
         <Box className="bg-white rounded-lg shadow-lg text-def-t ">
             <h3 id="modal-title" className='font-semibold text-xl rounded-t-lg text-text px-6 pt-4'>Remove</h3>

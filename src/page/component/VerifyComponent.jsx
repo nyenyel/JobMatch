@@ -46,6 +46,7 @@ export default function VerifyComponent() {
 }
 
 function CompanyToVerify({data}) {
+  const {apiClient} = useContext(AppContext)
   const [loading, setLoading] = useState(false);
   const [message,setMessage] = useState('');
 
@@ -127,7 +128,7 @@ function CompanyToVerify({data}) {
       <Modal
         open={modalIsOpen}
         onClose={handleModal}
-        className="flex justify-center items-center"
+        className="flex justify-center items-center z-30"
       >
         <div className="w-full h-full bg-black bg-opacity-90 flex justify-center items-center" onClick={handleModal}>
           {selectedImage && (
@@ -143,7 +144,7 @@ function CompanyToVerify({data}) {
 
       <Modal open={verifyModalIsOpen} onClose={handleVerifyModal} aria-labelledby="modal-title" aria-describedby="modal-description"
              className="flex justify-center items-center h-screen">
-        <Box className="bg-white rounded-lg shadow-lg text-def-t">
+        <Box className="bg-white z-30 rounded-lg shadow-lg text-def-t">
           <h3 id="modal-title" className='font-semibold text-xl rounded-t-lg text-text px-6 pt-4'>Verify</h3>
           <div className='h-0.5 bg-prc rounded-xl mt-1 mx-6 max-w-40'></div>
           <div className='px-6 pb-3 pt-1 '>

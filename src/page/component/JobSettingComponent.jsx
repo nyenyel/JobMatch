@@ -20,7 +20,6 @@ export default function JobSettingComponent() {
             try {
                 const response = await apiClient.get(crud.concat(`job/${jobID}`))
                 setData(response.data.data)
-                console.log(response.data.data)
             } catch (e){
                 console.log("error", e)
             } finally{

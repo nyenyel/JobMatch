@@ -6,7 +6,7 @@ import Redirect, { RoleCheck } from '../context/Redirect'
 
 export default function AdminModule() {
     const {token, role} = useContext(AppContext)
-    const links =  ['Dashboard', 'Accounts','Verify', 'Company', 'Profession']
+    const links =  ['Dashboard', 'Accounts','Verify', 'Company', 'Profession', 'Search']
     return (
         <>
             <Redirect />
