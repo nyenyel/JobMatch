@@ -146,9 +146,67 @@ class JobFiltering{
 
         return $data;
     }
+
+    public function SingleJobRecommendation(User $user, JobPost $job)
+    {
+        $job->load($this->jobRelation);
+        $user->load($this->userRelation);
+
+        $user = UserResource::make($user);
+
+        $data = [];
+        $skillReq = [];
+        $pj = 2;
+        
+        $jobProfession = $job->lib_profession_id;
+        $pa = 0;
+        $sa = 0;
+        $sj = $job->skill->count();
+        $ae = 0;
+        $je = $job->experience;
+
+        // Profession match
+        if ($user->lib_profession_id == $jobProfession) {
+            $pa += 2;
+        }
+
+        // Skill match
+        foreach ($job->skill as $jobSkills) {
+            $skillExist = false;
+            foreach ($user->skill as $userSkills) {
+                if ($jobSkills->lib_skill_id == $userSkills->lib_skill_id || $jobSkills->skill->desc === $userSkills->skill->desc) {
+                    $sa += 1;
+                    $skillExist = true;
+                    break;
+                }
+            }
+            if (!$skillExist) {
+                $skillReq[] = $jobSkills->skill;
+            }
+        }
+
+        // Experience match
+        foreach ($user->experience as $experience) {
+            if ($experience->profession_id == $jobProfession) {
+                $ae += $experience->duration;
+            }
+        }
+        $ae = min($ae, $je); // Limit experience to job's required experience
+
+        $Ep = .45 * ($pj + $sj);
+
+        // Match percentage calculation
+        $e = ($je > 0) ? ($ae / $je) * $Ep : 0;
+        $numerator = $pa + $sa + $e;
+        $denominator = $Ep + $pj + $sj;
+        $matchPercentage = ($denominator > 0) ? ($numerator / $denominator) * 100 : 0;
+
+            
+        return response()->json(['percentage' => number_format($matchPercentage, 2)]);
+    }
     
     public function openJob(){
-        $openJob = JobPost::where('lib_job_status_id', 1)->get();
+        $openJob = JobPost::where('lib_job_status_id', 1)->has('skill')->get();
         return $openJob;
     }
 }

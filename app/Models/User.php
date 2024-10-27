@@ -42,7 +42,8 @@ class User extends Authenticatable
         'lib_profession_id',
         'lib_gender_id',
         'lib_role_id',
-        'image'
+        'image',
+        'ban',
     ];
 
     /**
