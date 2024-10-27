@@ -27,6 +27,7 @@ class UpdateUserRequest extends FormRequest
             'password' => 'sometimes|nullable|confirmed|min:6',
             'image' => 'sometimes|nullable|image|mimes:jpg,jpeg,png|max:2048', // Validate the single image
             'address'=> 'sometimes',
+            'lib_gender_id'=> 'sometimes',
             'first_name'=> 'sometimes',
             'last_name'=> 'sometimes',
             'middle_name'=> 'sometimes',

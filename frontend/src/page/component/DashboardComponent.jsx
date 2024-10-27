@@ -103,7 +103,7 @@ export default function DashboardComponent() {
                     height={250}
                 />
             </div>
-            <div className='flex-1 bg-white w-auto rounded-md drop-shadow p-4'>
+            {/* <div className='flex-1 bg-white w-auto rounded-md drop-shadow p-4'>
                 <div className='text-2xl font-bold text-prc'>Applicant in Capas</div>
                 <div className='bg-prc h-0.5 mt-1 rounded-full w-72'/>
                 <PieChart
@@ -124,7 +124,7 @@ export default function DashboardComponent() {
                     width={400}
                     height={250}
                 />
-            </div>
+            </div> */}
         </div>
         <div className='mt-2 flex gap-2'>
             <div className='flex-1 bg-white w-auto rounded-md drop-shadow p-4'>

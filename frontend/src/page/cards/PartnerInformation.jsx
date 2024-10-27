@@ -4,13 +4,14 @@ import React, { useContext, useState } from 'react'
 import { crud } from '../resource/api'
 import Loading from './Loading'
 import { AppContext } from '../context/AppContext'
+import { useNavigate } from 'react-router-dom'
 
 export default function PartnerInformation({data}) {
     const {apiClient} = useContext(AppContext)
     const [loading, setLoading]= useState(false)
     const [modalIsOpen, setModalIsOpen]= useState(false)
     const handleModal = () => setModalIsOpen(!modalIsOpen)
-    
+    const nav = useNavigate()
     const handleSubmit = (e) => {
         e.preventDefault()
         setLoading(true)
@@ -22,19 +23,18 @@ export default function PartnerInformation({data}) {
                 console.log(e)
             } finally {
                 setLoading(false)
-
+                nav(0)
             }
         }
         updateData()
         handleModal()
     }
-    // console.log(data)
     return (
     <>
     {loading && (<Loading />)}
     <Modal open={modalIsOpen} onClose={handleModal}
             aria-labelledby="modal-title" aria-describedby="modal-description"
-            className="flex justify-center items-center h-screen"
+            className="flex z-30 justify-center items-center h-screen"
     >
         <Box className="bg-white rounded-lg shadow-lg text-def-t ">
             <h3 id="modal-title" className='font-semibold text-xl rounded-t-lg text-text px-6 pt-4'>Partnership</h3>

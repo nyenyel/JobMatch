@@ -32,6 +32,12 @@ class ReviewController
         $data = $request->validated();
         try{
             $userToReview = User::where('id', $data['reviewed_for'])->first();
+            $alreadyReview = Review::where('reviewed_by', $data['reviewed_by'])
+                                ->where('reviewed_for', $data['reviewed_for'])
+                                ->exists();
+            if($alreadyReview){
+                return response()->json(['message' => 'You already gave review to this employer!'],402);
+            }
             $userToReview->load(['myReviews']);
             $denaminator = $userToReview->myReviews->count();
             $sum = 0;

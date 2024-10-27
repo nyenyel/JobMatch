@@ -9,7 +9,7 @@ import { Navigate, NavLink } from 'react-router-dom';
 import Loading from '../cards/Loading';
 
 export default function Login() {
-    const {setToken, token, setRole,apiClient} = useContext(AppContext)
+    const {setToken,role, token, setRole,apiClient} = useContext(AppContext)
     const [warning, setWarning] = useState()
     const [loading, setLoading]  = useState(false)
     const [route, setRoute] = useState('')
@@ -57,23 +57,23 @@ export default function Login() {
 
     return (
     <>
-    {token != null && (<Navigate to={`/${route}`} replace={true} />)}
+    {token != null && (<Navigate to={`/${role}`} replace={true} />)}
     {loading && (<Loading/>)}
     <div className='flex items-center justify-center h-screen w-screen overflow-hidden bg-cover bg-center bg-no-repeat' 
         style={{ backgroundImage: `url(${bgImage})` }}>
         <div className=' absolute inset-0 backdrop-blur-md flex items-center justify-center'>
             <div className='flex w-auto rounded-md p-5 drop-shadow-sm'>
-                <div className='bg-gradient-to-r from-prc to-white rounded-l-md p-5 pr-24 py-10 flex flex-col'>
+                <div className='bg-prc rounded-l-md p-10 py-10 flex flex-col'>
                     <div className='flex-1 h-auto text-center text-white text-sm'>
                         Welcome to
                     </div>
                     <div className='flex-1'></div>
                     <div className='flex-none flex justify-center items-center'>
-                        <div className='bg-white p-1 rounded-lg'>
+                        <div className='bg-white p-1 py-4 rounded-lg'>
                             <Badge />
                         </div>
                     </div>
-                    <div className='flex-none text-xs text-center font-thin max-w-80 mt-2 text-white'>
+                    <div className='flex-none text-sm text-center font-thin max-w-80 mt-2 text-white'>
                         Job-Matching streamlines the hiring process by intelligently connecting skilled professionals with employers seeking the perfect fit.
                     </div>
                     <div className='flex-1'></div>

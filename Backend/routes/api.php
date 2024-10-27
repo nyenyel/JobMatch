@@ -54,17 +54,21 @@ Route::prefix('v1')->group( function (){
     });
     Route::prefix('rule-base')->group(function(){
         Route::get('recommend/{user}', [PersonalizeRecommendationController::class, 'recommend'])->middleware('auth:sanctum');
+        Route::get('get-percent/{user}/{jobPost}', [PersonalizeRecommendationController::class, 'getPercentage'])->middleware('auth:sanctum');
         Route::get('dashboard', [DashboardController::class, 'getDashboardData'])->middleware('auth:sanctum');
+        Route::post('search', [DashboardController::class, 'search'])->middleware('auth:sanctum');
     });
 });
 
 Route::prefix('auth')->group(function(){
     Route::post('register', [AuthController::class, 'register']);
+    Route::put('ban/{user}', [AuthController::class, 'ban']);
     Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
     Route::post('login', [AuthController::class, 'login']);
     Route::get('/user', function (Request $request) {
         $user = $request->user();
         $user->load([
+            'gender',
             'company' => function ($query) {
                 $query->whereNotNull('verified');
             },
