@@ -19,7 +19,10 @@ export default function DocumentUpload() {
     const [loading, setLoading]  = useState(false)
     const [route, setRoute] = useState('')
     const [error, setError] = useState(null);
+    const [passwordValidation, setPasswordValidation] =useState()
     const [passwordIsVissible, setPasswordIsVissible]  = useState('password')
+    const fileName = 'template.docx'
+    const documentURL = `${baseURL}storage/download/${fileName}`
     const handlePassword = (e) => {
         if (e.target.checked) {
             setPasswordIsVissible('text');  // Show password
@@ -34,12 +37,41 @@ export default function DocumentUpload() {
 
     const handleChange = (e) => {
         const {name, value} = e.target
+        let validation  = []
+
+        if (!/[A-Z]/.test(value)) {
+            validation.push("Password must contain at least one uppercase letter.");
+        }
+        if (!/[a-z]/.test(value)) {
+            validation.push("Password must contain at least one lowercase letter.");
+        }
+        if (!/[0-9]/.test(value)) {
+            validation.push("Password must contain at least one number.");
+        }
+        if (value.length < 8) {
+            validation.push("Password must be at least 8 characters long.");
+        }
+
         setPassword({
             ...password,
             [name]:value
         })
+        setPasswordValidation(validation);
     }
+    const handleDownload = async () => {
+        setLoading(true); // Set loading to true when the download starts
 
+        setTimeout(() => {
+            const link = document.createElement('a');
+            link.href = documentURL;
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        
+            setLoading(false); 
+        }, 1000); 
+    }
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData();
@@ -48,18 +80,20 @@ export default function DocumentUpload() {
         formData.append('password_confirmation', password?.password_confirmation);
         
         try {
-            setLoading(true)
-            const response = await apiClient.post(`${baseURL}api/scan-docx`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
-            setResponseData(response.data.data);
-            setError(null);
-            if(response.data){
-                navigate('/login')
-                // alert("User Registered")
-
+            if(passwordValidation.length === 0){
+                setLoading(true)
+                const response = await apiClient.post(`${baseURL}api/scan-docx`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+                setResponseData(response.data.data);
+                setError(null);
+                if(response.data){
+                    navigate('/login')
+                    // alert("User Registered")
+                    
+                }
             }
         } catch (err) {
             console.log(err.response.data.errors)
@@ -78,13 +112,13 @@ export default function DocumentUpload() {
             style={{ backgroundImage: `url(${bgImage})` }}>
             <div className=' absolute inset-0 backdrop-blur-md flex items-center justify-center'>
                 <div className='flex w-auto rounded-md p-5 drop-shadow-sm'>
-                    <div className='bg-gradient-to-r from-prc to-white rounded-l-md p-5 pr-24 py-10 flex flex-col'>
+                    <div className='bg-prc to-white rounded-l-md p-10  py-10 flex flex-col'>
                         <div className='flex-1 h-auto text-center text-white text-sm'>
                             Welcome to
                         </div>
                         <div className='flex-1'></div>
                         <div className='flex-none flex justify-center items-center'>
-                            <div className='bg-white p-1 rounded-lg'>
+                            <div className='p-1 py-4 bg-white  rounded-lg'>
                                 <Badge />
                             </div>
                         </div>
@@ -101,7 +135,13 @@ export default function DocumentUpload() {
                             Register
                         </div>
                         <div className='mb-8 text-sm'>Please Enter your Login Information.</div>
-                       
+                        <div className='flex flex-col mb-2'>
+                            <label className='font-sans font-medium text-sm'>Please use this as a template.</label>
+                            <button disabled={loading} onClick={handleDownload} className='hover:bg-prc hover:bg-opacity-10 border-2 border-prc text-prc w-full py-2 rounded-md flex items-center justify-center gap-2'>
+                                <span className="icon-[mingcute--document-fill] w-6 h-6"></span>
+                                Download Template
+                            </button>
+                        </div>
                         <form onSubmit={handleSubmit}>
                             <div className='flex flex-col mb-4'>
                                 <label className='font-sans font-medium text-sm'>Select your resume (.docx)</label>
@@ -134,7 +174,7 @@ export default function DocumentUpload() {
                                 <label className='flex-none'>Show Password</label>
                             </div>
                             {error?.password?.map((item, index) => <div className='error text-red-600 text-sm opacity-50' key={index}>{item}</div>)}
-
+                            {passwordValidation?.map((item, index) => <div className='error text-red-600 text-sm opacity-50' key={index}>{item}</div>)}
                             <button className='font-bold text-white w-full px-5 py-2 rounded-full bg-prc mt-2' type="submit">Register</button>
                         </form>
                         <div className='font-sans font-normal opacity-70 text-xs mb-5 mt-1 flex'>

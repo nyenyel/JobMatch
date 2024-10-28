@@ -18,7 +18,7 @@ class UserController
      */
     public function index()
     {
-        $data = User::all();
+        $data = User::where('ban', false)->get();
         $data->load($this->relation);
         return UserResource::collection($data);
     }
@@ -40,7 +40,6 @@ class UserController
     public function update(Request $request, User $user)
     {
         
-        return response()->json($request); // Return the updated user or any relevant response
         $data = $request->validated();
 
         // Check if password is set and hash it before updating

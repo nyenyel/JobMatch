@@ -62,6 +62,7 @@ export default function CompanyComponent() {
       const response = await apiClient.post(crud.concat('verify-company'), formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+
         },
       });
       console.log(response.data);
@@ -106,7 +107,7 @@ export default function CompanyComponent() {
       <ApplicantRedirect />
       {loading && (<Loading />)}
       <Modal open={modalIsOpen} onClose={handleModal} aria-labelledby="modal-title" aria-describedby="modal-description"
-             className="flex justify-center items-center h-screen">
+             className="flex justify-center z-30 items-center h-screen">
         <Box className="bg-white rounded-lg shadow-lg text-def-t">
           <h3 id="modal-title" className='font-semibold text-xl rounded-t-lg text-text px-6 pt-4'>Company</h3>
           <div className='h-0.5 bg-prc rounded-xl mt-1 mx-6 max-w-40'></div>

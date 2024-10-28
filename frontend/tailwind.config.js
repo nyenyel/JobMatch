@@ -38,7 +38,9 @@ export default {
       'ic',
       'tabler',
       'fluent',
-      'basil'
+      'basil',
+      'mingcute'
     ]),
+
   ],
 }

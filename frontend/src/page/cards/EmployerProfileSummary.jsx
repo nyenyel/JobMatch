@@ -18,7 +18,7 @@ export default function EmployerProfileSummary({data}) {
         <div className=' px-4 text-text'>
             <div className=' font-normal text-sm'>My Rating</div>
             <div className='flex'>
-                {user?.rating} / 5
+                {user?.rating}★
             </div>
         </div>
         <div className='bg-black w-full h-0.5 bg-opacity-5 rounded-full my-3'></div>

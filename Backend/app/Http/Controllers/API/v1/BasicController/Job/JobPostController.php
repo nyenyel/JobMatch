@@ -88,7 +88,7 @@ class JobPostController
     {
         $job = JobPost::whereHas('company', function ($query) {
             $query->where('partnered', true);
-        })->get();
+        })->has('skill')->get();
         return JobPostResource::collection($job->load($this->relation));
     }
 }

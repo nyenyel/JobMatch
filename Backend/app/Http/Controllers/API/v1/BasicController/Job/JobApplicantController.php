@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\API\v1\BasicController\Job;
 
+use App\Http\Controllers\api\v1\basiccontroller\SMS\SMSController;
 use App\Http\Requests\Store\JobApplicantStoreRequest;
 use App\Http\Requests\Update\JobApplicantUpdateRequest;
 use App\Http\Resources\JobApplicantResource;
 use App\Models\Employer\JobApplicant;
+use App\Http\Service\SemaphoreService;
+use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\Request;
 
 class JobApplicantController
@@ -74,6 +77,25 @@ class JobApplicantController
     public function updateApplicationStatus(Request $request, JobApplicant $jobApplicant){
         $validated = $request->validate(['lib_status_id' => 'required|integer']);
         $jobApplicant->update($validated);
-        return JobApplicantResource::make($jobApplicant);
+        $jobApplicant->load(['applicant', 'job']);
+        $sms = new SemaphoreService();
+
+        $message = '';
+        if ($validated['lib_status_id'] === 1) {
+            $message = 'Congratulations!
+            Your application for the job '
+            . $jobApplicant->job->title 
+            . ' has been accepted.
+            You can now contact the employer through the website at JobMatching Space';
+        } elseif ($validated['lib_status_id'] === 3) {
+            $message = 'Good day,   We regret to inform you that your application for the job ' 
+            . $jobApplicant->job->title 
+            . ' has been rejected. 
+            Better luck next time!';
+        }
+
+        return $sms->sendSMS($jobApplicant->applicant->phone_no, 
+        'Test Message
+        ' . $message);
     }
 }

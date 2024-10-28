@@ -3,10 +3,12 @@ import Loading from '../cards/Loading'
 import { AppContext } from '../context/AppContext'
 import { Navigate, NavLink } from 'react-router-dom'
 import JobInformation from '../cards/JobInformation'
-import abstract from '../../assets/abs.jpg'
+import abstract from '../../assets/abs.png'
 import meeting from '../../assets/meeting.jpg'
 import axios from 'axios'
 import { crud } from '../resource/api'
+import Logo, { Badge } from '../cards/Logo'
+import ParnterJob from '../cards/ParnterJob'
 
 export default function Home() {
   const {role, apiClient} = useContext(AppContext)
@@ -31,11 +33,20 @@ export default function Home() {
     <div className='flex flex-col text-text'>
       <div className='flex flex-row gap-2 px-28 bg-gradient-to-bl from-white via-white to-prc/5 rounded-br-full'>
         <div className='flex-1 content-center'>
-          <div className='text-2xl font-bold'>JobMatch</div>
+          {/* <div className='flex'>
+            <div className='p-2 rounded-lg border-2 border-prc flex-none'>
+              <Logo /> 
+            </div>
+          </div> */}
+          <div className='text-2xl font-bold mt'>JobMatch</div>
           <div className='text-sm w-96 mb-4'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin libero lorem, scelerisque ut aliquet a, maximus eget libero. Vestibulum eget ante id urna sodales sollicitudin. Nam fringilla facilisis vulputate.</div>
           <div className='flex gap-2 flex-row drop-shadow'>
-            <NavLink to={`register`} className='bg-prc text-white px-4 py-2 rounded'>Find A Job</NavLink>
-            <NavLink to={`register`} className='bg-prc text-white px-4 py-2 rounded'>Be A Employer</NavLink>
+            <NavLink to={`register/applicant`} className='bg-prc text-white px-4 py-2 rounded'>Find A Job</NavLink>
+            <NavLink to={`register/employer`} className='bg-prc text-white px-4 py-2 rounded'>Be A Employer</NavLink>
+          </div>
+          <div className='font-sans font-normal opacity-70 text-xs mb-5 mt-1 flex'>
+              Already have an acount?
+              <NavLink to={'/login'} className='ml-1 text-blue-700 underline'>Login</NavLink>
           </div>
         </div>
         <div className='py-32 pr-4 flex gap-10'>
@@ -60,9 +71,9 @@ export default function Home() {
         <div className='flex-1 py-10 px-40'>
           <div className='text-2xl font-bold mb-2'>Partnered Job</div>
           {data?.map((item, index) => (
-          <div className='opacity-70'>
-            <JobInformation key={index} isNotAdmin={true} data={item}></JobInformation>
-          </div>
+          <NavLink to={`/applicant/jobs/${item.id}`} className='opacity-70' key={index}>
+            <ParnterJob isNotAdmin={true} data={item}></ParnterJob>
+          </NavLink>
           ))}
         </div>
       </div>

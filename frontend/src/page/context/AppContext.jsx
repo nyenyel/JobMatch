@@ -39,7 +39,6 @@ export default function AppProvider( {children} ) {
                     'Authorization': `Bearer ${token}`
                 }
             })
-            
             setUser(response.data)
         }catch (error){
             console.log('Error: ', error)

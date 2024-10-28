@@ -4,10 +4,10 @@ use App\Http\Controllers\API\v1\BasicController\AuthController;
 use App\Http\Controllers\API\v1\BasicController\Job\JobApplicantController;
 use App\Http\Controllers\API\v1\BasicController\Job\JobPostController;
 use App\Http\Controllers\API\v1\BasicController\Job\JobSkillController;
-use App\Http\Controllers\API\v1\basiccontroller\Library\LibAplicationStatusController;
-use App\Http\Controllers\API\v1\basiccontroller\library\LibLinkController;
+use App\Http\Controllers\API\v1\BasicController\Library\LibAplicationStatusController;
+use App\Http\Controllers\API\v1\BasicController\Library\LibLinkController;
 use App\Http\Controllers\API\v1\BasicController\Library\LibProfessionController;
-use App\Http\Controllers\api\v1\basiccontroller\library\LibProfessionLevelController;
+use App\Http\Controllers\API\v1\BasicController\Library\LibProfessionLevelController;
 use App\Http\Controllers\API\v1\BasicController\Library\LibSkillController;
 use App\Http\Controllers\API\v1\BasicController\Library\LibSkillTypeController;
 use App\Http\Controllers\API\v1\BasicController\User\ApplicantExperienceController;
@@ -15,7 +15,7 @@ use App\Http\Controllers\API\v1\BasicController\User\ApplicantSkillController;
 use App\Http\Controllers\API\v1\BasicController\User\CompanyController;
 use App\Http\Controllers\API\v1\BasicController\User\ExperienceController;
 use App\Http\Controllers\API\v1\BasicController\User\ReviewController;
-use App\Http\Controllers\API\v1\basiccontroller\user\UserController;
+use App\Http\Controllers\API\v1\BasicController\User\UserController;
 use App\Http\Controllers\API\v1\DocumentController;
 use App\Http\Controllers\API\v1\RuleBased\DashboardController;
 use App\Http\Controllers\API\v1\RuleBased\PersonalizeRecommendationController;
@@ -54,17 +54,21 @@ Route::prefix('v1')->group( function (){
     });
     Route::prefix('rule-base')->group(function(){
         Route::get('recommend/{user}', [PersonalizeRecommendationController::class, 'recommend'])->middleware('auth:sanctum');
+        Route::get('get-percent/{user}/{jobPost}', [PersonalizeRecommendationController::class, 'getPercentage'])->middleware('auth:sanctum');
         Route::get('dashboard', [DashboardController::class, 'getDashboardData'])->middleware('auth:sanctum');
+        Route::post('search', [DashboardController::class, 'search'])->middleware('auth:sanctum');
     });
 });
 
 Route::prefix('auth')->group(function(){
     Route::post('register', [AuthController::class, 'register']);
+    Route::put('ban/{user}', [AuthController::class, 'ban']);
     Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
     Route::post('login', [AuthController::class, 'login']);
     Route::get('/user', function (Request $request) {
         $user = $request->user();
         $user->load([
+            'gender',
             'company' => function ($query) {
                 $query->whereNotNull('verified');
             },

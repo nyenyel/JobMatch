@@ -6,8 +6,11 @@ import axios from 'axios'
 import { crud } from '../resource/api'
 import Loading from '../cards/Loading'
 import { AppContext } from '../context/AppContext'
+import { useNavigate } from 'react-router-dom'
 
 export default function PartnerComponent() {
+    const navigate  =useNavigate()
+
     const [ loading ,setLoading] = useState (false)
     const [data ,setData] = useState()
     const {apiClient} = useContext(AppContext)

@@ -63,8 +63,9 @@ class LibLinkController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(LibSkillLink $link)
     {
-        //
+        $link->delete();
+        return response()->json(['msg' => 'Deleted']);
     }
 }

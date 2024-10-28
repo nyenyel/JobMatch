@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 export default function Logo() {
   return (
@@ -21,8 +22,8 @@ export default function Logo() {
 
 export function Badge(){
     return (
-    <div className=' select-none flex-none bg-prc p-3 font-extrabold text-white rounded-lg'>
+    <NavLink to={'/'} className=' select-none flex-none bg-prc p-3 font-extrabold text-white rounded-lg'>
             JM
-    </div>
+    </NavLink>
     )
 }

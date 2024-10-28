@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('middle_name')->nullable();
             $table->string('address');
             $table->string('desc');
+            $table->boolean('ban')->default(false);
             $table->string('image')->nullable();
             $table->unsignedBigInteger('lib_role_id');
             $table->unsignedBigInteger('lib_gender_id');

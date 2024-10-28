@@ -2,16 +2,17 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../context/AppContext';
 import { crud } from '../resource/api';
 import Loading from '../cards/Loading';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-export default function ProfileComponent() {
+export default function OtherProfileComponent() {
     const navigate = useNavigate()
-    const { user, apiClient, token } = useContext(AppContext);
+    const {id} = useParams()
+    const {apiClient, token } = useContext(AppContext);
     const [selectedImage, setSelectedImage] = useState('');
     const [newForm, setNewForm] = useState({});
     const [loading, setLoading] = useState(false);
     const [passwordValidation, setPasswordValidation] =useState()
-
+    const [user, setUser] = useState()
 
     const updateProfile = async () => {
         try {
@@ -77,7 +78,23 @@ export default function ProfileComponent() {
         updateProfile();
     };
 
+    useEffect (()=> {
+        const getData = async () => {
+            setLoading(true)
+            try {
+                const response = await apiClient.get(crud.concat(`user/${id}`))
+                setUser(response.data)
+            } catch(error) {
+                 console.error(error)
+            } finally {
+                setLoading(false)
+            }
+        }
+        getData()
+    }, [])
+
     useEffect(() => {
+
         if (user) {
             setNewForm({
                 id: user?.data?.id,
@@ -96,7 +113,6 @@ export default function ProfileComponent() {
                 image: [],
             });
             setSelectedImage(user?.data?.image)
-            console.log(user)
         }
     }, [user]);
 

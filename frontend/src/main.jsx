@@ -31,6 +31,11 @@ import DashboardComponent from './page/component/DashboardComponent'
 import DocumentUpload from './page/component/DocumentUpload'
 import RegisterComponent from './page/component/RegisterComponent'
 import ProfileComponent from './page/component/ProfileComponent'
+import EmployerRegistrationComponent from './page/component/EmployerRegistrationComponent'
+import OtherProfileComponent from './page/component/OtherProfileComponent'
+import SearchComponent from './page/component/SearchComponent'
+import ApplicantSearchComponent from './page/component/ApplicantSearchComponent'
+import SearchJobPostComponent from './page/component/SearchJobPostComponent'
 
 const router = createBrowserRouter([
   
@@ -51,6 +56,11 @@ const router = createBrowserRouter([
     errorElement: <ErrorComponent />
   },
   {
+    path: '/register/employer',
+    element: <EmployerRegistrationComponent />,
+    errorElement: <ErrorComponent />
+  },
+  {
     path: '/login',
     element: <Login />,
     errorElement: <ErrorComponent />
@@ -61,6 +71,11 @@ const router = createBrowserRouter([
     element: <AdminModule />,
     errorElement: <ErrorComponent />,
     children: [
+      {
+        path: 'search',
+        element: <SearchComponent />,
+        errorElement: <ErrorComponent />,
+      },
       {
         path: 'profile',
         element: <ProfileComponent />,
@@ -79,6 +94,11 @@ const router = createBrowserRouter([
       {
         path: 'accounts',
         element: <AccountComponent />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        path: 'accounts/:id',
+        element: <OtherProfileComponent />,
         errorElement: <ErrorComponent />,
       },
       {
@@ -186,6 +206,11 @@ const router = createBrowserRouter([
         errorElement: <ErrorComponent />,
       },
       {
+        path: 'search',
+        element: <ApplicantSearchComponent />,
+        errorElement: <ErrorComponent />,
+      },
+      {
         path: 'jobs',
         element: <JobListComponent />,
         errorElement: <ErrorComponent />,
@@ -193,6 +218,11 @@ const router = createBrowserRouter([
       {
         path: 'jobs/:id',
         element: <ViewJobPostComponent />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        path: 'jobs/search/:id',
+        element: <SearchJobPostComponent />,
         errorElement: <ErrorComponent />,
       },
       {

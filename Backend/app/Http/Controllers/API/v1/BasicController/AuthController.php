@@ -39,6 +39,10 @@ class AuthController
             return response()->json(['message' => 'Invalid Credentials!'], 401);
         }
 
+        if ($user->ban) {
+            return response()->json(['message' => 'This Account is banned from the website!'], 401);
+        }
+
         $token = $user->createToken('auth_token')->plainTextToken;
         $createdUser = $user->load(['role','gender','profession']);
         
@@ -66,5 +70,11 @@ class AuthController
         }
 
         return response()->json(['user' => $user]);
+    }
+
+    public function ban(User $user) {
+        $user->ban = true;
+        $user->save();
+        return response()->json(['message' => 'Account Banned']);
     }
 }
