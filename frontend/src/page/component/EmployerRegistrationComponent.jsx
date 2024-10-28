@@ -31,9 +31,6 @@ export default function EmployerRegistrationComponent() {
         }
     }
 
-    const handleFileChange = (event) => {
-        setFile(event.target.files[0]);
-    };
 
     const handleChange = (e) => {
         const {name, value} = e.target
@@ -55,39 +52,21 @@ export default function EmployerRegistrationComponent() {
         }
         setData({
             ...data,
-            [name]:value
+            [name]:value,
+            rating: 0,
+            lib_role_id: 2,
+            lib_profession_id: 1
         })
         setPasswordValidation(validation);
 
     }
-    const handleDownload = async () => {
-        setLoading(true); // Set loading to true when the download starts
-
-        setTimeout(() => {
-            const link = document.createElement('a');
-            link.href = documentURL;
-            link.download = fileName;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        
-            setLoading(false); 
-        }, 1000); 
-    }
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('password', password?.password);
-        formData.append('password_confirmation', password?.password_confirmation);
-        
+       
         try {
             setLoading(true)
-            const response = await apiClient.post(`${baseURL}api/scan-docx`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
+            console.log(data)
+            const response = await apiClient.post(`${baseURL}api/auth/register`, data);
             setResponseData(response.data.data);
             setError(null);
             if(response.data){
@@ -112,7 +91,7 @@ export default function EmployerRegistrationComponent() {
             style={{ backgroundImage: `url(${bgImage})` }}>
             <div className=' absolute inset-0 backdrop-blur-md flex items-center justify-center'>
                 <div className='flex w-auto rounded-md p-5 drop-shadow-sm'>
-                    <div className='bg-gradient-to-r from-prc to-white rounded-l-md p-5 pr-24 py-10 flex flex-col'>
+                    <div className='bg-prc to-white rounded-l-md p-5 py-10 flex flex-col'>
                         <div className='flex-1 h-auto text-center text-white text-sm'>
                             Welcome to
                         </div>
@@ -137,7 +116,115 @@ export default function EmployerRegistrationComponent() {
                         <div className='mb-8 text-sm'>Please Enter your Login Information.</div>
 
                         <form onSubmit={handleSubmit}>
+                        <div className='flex gap-2'>
+                                    <div className='flex flex-1 flex-col'>
+                                        <label className='text-sm'> First Name</label>
+                                        <input 
+                                            required
+                                            type='text' 
+                                            name='first_name'
+                                            placeholder='First Name'
+                                            onChange={handleChange}
+                                            className='p-2 border-b-2'
+                                        />
+                                    </div>
+                                    <div className='flex flex-col'>
+                                        <label className='text-sm'> Middle Name</label>
+                                        <input 
+                                            required
+                                            type='text' 
+                                            name='middle_name'
+                                            onChange={handleChange}
+                                            placeholder='Middle Name'
+                                            className='p-2 border-b-2'
+                                        />
+                                    </div>
+                                    <div className='flex flex-col'>
+                                        <label className='text-sm'> Last Name</label>
+                                        <input 
+                                            type='text' 
+                                            required
+                                            name='last_name'
+                                            onChange={handleChange}
+                                            placeholder='Last Name'
+                                            className='p-2 border-b-2'
+                                        />
+                                    </div>
+                                </div>
+                                <div className='flex gap-2'>
+                                    <div className='flex flex-1none flex-col'>
+                                        <label className='text-sm'>Gender</label>
+                                        <select 
+                                            required
+                                            type='text' 
+                                            name='lib_gender_id'
+                                            placeholder='Address'
+                                            onChange={handleChange}
+                                            className='p-2 border-b-2'
+                                        >
+                                            <option value={1}>Male</option>
+                                            <option value={2}>Female</option>
+                                        </select>
+                                    </div>
+                                    <div className='flex flex-1 flex-col'>
+                                        <label className='text-sm'> Address</label>
+                                        <input 
+                                            type='text' 
+                                            required
+                                            name='address'
+                                            placeholder='Address'
+                                            onChange={handleChange}
+                                            className='p-2 border-b-2'
+                                        />
+                                    </div>
+                                </div>
+                                <div className='flex gap-2'>
+                                    <div className='flex flex-1 flex-col'>
+                                        <label className='text-sm'> Email</label>
+                                        <input 
+                                            required
+                                            type='text' 
+                                            name='email'
+                                            placeholder='Email'
+                                            onChange={handleChange}
+                                            className='p-2 border-b-2'
+                                        />
+                                    </div>
+                                    <div className='flex flex-1 flex-col'>
+                                        <label className='text-sm'> Phone No</label>
+                                        <input 
+                                            required
+                                            type='text' 
+                                            name='phone_no'
+                                            onChange={handleChange}
+                                            placeholder='Ex: 094827362941'
+                                            className='p-2 border-b-2'
+                                        />
+                                    </div>
+                                </div>
                             <div className='flex  flex-col gap-2'>
+                            <div className='flex flex-1 flex-col'>
+                                <label className='text-sm'> Username</label>
+                                <input 
+                                    required
+                                    type='text' 
+                                    name='username'
+                                    placeholder='username'
+                                    onChange={handleChange}
+                                    className='p-2 border-b-2'
+                                />
+                            </div>
+                            <div className='flex flex-1 flex-col'>
+                                <label className='text-sm'> Description</label>
+                                <textarea 
+                                    required
+                                    type='text' 
+                                    name='desc'
+                                    placeholder='describe your sel'
+                                    onChange={handleChange}
+                                    className='p-2 border-b-2 resize-none'
+                                />
+                            </div>
                             <label className='font-sans font-medium text-sm'>Password</label>
                             <input 
                                 required

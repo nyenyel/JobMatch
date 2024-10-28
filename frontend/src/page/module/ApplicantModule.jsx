@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom'
 
 export default function ApplicantModule() {
     const {token, role} = useState(AppContext)
-    const links = ['Jobs', 'Application', 'Skill', 'Experience']
+    const links = ['Jobs', 'Application', 'Skill', 'Experience', 'Search']
   return (
     <>
     <Redirect />

@@ -34,6 +34,8 @@ import ProfileComponent from './page/component/ProfileComponent'
 import EmployerRegistrationComponent from './page/component/EmployerRegistrationComponent'
 import OtherProfileComponent from './page/component/OtherProfileComponent'
 import SearchComponent from './page/component/SearchComponent'
+import ApplicantSearchComponent from './page/component/ApplicantSearchComponent'
+import SearchJobPostComponent from './page/component/SearchJobPostComponent'
 
 const router = createBrowserRouter([
   
@@ -204,6 +206,11 @@ const router = createBrowserRouter([
         errorElement: <ErrorComponent />,
       },
       {
+        path: 'search',
+        element: <ApplicantSearchComponent />,
+        errorElement: <ErrorComponent />,
+      },
+      {
         path: 'jobs',
         element: <JobListComponent />,
         errorElement: <ErrorComponent />,
@@ -211,6 +218,11 @@ const router = createBrowserRouter([
       {
         path: 'jobs/:id',
         element: <ViewJobPostComponent />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        path: 'jobs/search/:id',
+        element: <SearchJobPostComponent />,
         errorElement: <ErrorComponent />,
       },
       {

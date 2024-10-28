@@ -113,7 +113,19 @@ class DashboardController
                     ->orWhere('desc', 'LIKE', "%{$term}%")
                     ->get(['id', 'title', 'desc']); // Customize selected columns as needed
                 break;
-
+            case 'employer':
+                // Search in Job table for title or description matches
+                $results = User::where(function ($query) use ($term) {
+                    $query->where('first_name', 'LIKE', "%{$term}%")
+                          ->orWhere('last_name', 'LIKE', "%{$term}%")
+                          ->orWhere('middle_name', 'LIKE', "%{$term}%");
+                })
+                ->where('lib_role_id', 2)
+                ->select('id', 
+                    DB::raw("CONCAT(first_name, ' ', COALESCE(middle_name, ''), ' ', last_name) as title")
+                )
+                ->get();
+                break;
             default:
                 return response()->json(['message' => 'Invalid search type provided.'], 400);
         }
