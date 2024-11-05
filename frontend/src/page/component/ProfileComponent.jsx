@@ -92,6 +92,7 @@ export default function ProfileComponent() {
                 password: '',
                 password_confirmation: '',
                 desc: user?.data?.desc,
+                sector: user?.data?.sector,
                 token: token,
                 image: [],
             });
@@ -245,6 +246,19 @@ export default function ProfileComponent() {
                                 </div>
                                 <div className='flex gap-2'>
                                     <div className='flex flex-1 flex-col'>
+                                        <label className='text-sm'> Sector</label>
+                                        <input 
+                                            type='text' 
+                                            name='sector'
+                                            placeholder='Sector'
+                                            value={newForm?.sector || ''}
+                                            onChange={handleChange}
+                                            className='p-2 border-b-2'
+                                        />
+                                    </div>
+                                </div>
+                                <div className='flex gap-2'>
+                                    <div className='flex flex-1 flex-col'>
                                         <label className='text-sm'> Objective / Description</label>
                                         <textarea 
                                             type='text' 
@@ -256,6 +270,7 @@ export default function ProfileComponent() {
                                         />
                                     </div>
                                 </div>
+                                
                             </div>
                         </div>
 

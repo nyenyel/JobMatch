@@ -9,17 +9,14 @@ export default function DashboardComponent() {
     const dummy = { id: 0, value: 1, label: 'dummy' };
     const [jobApplicant, setJobApplicant] = useState([dummy])
     const [userLocation, setUserLocation] = useState([dummy])
+    const [sector, setSector] = useState([dummy])
     const [capasApplicant, setCapasApplicant] = useState([dummy])
     const [company, setCompany] = useState([dummy])
     const [userCount,setUserCount] = useState([dummy])
     const getData = async () => {
         setLoading(true)
         try {
-            const response = await apiClient.get(ruleBased.concat('dashboard'), {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
+            const response = await apiClient.get(ruleBased.concat('dashboard'))
 
             setUserLocation([
                 { id: 0, value: response?.data?.userLocation?.bamban, label: `Bamban: ${response?.data?.userLocation?.bamban}` },
@@ -46,6 +43,14 @@ export default function DashboardComponent() {
                 { id: 0, value: response?.data?.user?.employer, label: `Employer: ${response?.data?.user?.employer}` },
                 { id: 1, value: response?.data?.user?.applicant, label: `Applicant: ${response?.data?.user?.applicant}` },
             ])
+            setSector([
+                { id: 0, value: response?.data?.sector?.educ, label: `Education: ${response?.data?.sector?.educ}` },
+                { id: 1, value: response?.data?.sector?.tech, label: `Technology: ${response?.data?.sector?.tech}` },
+                { id: 2, value: response?.data?.sector?.finance, label: `Finance: ${response?.data?.sector?.finance}` },
+                { id: 3, value: response?.data?.sector?.healthcare, label: `Healthcare: ${response?.data?.sector?.healthcare}` },
+                { id: 4, value: response?.data?.sector?.other, label: `Others: ${response?.data?.sector?.other}` },
+
+            ])
             console.log(response.data)
         } catch (error) {
             console.error(error)
@@ -68,10 +73,10 @@ export default function DashboardComponent() {
                             data: jobApplicant,
                             innerRadius: 30,
                             outerRadius: 100,
-                            paddingAngle: 5,
+                            paddingAngle: 2,
                             cornerRadius: 5,
-                            startAngle: -55,
-                            endAngle: 225,  
+                            
+                              
                             cx: 100,
                             cy: 120,
                         },
@@ -90,10 +95,10 @@ export default function DashboardComponent() {
                             data: userLocation,
                             innerRadius: 30,
                             outerRadius: 100,
-                            paddingAngle: 5,
+                            paddingAngle: 2,
                             cornerRadius: 5,
-                            startAngle: -55,
-                            endAngle: 225,
+                            
+                            
                             cx: 100,
                             cy: 120,
                         },
@@ -112,10 +117,10 @@ export default function DashboardComponent() {
                             data: capasApplicant,
                             innerRadius: 30,
                             outerRadius: 100,
-                            paddingAngle: 5,
+                            paddingAngle: 2,
                             cornerRadius: 5,
-                            startAngle: -55,
-                            endAngle: 225,
+                            
+                            
                             cx: 100,
                             cy: 120,
                         },
@@ -136,10 +141,10 @@ export default function DashboardComponent() {
                             data: company,
                             innerRadius: 30,
                             outerRadius: 100,
-                            paddingAngle: 5,
+                            paddingAngle: 2,
                             cornerRadius: 5,
-                            startAngle: -55,
-                            endAngle: 225,
+                            
+                            
                             cx: 100,
                             cy: 120,
                         },
@@ -158,10 +163,8 @@ export default function DashboardComponent() {
                             data: userCount,
                             innerRadius: 30,
                             outerRadius: 100,
-                            paddingAngle: 5,
+                            paddingAngle: 2,
                             cornerRadius: 5,
-                            startAngle: -55,
-                            endAngle: 225,
                             cx: 100,
                             cy: 120,
                         },
@@ -171,6 +174,26 @@ export default function DashboardComponent() {
                     height={250}
                     />
             </div>
+        </div>
+        <div className='flex-1 mt-2 bg-white w-auto rounded-md drop-shadow p-4'>
+            <div className='text-2xl font-bold text-prc'>Sectors</div>
+            <div className='bg-prc h-0.5 mt-1 rounded-full w-72'/>
+            <PieChart
+                series={[
+                    {
+                        data: sector,
+                        innerRadius: 30,
+                        outerRadius: 100,
+                        paddingAngle: 2,
+                        cornerRadius: 5,
+                        cx: 100,
+                        cy: 120,
+                    },
+                    
+                ]}
+                width={400}
+                height={250}
+                />
         </div>
         </>
     )

@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
             ['desc' => 'Accepted'],
             ['desc' => 'Pending'],
             ['desc' => 'Rejected'],
+            ['desc' => 'Interview'],
         ], ['desc']);
         LibJobStatus::upsert([
             ['desc' => 'Open'],

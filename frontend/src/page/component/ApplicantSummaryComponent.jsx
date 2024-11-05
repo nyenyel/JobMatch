@@ -21,7 +21,7 @@ export default function ApplicantSummaryComponent() {
     const [display, setDisplay] = useState('')
     const [vissiility, setVissibility] = useState(true)
 
-    
+    // console.log(location)
     const path = location.pathname.split('/').filter(Boolean)
 
     const jobID = path[2]
