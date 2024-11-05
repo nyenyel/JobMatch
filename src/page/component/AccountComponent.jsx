@@ -42,9 +42,9 @@ export default function AccountComponent() {
         <div className='flex '>
           <div className='px-5 pt-4 pb-3 font-bold text-text text-lg flex-1 content-center'>Accounts</div>
           <div className='content-center px-5 pt-4 pb-3 font-semibold text-sm'>
-            <div className=' border-b-2 border-text px-6 py-2 hover:rounded-md text-text cursor-pointer hover:bg-black hover:bg-opacity-5 hover:scale-101 '>
+            <NavLink to={'new-account'} className=' border-b-2 border-text px-6 py-2 hover:rounded-md text-text cursor-pointer hover:bg-black hover:bg-opacity-5 hover:scale-101 '>
               New Account
-            </div>
+            </NavLink>
           </div>
         </div>
         <table className='w-full'>

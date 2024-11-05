@@ -48,8 +48,13 @@ export default function Login() {
             setRole(response.data.user.role.desc)
             localStorage.setItem('role', response.data.user.role.desc)
         }catch (error){
-            console.log("Error: ", error.response.data)
-            setWarning(error.response.data.message)
+            if (error.response) {
+                console.log("Error: ", error.response.data);
+                setWarning(error.response.data.message);
+            } else {
+                console.log("Unexpected Error: ", error.message);
+                setWarning("An unexpected error occurred. Please try again.");
+            }
         }finally{
             setLoading(false)
         }

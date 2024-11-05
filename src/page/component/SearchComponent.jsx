@@ -4,7 +4,7 @@ import { ruleBased } from '../resource/api'
 import { useNavigate } from 'react-router-dom'
 
 export default function SearchComponent() {
-    const {apiClient} = useContext(AppContext)
+    const {apiClient, role} = useContext(AppContext)
     const [data, setData] =useState({type: 'company'})
     const [searchedData, setSearcheedData] =useState()
     const [loading,setLoading] =useState(false)
@@ -19,7 +19,7 @@ export default function SearchComponent() {
         try {
             const response  = await apiClient.post(ruleBased.concat('search'), data)
             setSearcheedData(response.data.results)
-            console.log(response.data.results)
+            nav(`/${role}/search/${data?.term}`, {state: {result: response.data.results, type: data.type}})
         } catch (error) {
             console.log(error)
         } finally {
@@ -31,29 +31,20 @@ export default function SearchComponent() {
         if(data.type === 'user'){nav(`/Admin/Accounts/${id}`)}
     }
     return (
-    <div>
+    <div className='flex-1'>
         <form className='flex flex-col' onSubmit={handleSubmit}>
-            <label className='text-text text-sm '> What are you looking for?</label>
             <div className='flex'>
-                <select name='type' onChange={handleChange} value={data?.type} className='p-2 bg-white'>
+                <select name='type' onChange={handleChange} value={data?.type} className='p-2 bg-black bg-opacity-5 rounded-l-full'>
                     <option value={'company'}>Company</option>
                     <option value={'jobs'}>Jobs</option>
-                    <option value={'user'}>Users</option>
+                    {role === 'Admin' && <option value={'user'}>Users</option>}
                 </select>
-                <input required name='term' onChange={handleChange} className='bg-white p-2 flex-1 ' placeholder='Search term...'/>
-                <div className='bg-white p-2 pr-4 rounded-r-full'>
+                <input required name='term' onChange={handleChange} className='bg-black bg-opacity-5 p-2 flex-1 ' placeholder='Search term...'/>
+                <div className='bg-black bg-opacity-5 p-2 pr-4 pt-3 rounded-r-full'>
                     <span className="icon-[mingcute--search-fill] bg-prc"></span>
                 </div>
             </div>
         </form>
-        <div className='gap-1 flex flex-col mt-2'>
-            Search Result
-            {searchedData?.map((item, index)=> (
-                <div key={index} onClick={() => handleNav(item?.id)} className='bg-white rounded-md p-2 cursor-pointer hover:bg-prc hover:bg-opacity-35 '>
-                    {item?.title}
-                </div>
-            ))}
-        </div>
     </div>
   )
 }
