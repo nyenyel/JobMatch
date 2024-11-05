@@ -15,6 +15,7 @@ use App\Models\Library\LibRole;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -44,6 +45,7 @@ class User extends Authenticatable
         'lib_role_id',
         'image',
         'ban',
+        'sector'
     ];
 
     /**
@@ -97,5 +99,17 @@ class User extends Authenticatable
     }
     public function company(): HasMany{
         return $this->hasMany(Company::class, 'owner_id');
+    }
+
+    public function getAllApplicants():HasManyThrough
+    {
+        return $this->hasManyThrough(
+            JobApplicant::class, // The model you want to access
+            JobPost::class,      // The intermediate model
+            'employer_id',       // Foreign key on the job posts table (JobPost)
+            'job_id',            // Foreign key on the job applicants table (JobApplicant)
+            'id',                // Local key on the users table
+            'id'                 // Local key on the job posts table
+        );
     }
 }

@@ -13,23 +13,29 @@ use Illuminate\Support\Facades\DB;
 class DashboardController
 {
     public function getDashboardData(){
+        //job status
         $accepted = JobApplicant::where('lib_status_id', 1)->count();
         $pending = JobApplicant::where('lib_status_id', 2)->count();
         $rejected = JobApplicant::where('lib_status_id',3)->count();
         
+        //applicant location
         $capasApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Capas') . '%')->count();
         $bambanApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Bamban') . '%')->count();
         $geronaApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Gerona') . '%')->count();
         $paniquiApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Paniqui') . '%')->count();
         $conceptionApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('conception') . '%')->count();
 
+
+        //applicant status
         $acceptedStatus = LibApplicationStatus::where('id', 1)->get();
         $pendingStatus = LibApplicationStatus::where('id', 2)->get();
         $rejectedStatus = LibApplicationStatus::where('id', 3)->get();
 
+        //compoany status
         $verifiedComponies = Company::whereNotNull('verified')->count();
         $notVerifiedComponies = Company::whereNull('verified')->count();
 
+        //user count
         $applicantCount = User::where('lib_role_id', 3)->count();
         $employerCount = User::where('lib_role_id', 2)->count();
 
@@ -41,9 +47,23 @@ class DashboardController
             }
         ];
 
+        //capas
         $acceptedInCapas = $acceptedStatus->load($relation);
         $pendingInCapas = $pendingStatus->load($relation);
         $rejectedInCapas = $rejectedStatus->load($relation);
+
+        //sectors
+        $tech = User::where(DB::raw('LOWER(sector)'), 'LIKE', '%' . strtolower('Tech') . '%')->count();
+        $finance = User::where(DB::raw('LOWER(sector)'), 'LIKE', '%' . strtolower('Finance') . '%')->count();
+        $healthcare = User::where(DB::raw('LOWER(sector)'), 'LIKE', '%' . strtolower('Healthcare') . '%')->count();
+        $educ = User::where(DB::raw('LOWER(sector)'), 'LIKE', '%' . strtolower('Educ') . '%')->count();
+        // $others = User::whereNotIn(DB::raw('LOWER(sector)'), ['tech', 'finance', 'healthcare', 'educ'])->count();
+        $others = User::whereRaw("
+                        LOWER(sector) NOT LIKE '%tech%' AND
+                        LOWER(sector) NOT LIKE '%finance%' AND
+                        LOWER(sector) NOT LIKE '%healthcare%' AND
+                        LOWER(sector) NOT LIKE '%educ%'
+                    ")->count();
 
         $data = [
             'jobApplicant' => [
@@ -70,6 +90,13 @@ class DashboardController
             'user' => [
                 'employer' => $employerCount,
                 'applicant' => $applicantCount,
+            ],
+            'sector' => [
+                'educ' => $educ,
+                'tech' => $tech,
+                'finance' => $finance,
+                'healthcare' => $healthcare,
+                'other' => $others,
             ],
         ];
 
