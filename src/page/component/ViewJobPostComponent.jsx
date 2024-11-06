@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Redirect, { AdminRedirect, EmployerRedirect } from '../context/Redirect'
 import ApplicantProfileSummary from '../cards/ApplicantProfileSummary'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -6,7 +6,7 @@ import Skill from '../cards/Skill'
 import ProfessionLevel from '../cards/ProfessionLevel'
 import Loading from '../cards/Loading'
 import axios from 'axios'
-import { crud } from '../resource/api'
+import { crud, ruleBased } from '../resource/api'
 import Warning from '../cards/Warning'
 import { AppContext } from '../context/AppContext'
 
@@ -15,6 +15,7 @@ export default function ViewJobPostComponent() {
     const navigate = useNavigate()
     const location = useLocation()
     const { jobData, percentage, user } = location.state || {}
+    const [perc, setPerc] = useState(4)
     const [loading, setLoading] = useState(false)
     const [message, setMessage] = useState()
     const data = {
@@ -22,7 +23,23 @@ export default function ViewJobPostComponent() {
         applicant_id: user?.id,
         lib_status_id:2
     }
-    console.log(jobData)
+    if(percentage == 0){
+        const getPercent = async () => {
+            setLoading(true)
+            try{
+                const response = await apiClient.get(ruleBased.concat(`get-percent/${data.applicant_id}/${data.job_id}`))
+                setPerc(response.data.percentage)
+            } catch (error) {
+                console.error(error)
+            } finally {
+                setLoading(false)
+                // navigate(0)
+            }
+        }
+        useEffect(()=> {
+            getPercent()
+        }, [perc])
+    }
     const handleSubmit = async (e) => {
         e.preventDefault()
         setLoading(true)
@@ -102,7 +119,7 @@ export default function ViewJobPostComponent() {
             <div className='flex flex-none flex-col h-full gap-2'>
                 <div className='flex-none p-4 bg-white rounded-md h-full'>
                     <div className="flex-none  flex flex-col items-center justify-center p-4">
-                        <div className="text-center text-4xl mb-2 font-bold flex">{percentage}<div className='text-sm'>%</div></div>
+                        <div className="text-center text-4xl mb-2 font-bold flex">{percentage !== 0 ? percentage : perc}<div className='text-sm'>%</div></div>
                         <div className="text-center">Match</div>
                     </div>
                 </div>

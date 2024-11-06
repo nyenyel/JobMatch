@@ -41,6 +41,8 @@ import EmployerApplicant from './page/component/EmployerApplicant'
 import AdminRegisterAccount from './page/component/AdminRegisterAccount'
 import AdminDocumentUpload from './page/component/AdminDocumentUpload'
 import AdminEmployerRegister from './page/component/AdminEmployerRegister'
+import SearchCompanyResultComponent from './page/component/SearchCompanyResultComponent'
+import SearchJobsResultComponent from './page/component/SearchJobsResultComponent'
 
 const router = createBrowserRouter([
   
@@ -79,6 +81,16 @@ const router = createBrowserRouter([
       {
         path: 'search/:term',
         element: <SearchResultComponent />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        path: 'search/company/:id',
+        element: <SearchCompanyResultComponent />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        path: 'search/jobs/:id',
+        element: <SearchJobsResultComponent />,
         errorElement: <ErrorComponent />,
       },
       {
@@ -156,6 +168,16 @@ const router = createBrowserRouter([
       {
         path: 'search/:term',
         element: <SearchResultComponent />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        path: 'search/company/:id',
+        element: <SearchCompanyResultComponent />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        path: 'search/jobs/:id',
+        element: <SearchJobsResultComponent />,
         errorElement: <ErrorComponent />,
       },
       {
@@ -238,6 +260,16 @@ const router = createBrowserRouter([
       {
         path: 'search/:term',
         element: <SearchResultComponent />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        path: 'search/company/:id',
+        element: <SearchCompanyResultComponent isApplicant={true}/>,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        path: 'search/jobs/:id',
+        element: <SearchJobsResultComponent />,
         errorElement: <ErrorComponent />,
       },
       {

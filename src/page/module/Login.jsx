@@ -91,7 +91,10 @@ export default function Login() {
                         Login
                     </div>
                     <div className='mb-8 text-sm'>Please Enter your Login Information.</div>
-                    {warning && (<Warning message={warning}/>)}
+                    {warning && (
+                        <div>
+                            <Warning message={warning}/>
+                        </div>)}
                     <form onSubmit={handleSubmit}>
                         <label className='font-sans font-medium text-sm'>E-mail</label>
                         <br />
