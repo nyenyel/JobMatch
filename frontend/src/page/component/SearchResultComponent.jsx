@@ -11,10 +11,18 @@ export default function SearchResultComponent() {
 
     const handleAdminNav = (id) => {
         if(type === 'user'){nav(`/Admin/Accounts/${id}`)}
+        if(type === 'company'){nav(`/Admin/search/company/${id}`)}
+        if(type === 'jobs'){nav(`/Admin/search/jobs/${id}`)}
     }
 
     const handleEmployerNav = (id) => {
-        if(type === 'user'){nav(`/Admin/Accounts/${id}`)}
+        if(type === 'company'){nav(`/employer/search/company/${id}`)}
+        if(type === 'jobs'){nav(`/employer/search/jobs/${id}`)}
+    }
+
+    const handleApplicantNav = (id) => {
+        if(type === 'company'){nav(`/applicant/search/company/${id}`)}
+        if(type === 'jobs'){nav(`/applicant/search/jobs/${id}`)}
     }
     useEffect(() => {
         singleResult();
@@ -56,6 +64,27 @@ export default function SearchResultComponent() {
                         data.map((item, index) => (
                             <div
                                 onClick={() => handleEmployerNav(item.id)}
+                                key={index}
+                                className="bg-white rounded-md p-4 cursor-pointer hover:bg-black hover:bg-opacity-5"
+                            >
+                                {item.title}
+                            </div>
+                        ))
+                    ) : (
+                        <p>No results found</p>
+                    )}
+                </div>
+            </div>
+        );
+    } else {
+        return (
+            <div>
+                <h2>Search Result</h2>
+                <div className="flex flex-col gap-1">
+                    {data.length > 0 ? (
+                        data.map((item, index) => (
+                            <div
+                                onClick={() => handleApplicantNav(item.id)}
                                 key={index}
                                 className="bg-white rounded-md p-4 cursor-pointer hover:bg-black hover:bg-opacity-5"
                             >
