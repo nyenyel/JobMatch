@@ -249,6 +249,7 @@ export default function EmployerRegistrationComponent() {
                                 <label className='flex-none'>Show Password</label>
                             </div>
                             {error?.password?.map((item, index) => <div className='error text-red-600 text-sm opacity-50' key={index}>{item}</div>)}
+                            {passwordValidation?.map((item, index) => <div className='error text-red-600 text-sm opacity-50' key={index}>{item}</div>)}
 
                             <button className='font-bold text-white w-full px-5 py-2 rounded-full bg-prc mt-2' type="submit">Register</button>
                         </form>

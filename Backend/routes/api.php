@@ -51,6 +51,8 @@ Route::prefix('v1')->group( function (){
         Route::post('notify-owner/{company}', [CompanyController::class, 'notifyTheVerification'])->name('notifyTheVerification');
         Route::post('give-partnership/{company}', [CompanyController::class, 'givePartnership'])->name('givePartnership');
         Route::get('partnered-job', [JobPostController::class, 'partneredJob'])->name('partneredJob');
+        Route::get('my-applicant', [UserController::class, 'getMyApplicant'])->name('getMyApplicant')->middleware('auth:sanctum');
+        Route::get('short-listed-applicant', [UserController::class, 'getShortListed'])->name('getShortListed')->middleware('auth:sanctum');
     });
     Route::prefix('rule-base')->group(function(){
         Route::get('recommend/{user}', [PersonalizeRecommendationController::class, 'recommend'])->middleware('auth:sanctum');

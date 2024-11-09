@@ -4,8 +4,10 @@ namespace App\Http\Controllers\api\v1\basiccontroller\user;
 
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
+use App\Http\Service\JobFiltering;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController
 {
@@ -96,5 +98,67 @@ class UserController
 
         $user->update($data); // Update the user with the data
         return response()->json($imageUrl); // Return the updated user or any relevant response
+    }
+
+    public function getMyApplicant(){
+        $user = Auth::user();
+        if (!$user) {
+            return response()->json(['message' => 'User not authenticated'], 401);
+        }
+        $applicants = $user->getAllApplicants;
+        $applicants->load([
+            'applicant.skill.skill', 
+            'applicant.profession', 
+            'applicant.experience', 
+            'status', 
+            'job.skill', 
+            'job.level'
+        ]);
+        return response()->json($applicants);
+    }
+
+    public function getShortListed()
+    {
+        $user = Auth::user();
+        if (!$user) {
+            return response()->json(['message' => 'User not authenticated'], 401);
+        }
+        
+        // Get all applicants related to the user
+        $applicants = $user->getAllApplicants;
+        $applicants->load([
+            'applicant.skill.skill', 
+            'applicant.profession', 
+            'applicant.experience', 
+            'status', 
+            'job.skill', 
+            'job.level'
+        ]);
+
+        $shortlistedApplicants = [];
+
+        // Loop through each applicant to calculate match percentage
+        foreach ($applicants as $applicant) {
+            $jobPost = $applicant->job; // Assuming the applicant has a related job post
+            
+            $jobFilter = new JobFiltering;
+            // Calculate the match percentage using the SingleJobRecommendation method
+            $matchResponse = $jobFilter->SingleJobRecommendation($applicant->applicant, $jobPost);
+            
+            // Get the percentage from the response
+            $matchPercentage = $matchResponse->getData()->percentage; // Assuming the response is in the expected format
+
+            // Check if the match percentage is 50 or above
+            if ($matchPercentage >= 50) {
+                $shortlistedApplicants[] = [
+                    'applicant' => $applicant->applicant,
+                    'job' => $jobPost,
+                    'status' => $applicant->status,
+                    'matchPercentage' => $matchPercentage
+                ];
+            }
+        }
+
+        return response()->json($shortlistedApplicants);
     }
 }

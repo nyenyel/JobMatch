@@ -27,6 +27,7 @@ class UserResource extends JsonResource
             'desc'=> $this->desc,
             'image'=> $this->image,
             'rating'=> $this->rating,
+            'sector'=> $this->sector,
             'role'=> new LibraryResource($this->whenLoaded('role')),
             'gender'=> new LibraryResource($this->whenLoaded('gender')),
             'profession'=> new LibraryResource($this->whenLoaded('profession')),

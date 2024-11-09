@@ -5,6 +5,7 @@ import axios from 'axios'
 import { AppContext } from '../context/AppContext'
 import { auth } from '../resource/api'
 import Loading from '../cards/Loading'
+import SearchComponent from './SearchComponent'
 
 export default function TopBar({links}) {
   const navigate = useNavigate()
@@ -42,6 +43,9 @@ export default function TopBar({links}) {
         <Logo />
       </div>
       <div className=' flex mr-4'>
+        <div className='  cursor-pointer hover:bg-opacity-5 content-center px-8'>
+          <SearchComponent></SearchComponent>
+        </div>
       {links.map((item, index) => (
         <NavLink key={index} to={item} 
         className={({ isActive }) => {

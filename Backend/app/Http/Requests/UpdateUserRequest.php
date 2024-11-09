@@ -34,6 +34,7 @@ class UpdateUserRequest extends FormRequest
             'phone_no'=> 'sometimes',
             'username'=> 'sometimes|unique:users,username,' . $this->user->id,
             'desc'=> 'sometimes',
+            'sector'=> 'sometimes',
         ];
     }
 }
