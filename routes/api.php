@@ -16,16 +16,22 @@ use App\Http\Controllers\API\v1\BasicController\User\CompanyController;
 use App\Http\Controllers\API\v1\BasicController\User\ExperienceController;
 use App\Http\Controllers\API\v1\BasicController\User\ReviewController;
 use App\Http\Controllers\API\v1\BasicController\User\UserController;
+use App\Http\Controllers\API\v1\BroadcastController;
 use App\Http\Controllers\API\v1\DocumentController;
+use App\Http\Controllers\API\v1\MessageController;
 use App\Http\Controllers\API\v1\RuleBased\DashboardController;
 use App\Http\Controllers\API\v1\RuleBased\PersonalizeRecommendationController;
+use App\Http\Controllers\API\v1\User\ContactController;
 use App\Http\Resources\ApplicantExperienceResource;
 use App\Http\Resources\UserResource;
 use App\Models\Library\LibApplicationStatus;
 use App\Models\Library\LibProfession;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 
+// Broadcast::routes(['middleware' => ['auth:sunctum']]);
+Broadcast::routes();
 
 Route::prefix('v1')->group( function (){
     Route::prefix('basic-controller')->group(function (){
@@ -53,6 +59,10 @@ Route::prefix('v1')->group( function (){
         Route::get('partnered-job', [JobPostController::class, 'partneredJob'])->name('partneredJob');
         Route::get('my-applicant', [UserController::class, 'getMyApplicant'])->name('getMyApplicant')->middleware('auth:sanctum');
         Route::get('short-listed-applicant', [UserController::class, 'getShortListed'])->name('getShortListed')->middleware('auth:sanctum');
+        Route::post('send-message', [MessageController::class, 'sendMessage'])->name('sendMessage');
+        Route::post('message', [MessageController::class, 'message'])->name('message');
+        Route::get('get-contact/{user}', [ContactController::class, 'getContact'])->name('getContact');
+        // Route::post('send-message', [MessageController::class, 'sendMessage'])->name('sendMessage')->middleware('auth:sanctum');
     });
     Route::prefix('rule-base')->group(function(){
         Route::get('recommend/{user}', [PersonalizeRecommendationController::class, 'recommend'])->middleware('auth:sanctum');
@@ -61,6 +71,9 @@ Route::prefix('v1')->group( function (){
         Route::post('search', [DashboardController::class, 'search'])->middleware('auth:sanctum');
     });
 });
+
+// Route::post('/broadcasting/auth', [BroadcastController::class, 'authenticate'])->middleware('auth:sanctum');  // or 'auth:api' for API tokens
+Route::post('/broadcasting/auth', [BroadcastController::class, 'authenticate']);  // or 'auth:api' for API tokens
 
 Route::prefix('auth')->group(function(){
     Route::post('register', [AuthController::class, 'register']);

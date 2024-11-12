@@ -15,11 +15,11 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    'paths' => ['api/*', 'sanctum/csrf-cookie', 'broadcasting/auth'],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://jobmatching.space'],
+    'allowed_origins' => ['https://jobmatching.space' ,'http://localhost:5173'],
 
     'allowed_origins_patterns' => [],
 
