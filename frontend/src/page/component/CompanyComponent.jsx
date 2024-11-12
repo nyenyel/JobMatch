@@ -7,6 +7,7 @@ import { crud } from '../resource/api';
 import Loading from '../cards/Loading';
 import axios from 'axios';
 import { AppContext } from '../context/AppContext';
+import ContactComponent from './ContactComponent';
 
 export default function CompanyComponent() {
   const {user, apiClient} = useContext(AppContext)
@@ -188,6 +189,9 @@ export default function CompanyComponent() {
               <CompanyInformation data={item} key={index}/>
             ))}
           </div>
+        </div>
+        <div className='sticky h-full top-0'>
+          <ContactComponent />
         </div>
       </div>
     </>

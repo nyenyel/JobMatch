@@ -4,6 +4,7 @@ import EmployerProfileSummary from '../cards/EmployerProfileSummary'
 import JobInformation from '../cards/JobInformation'
 import { AppContext } from '../context/AppContext'
 import { NavLink } from 'react-router-dom'
+import ContactComponent from './ContactComponent'
 
 export default function JobComponent() {
   const {user} = useContext(AppContext)
@@ -35,6 +36,9 @@ export default function JobComponent() {
             <JobInformation key={index} data={item}/>
           ))}
         </div>
+      </div>
+      <div className='sticky h-full top-0'>
+          <ContactComponent />
       </div>
     </div>
     </>

@@ -4,6 +4,7 @@ import ApplicantProfileSummary from '../cards/ApplicantProfileSummary'
 import JobInformation from '../cards/JobInformation'
 import { AppContext } from '../context/AppContext'
 import JobApplication from '../cards/JobApplication'
+import ContactComponent from './ContactComponent'
 
 export default function ApplicationComponent() {
   const {user} = useContext(AppContext)
@@ -26,6 +27,9 @@ export default function ApplicationComponent() {
           ))}
 
         </div>
+      </div>
+      <div className='sticky h-full top-0'>
+          <ContactComponent />
       </div>
     </div>
     </>

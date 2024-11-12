@@ -43,6 +43,9 @@ import AdminDocumentUpload from './page/component/AdminDocumentUpload'
 import AdminEmployerRegister from './page/component/AdminEmployerRegister'
 import SearchCompanyResultComponent from './page/component/SearchCompanyResultComponent'
 import SearchJobsResultComponent from './page/component/SearchJobsResultComponent'
+import TestingComponent from './page/component/ChatComponent'
+import App from './page/testing/App'
+import PusherProvider, { PusherContext } from './page/context/PusherContext'
 
 const router = createBrowserRouter([
   
@@ -50,7 +53,6 @@ const router = createBrowserRouter([
     path: '/',
     element: <Home />,
     errorElement: <ErrorComponent />
-
   },
   {
     path: '/register',

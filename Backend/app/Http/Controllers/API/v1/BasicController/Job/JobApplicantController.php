@@ -8,8 +8,11 @@ use App\Http\Requests\Update\JobApplicantUpdateRequest;
 use App\Http\Resources\JobApplicantResource;
 use App\Models\Employer\JobApplicant;
 use App\Http\Service\SemaphoreService;
+use App\Models\Contact;
 use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 class JobApplicantController
 {
@@ -76,9 +79,12 @@ class JobApplicantController
 
     public function updateApplicationStatus(Request $request, JobApplicant $jobApplicant){
         $validated = $request->validate(['lib_status_id' => 'required|integer']);
+
+
         $jobApplicant->update($validated);
         $jobApplicant->load(['applicant', 'job']);
         $sms = new SemaphoreService();
+
 
         $message = '';
         if ($validated['lib_status_id'] === 1) {
@@ -94,8 +100,38 @@ class JobApplicantController
             Better luck next time!';
         }
 
-        return $sms->sendSMS($jobApplicant->applicant->phone_no, 
-        'Test Message
-        ' . $message);
+        // $smsResponse = $sms->sendSMS($jobApplicant->applicant->phone_no, 'Test Message' . $message);
+        $smsResponse = "im fuckin testing you dumbass";
+
+        $res = 'rejected';
+        if($validated['lib_status_id'] === 1){
+            $contactExist = Contact::where('second_user', $jobApplicant->job->employer->id)
+                                    ->where('first_user', $jobApplicant->applicant->id)
+                                    ->exists();
+            if(!$contactExist){
+                $chatroom = Str::random(15);
+                $data = [
+                    'chatroom' => $chatroom,
+                    'chatroom_id' => 'cr'.$jobApplicant->applicant->id.'-'.$jobApplicant->job->employer->id,
+                    'first_user' => $jobApplicant->applicant->id,
+                    'second_user' => $jobApplicant->job->employer->id
+                ];
+                $res = Contact::create($data);
+            } else{
+                $res = 'exists';
+                return response()->json([
+                    'chatroom' => $res,
+                    'sms' => $smsResponse,
+                ]);
+            }
+            return response()->json([
+                'chatroom' => $res,
+                'sms' => $smsResponse,
+            ],201);
+        }
+        return response()->json([
+            'chatroom' => $res,
+            'sms' => $smsResponse,
+        ]);
     }
 }

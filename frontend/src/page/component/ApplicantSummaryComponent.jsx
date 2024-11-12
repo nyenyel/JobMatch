@@ -8,13 +8,15 @@ import { AppContext } from '../context/AppContext'
 import Loading from '../cards/Loading'
 import { Box, Modal } from '@mui/material'
 import { split } from 'postcss/lib/list'
+import { addDoc, collection, setDoc, Timestamp } from 'firebase/firestore'
+import { db } from '../../firebase-config'
 
 export default function ApplicantSummaryComponent() {
     const location = useLocation()
-    const {apiClient} = useContext(AppContext)
+    const {apiClient, user} = useContext(AppContext)
     const {applicantData, applicationID} = location.state || {}
     const [modal, setModal] = useState({ state: false, data: 0 });
-    const [seconds, setSeconds] = useState(10);
+    const [seconds, setSeconds] = useState(3);
     const [loading, setLoading] = useState(false);
     const [isDisable, setIsDisable] = useState(true)
     const [percentage, setPercentage] = useState(null)
@@ -32,7 +34,7 @@ export default function ApplicantSummaryComponent() {
             state: !prevModal.state,
             data: data,
         }));
-        setSeconds(10)
+        setSeconds(3)
         setVissibility(true)
         setDisplay('')
     };
@@ -46,12 +48,24 @@ export default function ApplicantSummaryComponent() {
                     'Content-Type': 'application/json'
                 }
             })
-            navigate('/employer/Jobs')
+            const crCode = response.data.chatroom.chatroom
+            if(response.status === 201) {
+
+                const chatroomRef = collection(db, "chatroom", crCode, 'messages');
+                const data = {
+                    message: 'You can now message each other',
+                    sender: user.data.id,
+                    timestamp: Timestamp.fromDate(new Date()) 
+                }
+                const firebaseRes = await addDoc(chatroomRef, data);
+            }
             // console.log(response)
         } catch(error) {
-            console.error(error.response)
+            console.error(error)
         } finally { 
             setLoading(false)
+            navigate('/employer/Jobs')
+
         }
     }
 
@@ -75,7 +89,7 @@ export default function ApplicantSummaryComponent() {
 
     useEffect(() => {
         if (modal.state && seconds > 0) {
-            const timer = setInterval(() => setSeconds((prev) => prev - 1), 1000);
+            const timer = setInterval(() => setSeconds((prev) => prev - 1), 300);
             return () => clearInterval(timer);
         } else if (seconds === 0) {
             setIsDisable(false)

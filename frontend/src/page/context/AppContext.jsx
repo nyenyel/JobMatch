@@ -1,8 +1,7 @@
 import axios from 'axios'
-import React, { createContext, useEffect, useState } from 'react'
-import { auth } from '../resource/api'
+import React, { createContext, useCallback, useEffect, useState } from 'react'
+import { auth, baseURL } from '../resource/api'
 import Cookie from 'js-cookie'
-
 
 export const AppContext = createContext()
 
@@ -11,6 +10,11 @@ export default function AppProvider( {children} ) {
     const [user,setUser] = useState()
     const [role, setRole] = useState(localStorage.getItem('role'))
 
+    const getCSRFToken = useCallback(() => {
+        return Cookie.get('XSRF-TOKEN');
+    }, []);
+
+    
     const apiClient = axios.create({
         withCredentials: true, 
         headers: {
@@ -18,7 +22,8 @@ export default function AppProvider( {children} ) {
             // Remove Content-Type here
         }
     });
-    
+
+
     apiClient.interceptors.request.use(
         (config) => {
             const token = localStorage.getItem('token'); // Get token from localStorage
@@ -49,9 +54,22 @@ export default function AppProvider( {children} ) {
         }
     }
 
+    const getXsrf = async() => {
+        
+        try{
+            const response =await apiClient.get(('sanctum/csrf-cookie'), {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+        }catch (error){
+            console.log('Error: ', error)
+        }
+    }
     useEffect (() => {
         if(token){
             getUser()
+            getXsrf()
         }
         // console.log(token)
     }, [token])

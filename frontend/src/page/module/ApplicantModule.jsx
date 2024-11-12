@@ -12,15 +12,13 @@ export default function ApplicantModule() {
     <Redirect />
     <AdminRedirect />
     <ApplicantRedirect />
-    <div>
-      <div className='flex flex-col'>
-          <div className=''>
-              <TopBar links={links} />
-          </div>
-          <div className='mt-3 mx-5'>
+    <div className="flex flex-col h-screen">
+        <div>
+            <TopBar links={links} />
+        </div>
+        <div className="flex-grow mt-3 mx-5 overflow-auto scrollbar-hide">
             <Outlet />
-          </div>
-      </div>
+        </div>
     </div>
     </>
   )

@@ -8,6 +8,7 @@ import { crud } from '../resource/api'
 import ApplicantInformation from '../cards/ApplicantInformation'
 import ApplicantProfileSummary from '../cards/ApplicantProfileSummary'
 import { AppContext } from '../context/AppContext'
+import ContactComponent from './ContactComponent'
 
 
 export default function ApplicantSkillComponent() {
@@ -95,6 +96,9 @@ export default function ApplicantSkillComponent() {
                         </div>
                     </Box>
                 </Modal>
+            </div>
+            <div className='sticky h-full top-0'>
+                <ContactComponent />
             </div>
         </div>
         </>
