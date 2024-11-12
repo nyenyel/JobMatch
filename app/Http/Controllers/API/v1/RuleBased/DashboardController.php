@@ -8,6 +8,7 @@ use App\Models\Employer\JobPost;
 use App\Models\Library\LibApplicationStatus;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController
@@ -109,57 +110,71 @@ class DashboardController
             'term' => 'required',
         ]);
 
+        $user = Auth::user();
+        
         // Sanitize search term to prevent issues with special characters
-    $term = $validated['term'];
-    $type = $validated['type'];
-    $results = [];
+        $term = $validated['term'];
+        $type = $validated['type'];
+        $results = [];
 
-    try {
-        switch ($type) {
-            case 'user':
-                // Search in Users table for first, last, or middle name matches
-                $results = User::where(function ($query) use ($term) {
-                    $query->where('first_name', 'LIKE', "%{$term}%")
-                          ->orWhere('last_name', 'LIKE', "%{$term}%")
-                          ->orWhere('middle_name', 'LIKE', "%{$term}%");
-                })
-                ->select('id', 
-                    DB::raw("CONCAT(first_name, ' ', COALESCE(middle_name, ''), ' ', last_name) as title")
-                )
-                ->get();
-                break;
-            case 'company':
-                // Search in Company table for title matches
-                $results = Company::where('title', 'LIKE', "%{$term}%")
-                    ->get(['id', 'title']); // Customize selected columns as needed
-                break;
+        try {
+            switch ($type) {
+                case 'user':
+                    $user->role->desc === 'Employer' ? 
+                        // Search in Users table for first, last, or middle name matches
+                        $results = User::where(function ($query) use ($term) {
+                            $query->where('first_name', 'LIKE', "%{$term}%")
+                                ->orWhere('last_name', 'LIKE', "%{$term}%")
+                                ->orWhere('middle_name', 'LIKE', "%{$term}%");
+                        })->where('lib_role_id', 3 )
+                        ->select('id', 
+                            DB::raw("CONCAT(first_name, ' ', COALESCE(middle_name, ''), ' ', last_name) as title")
+                        )
+                        ->get()
+                        // Search in Users table for first, last, or middle name matches
+                    :
+                        $results = User::where(function ($query) use ($term) {
+                            $query->where('first_name', 'LIKE', "%{$term}%")
+                                ->orWhere('last_name', 'LIKE', "%{$term}%")
+                                ->orWhere('middle_name', 'LIKE', "%{$term}%");
+                        })
+                        ->select('id', 
+                            DB::raw("CONCAT(first_name, ' ', COALESCE(middle_name, ''), ' ', last_name) as title")
+                        )
+                        ->get();
+                    break;
+                case 'company':
+                    // Search in Company table for title matches
+                    $results = Company::where('title', 'LIKE', "%{$term}%")
+                        ->get(['id', 'title']); // Customize selected columns as needed
+                    break;
 
-            case 'jobs':
-                // Search in Job table for title or description matches
-                $results = JobPost::where('title', 'LIKE', "%{$term}%")
-                    ->orWhere('desc', 'LIKE', "%{$term}%")
-                    ->get(['id', 'title', 'desc']); // Customize selected columns as needed
-                break;
-            case 'employer':
-                // Search in Job table for title or description matches
-                $results = User::where(function ($query) use ($term) {
-                    $query->where('first_name', 'LIKE', "%{$term}%")
-                          ->orWhere('last_name', 'LIKE', "%{$term}%")
-                          ->orWhere('middle_name', 'LIKE', "%{$term}%");
-                })
-                ->where('lib_role_id', 2)
-                ->select('id', 
-                    DB::raw("CONCAT(first_name, ' ', COALESCE(middle_name, ''), ' ', last_name) as title")
-                )
-                ->get();
-                break;
-            default:
-                return response()->json(['message' => 'Invalid search type provided.'], 400);
+                case 'jobs':
+                    // Search in Job table for title or description matches
+                    $results = JobPost::where('title', 'LIKE', "%{$term}%")
+                        ->orWhere('desc', 'LIKE', "%{$term}%")
+                        ->get(['id', 'title', 'desc']); // Customize selected columns as needed
+                    break;
+                case 'employer':
+                    // Search in Job table for title or description matches
+                    $results = User::where(function ($query) use ($term) {
+                        $query->where('first_name', 'LIKE', "%{$term}%")
+                            ->orWhere('last_name', 'LIKE', "%{$term}%")
+                            ->orWhere('middle_name', 'LIKE', "%{$term}%");
+                    })
+                    ->where('lib_role_id', 2)
+                    ->select('id', 
+                        DB::raw("CONCAT(first_name, ' ', COALESCE(middle_name, ''), ' ', last_name) as title")
+                    )
+                    ->get();
+                    break;
+                default:
+                    return response()->json(['message' => 'Invalid search type provided.'], 400);
+            }
+
+            return response()->json(['results' => $results]);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'An error occurred during the search.', 'error' => $e->getMessage()], 500);
         }
-
-        return response()->json(['results' => $results]);
-    } catch (\Exception $e) {
-        return response()->json(['message' => 'An error occurred during the search.', 'error' => $e->getMessage()], 500);
-    }
     }
 }

@@ -20,6 +20,7 @@ class CompanyResource extends JsonResource
             'partnered' => $this->partnered,
             'desc' => $this->desc,
             'length' => $this->length,
+            'verified' => $this->verified,
             'owner' => new UserResource(resource: $this->whenLoaded('owner')),
             'image' => ImageResource::collection($this->whenLoaded('image')),
             'jobs' => JobPostResource::collection($this->whenLoaded('jobs')),
