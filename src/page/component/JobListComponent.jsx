@@ -7,6 +7,7 @@ import ApplicantProfileSummary from '../cards/ApplicantProfileSummary'
 import axios from 'axios'
 import { ruleBased } from '../resource/api'
 import ApplicantJobInformation from '../cards/ApplicantJobInformation'
+import ContactComponent from './ContactComponent'
 
 export default function JobListComponent() {
   const { user, token , apiClient} = useContext(AppContext); // Get user and token from context
@@ -81,6 +82,9 @@ export default function JobListComponent() {
             <ApplicantJobInformation key={index} data={item} user={user?.data}/>
           ))}
       </div>
+    </div>
+    <div className='sticky h-full top-0'>
+          <ContactComponent />
     </div>
   </div>
   </>

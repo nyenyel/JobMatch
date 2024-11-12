@@ -9,6 +9,7 @@ import ApplicantInformation from '../cards/ApplicantInformation'
 import ApplicantProfileSummary from '../cards/ApplicantProfileSummary'
 import { AppContext } from '../context/AppContext'
 import ApplcantExperience from '../cards/ApplcantExperience'
+import ContactComponent from './ContactComponent'
 
 
 export default function ApplicantExperienceComponent() {
@@ -113,6 +114,9 @@ export default function ApplicantExperienceComponent() {
                         </div>
                     </Box>
                 </Modal>
+            </div>
+            <div className='sticky h-full top-0'>
+                <ContactComponent />
             </div>
         </div>
         </>

@@ -41,6 +41,6 @@ export default {
       'basil',
       'mingcute'
     ]),
-
+    require('tailwind-scrollbar-hide')
   ],
 }

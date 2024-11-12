@@ -9,6 +9,7 @@ import { crud } from '../resource/api'
 import ApplicantInformation from '../cards/ApplicantInformation'
 import JobApplication from '../cards/JobApplication'
 import EmployerApplicantCard from '../cards/EmployerApplicantCard'
+import ContactComponent from './ContactComponent'
 
 export default function EmployerApplicant() {
     const {apiClient, user} = useContext(AppContext)
@@ -50,19 +51,22 @@ export default function EmployerApplicant() {
         <AdminRedirect />
         <ApplicantRedirect />
         <div className='flex'>
-        <div className='sticky h-full top-0'>
-            <EmployerProfileSummary  data={user}/>
-        </div>
-        <div className='flex-1 ml-3 w-full'>
-            <div>
-                <div className='flex gap-2 mb-2'>
-                    <div onClick={getShortListed} className='flex-none text-sm content-center border-2 border-prc px-2 text-prc rounded-full cursor-pointer hover:bg-white hover:bg-opacity-35'>Short List</div>
-                    <div className='bg-black w-full h-0.5 bg-opacity-20 rounded-full my-3'></div>
+            <div className='sticky h-full top-0'>
+                <EmployerProfileSummary  data={user}/>
+            </div>
+            <div className='flex-1 ml-3 w-full'>
+                <div>
+                    <div className='flex gap-2 mb-2'>
+                        <div onClick={getShortListed} className='flex-none text-sm content-center border-2 border-prc px-2 text-prc rounded-full cursor-pointer hover:bg-white hover:bg-opacity-35'>Short List</div>
+                        <div className='bg-black w-full h-0.5 bg-opacity-20 rounded-full my-3'></div>
+                    </div>
+                    {data?.map((item,index) => (
+                        <EmployerApplicantCard key={index} data={item}/>
+                    ))}
                 </div>
-                {data?.map((item,index) => (
-                    <EmployerApplicantCard key={index} data={item}/>
-                ))}
-                </div>
+            </div>
+            <div className='sticky h-full top-0'>
+            <ContactComponent />
             </div>
         </div>
         </>
