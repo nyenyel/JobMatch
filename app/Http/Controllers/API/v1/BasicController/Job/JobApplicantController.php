@@ -93,6 +93,12 @@ class JobApplicantController
             . $jobApplicant->job->title 
             . ' has been accepted.
             You can now contact the employer through the website at JobMatching Space';
+        } elseif ($validated['lib_status_id'] === 4) {
+            $message = 'Congratulations!
+            Your application for the job '
+            . $jobApplicant->job->title 
+            . ' has been selected for interview.
+            You can now contact the employer through the website at JobMatching Space';
         } elseif ($validated['lib_status_id'] === 3) {
             $message = 'Good day,   We regret to inform you that your application for the job ' 
             . $jobApplicant->job->title 
@@ -104,7 +110,7 @@ class JobApplicantController
         // $smsResponse = "im fuckin testing you dumbass";
 
         $res = 'rejected';
-        if($validated['lib_status_id'] === 1){
+        if($validated['lib_status_id'] != 3){
             $contactExist = Contact::where('second_user', $jobApplicant->job->employer->id)
                                     ->where('first_user', $jobApplicant->applicant->id)
                                     ->exists();
