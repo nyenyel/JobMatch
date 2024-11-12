@@ -100,8 +100,8 @@ class JobApplicantController
             Better luck next time!';
         }
 
-        // $smsResponse = $sms->sendSMS($jobApplicant->applicant->phone_no, 'Test Message' . $message);
-        $smsResponse = "im fuckin testing you dumbass";
+        $smsResponse = $sms->sendSMS($jobApplicant->applicant->phone_no, 'Test Message' . $message);
+        // $smsResponse = "im fuckin testing you dumbass";
 
         $res = 'rejected';
         if($validated['lib_status_id'] === 1){

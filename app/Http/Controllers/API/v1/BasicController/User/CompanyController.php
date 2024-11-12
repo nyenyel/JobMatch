@@ -6,6 +6,7 @@ use App\Http\Requests\CompanyRequest;
 use App\Http\Requests\Store\CompanyStoreRequest;
 use App\Http\Requests\Update\CompanyUpdateRequest;
 use App\Http\Resources\CompanyResource;
+use App\Http\Service\SemaphoreService;
 use App\Models\Employer\Company;
 use App\Models\Library\LibCompanyVerificationImage;
 use App\Models\User;
@@ -59,8 +60,25 @@ class CompanyController
      */
     public function destroy(Company $company)
     {
+        $company->load([
+            'owner',
+        ]);
+        $sms = new SemaphoreService();
+
+        $phoneNo = $company->owner->phone_no;
+        $message = 'Good day,   We regret to inform you that your company ' 
+        . $company->title 
+        . ' has been rejected for verification. Please upload the company again
+        with more proof or eveidence that the company is legitimate.';
+        
+        // $smsResponse = "im fuckin testing you dumbass";
+        $smsResponse = $sms->sendSMS($phoneNo, 'Test Message' . $message);
+        $company->image()->delete();
         $company->delete();
-        return "Data Deleted";
+        return response()->json([
+            'phone_no' => $phoneNo,
+            'sms_response' => $smsResponse,
+        ]);
     }
 
     public function storeCompany(Request $request)
