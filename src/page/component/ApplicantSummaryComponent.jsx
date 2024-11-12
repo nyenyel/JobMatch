@@ -109,11 +109,11 @@ export default function ApplicantSummaryComponent() {
             className="flex justify-center z-30 items-center h-screen"
         >
             <Box className="bg-white rounded-lg shadow-lg text-def-t">
-                <h3 id="modal-title" className="font-semibold text-xl rounded-t-lg text-text px-6 pt-4">{modal.data === 1 ?'Accept' : 'Reject'} Applicant</h3>
+                <h3 id="modal-title" className="font-semibold text-xl rounded-t-lg text-text px-6 pt-4">{modal.data === 1 ? 'Accept' : modal.data === 4 ? 'Interview' : 'Reject'} Applicant</h3>
                 <div className="h-0.5 bg-prc rounded-xl mt-1 mx-6 max-w-40"></div>
                 <div className="px-6 py-3">
                     <div id="modal-description" className="mb-4 flex">
-                        Would you like to delete the {modal.data === 1 ?'accept' : 'reject'} this applicant?
+                        Would you like to {modal.data === 1 ? 'accept' : modal.data === 4 ? 'interview' : 'reject'} this applicant?
                     </div>
                     <span className="countdown font-mono text-5xl">
                         <span style={{ "--value": seconds }} className={`${vissiility? '' : 'hidden'}`}>{seconds}</span>
@@ -129,7 +129,7 @@ export default function ApplicantSummaryComponent() {
                         <div className="flex">
                             <div className="flex-1"></div>
                             <div className="cursor-pointer flex-none content-center mr-5 text-prc hover:underline" onClick={() => handleModal(0)}>Cancel</div>
-                            <button type="submit" className={`mt-2 bg-prc rounded-md py-2 font-bold px-4 text-white hover:bg-opacity-80`} disabled={isDisable}>{modal.data === 1 ?'Accept' : 'Reject'}</button>
+                            <button type="submit" className={`mt-2 bg-prc rounded-md py-2 font-bold px-4 text-white hover:bg-opacity-80`} disabled={isDisable}>{modal.data === 1 ? 'Accept' : modal.data === 4 ? 'Interview' : 'Reject'}</button>
                         </div>
                     </form>
                 </div>
@@ -176,6 +176,7 @@ export default function ApplicantSummaryComponent() {
         </div>
         <div className='flex gap-2 text-center mt-4 text-white font-bold'>
             <div onClick={() => handleModal(3)} className='flex-1 bg-red-700 rounded-md py-2 select-none cursor-pointer hover:bg-opacity-80'>Reject</div>
+            <div onClick={() => handleModal(4)} className='flex-1 bg-yellow-400 rounded-md py-2 select-none cursor-pointer hover:bg-opacity-80'>Interview</div>
             <div onClick={() => handleModal(1)} className='flex-1 bg-prc rounded-md py-2 select-none cursor-pointer hover:bg-opacity-80'>Accept</div>
         </div>
         </>
