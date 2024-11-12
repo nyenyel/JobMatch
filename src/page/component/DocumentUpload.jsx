@@ -90,8 +90,8 @@ export default function DocumentUpload() {
                 setResponseData(response.data.data);
                 setError(null);
                 if(response.data){
-                    navigate('/login')
-                    // alert("User Registered")
+                    // navigate('/login')
+                    alert("User Registered")
                     
                 }
             }

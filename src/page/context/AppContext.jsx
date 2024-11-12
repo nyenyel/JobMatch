@@ -14,7 +14,6 @@ export default function AppProvider( {children} ) {
         return Cookie.get('XSRF-TOKEN');
     }, []);
 
-    
     const apiClient = axios.create({
         withCredentials: true, 
         headers: {

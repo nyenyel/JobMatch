@@ -52,8 +52,11 @@ function CompanyToVerify({data}) {
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [verifyModalIsOpen, setVerifyModalIsOpen] = useState(false);
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   
   const handleVerifyModal = () => setVerifyModalIsOpen(!verifyModalIsOpen) 
+  const handleDeleteModal = () => setDeleteModalIsOpen(!deleteModalIsOpen) 
+
   const [selectedImage, setSelectedImage] = useState(null);
   // Function to toggle the modal and display the selected image
   const openImageModal = (img) => {
@@ -66,6 +69,28 @@ function CompanyToVerify({data}) {
     setModalIsOpen(false);
     setSelectedImage(null);
   };
+
+
+  const handleDelete = (e) => {
+    e.preventDefault()
+    setLoading(true)
+    const deleteData = async (e) => {
+      try{
+        const response = await apiClient.delete(crud.concat(`company/${data?.id}`),{
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        setMessage(response.data.message)
+      } catch(e) {
+        console.log('Error', e)
+      } finally {
+        setLoading(false)
+        handleDeleteModal()
+      }
+    }
+    deleteData()
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -120,7 +145,10 @@ function CompanyToVerify({data}) {
               </div>
             ))}
           </div>
-          <div className='bg-prc mt-4  cursor-pointer text-white text-center py-2 rounded-md hover:bg-prc hover:bg-opacity-85' onClick={handleVerifyModal}>Verify</div>
+          <div className='flex gap-2'>
+            <div className='bg-red-800 mt-4 flex-1  cursor-pointer text-white text-center py-2 rounded-md hover:bg-red-700 hover:bg-opacity-85' onClick={handleDeleteModal}>Reject</div>
+            <div className='bg-prc mt-4 flex-1 cursor-pointer text-white text-center py-2 rounded-md hover:bg-prc hover:bg-opacity-85' onClick={handleVerifyModal}>Verify</div>
+          </div>
         </div>
       </div>
 
@@ -159,6 +187,28 @@ function CompanyToVerify({data}) {
                 <div className='flex-1'></div>
                 <div className='cursor-pointer flex-none content-center mr-5 text-prc hover:underline' onClick={handleVerifyModal}>Cancel</div>
                 <button type='submit' className='mt-2 bg-prc rounded-md py-2 font-bold px-4 text-white hover:bg-prc hover:bg-opacity-85'>Yes</button>
+              </div>
+            </form>
+          </div>
+        </Box>
+      </Modal>
+      <Modal open={deleteModalIsOpen} onClose={handleDeleteModal} aria-labelledby="modal-title" aria-describedby="modal-description"
+             className="flex justify-center items-center h-screen">
+        <Box className="bg-red-100 z-30 rounded-lg shadow-lg text-def-t">
+          <h3 id="modal-title" className='font-semibold text-xl rounded-t-lg text-text px-6 pt-4'>Verify</h3>
+          <div className='h-0.5 bg-red-700 rounded-xl mt-1 mx-6 max-w-40'></div>
+          <div className='px-6 pb-3 pt-1 '>
+            <div id="modal-description" className='mb-4 flex '>
+              Would you like to verify the Company 
+              <div className='mx-1 font-bold'>{data.title}</div>
+              and notify them through SMS
+            </div>
+            <form onSubmit={handleDelete} className='flex flex-col'>
+              
+              <div className='flex'>  
+                <div className='flex-1'></div>
+                <div className='cursor-pointer flex-none content-center mr-5 text-black hover:underline' onClick={handleDeleteModal}>Cancel</div>
+                <button type='submit' className='mt-2 bg-red-700 rounded-md py-2 font-bold px-4 text-white hover:bg-prc-700 hover:bg-opacity-85'>Reject</button>
               </div>
             </form>
           </div>
