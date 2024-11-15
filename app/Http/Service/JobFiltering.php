@@ -7,6 +7,7 @@ use App\Http\Resources\SkillResource;
 use App\Http\Resources\UserResource;
 use App\Models\Employer\JobPost;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class JobFiltering{
 
@@ -15,7 +16,7 @@ class JobFiltering{
         'profession',
         'company',
         'status',
-        'skill.skill'
+        'skill.skill.links'
     ];
 
     private $userRelation = [
@@ -90,7 +91,6 @@ class JobFiltering{
         $user = UserResource::make($user);
     
         $data = [];
-        $skillReq = [];
         $pj = 2;
     
         foreach($jobPost as $job){
@@ -100,6 +100,8 @@ class JobFiltering{
             $sj = $job->skill->count();        
             $ae = 0;
             $je = $job->experience;
+            $skillRecom = [];
+            $skillReq = [];
     
             if($user->lib_profession_id == $jobProfession){
                 $pa += 2;
@@ -111,10 +113,14 @@ class JobFiltering{
                     if($jobSkills->lib_skill_id == $userSkills->lib_skill_id ||  $jobSkills->skill->desc === $userSkills->skill->desc){
                         $sa += 1;
                         $skillExist = true;
-                    }
+                    } 
                 }
                 if(!$skillExist){
                     $skillReq[] = $jobSkills->skill;
+                    foreach($jobSkills->skill->links as $link){
+                        $skillRecom [] = $link;
+                        Log::info('Recomendation', ['linkgs' => $link]);
+                    }
                 }
             }
             foreach($user->experience as $experience){
@@ -134,11 +140,16 @@ class JobFiltering{
             $denaminator = $Ep + $pj + $sj;
             $x = ($denaminator > 0) ? ($numerator / $denaminator) * 100 : 0;
     
-            $data[] = [
-                'percentage' => number_format($x, 2),
-                'req' => SkillResource::collection($skillReq),
-                'job' => JobPostResource::make($job->load('level'))
-            ];
+            // if($x != 0){
+
+                $data[] = [
+                    'percentage' => number_format($x, 2),
+                    'req' => SkillResource::collection($skillReq),
+                    'job' => JobPostResource::make($job->load('level')),
+                    'recommendation' => $skillRecom,
+                ];
+            // }
+
         }
         usort($data, function ($a, $b) {
             return $b['percentage'] <=> $a['percentage'];
@@ -181,7 +192,9 @@ class JobFiltering{
                 }
             }
             if (!$skillExist) {
-                $skillReq[] = $jobSkills->skill;
+                foreach($jobSkills->skill->links as $link){
+                    $skillReq[] = $link;
+                }
             }
         }
 
@@ -201,8 +214,17 @@ class JobFiltering{
         $denominator = $Ep + $pj + $sj;
         $matchPercentage = ($denominator > 0) ? ($numerator / $denominator) * 100 : 0;
 
-            
-        return response()->json(['percentage' => number_format($matchPercentage, 2)]);
+        // $accepted = $job->employer->jobPost->application()->where('lib_status_id', 3)->count();
+         
+        $accepted = $job->employer->jobPost()->withCount(['application' => function ($query) {
+            $query->where('lib_status_id', 1);
+        }])->get()->sum('application_count');
+
+        return response()->json([
+            'percentage' => number_format($matchPercentage, 2),
+            'recommendation' => $skillReq,
+            'accepted' => $accepted
+        ]);
     }
     
     public function openJob(){

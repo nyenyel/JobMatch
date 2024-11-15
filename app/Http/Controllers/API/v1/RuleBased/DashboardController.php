@@ -20,12 +20,26 @@ class DashboardController
         $rejected = JobApplicant::where('lib_status_id',3)->count();
         
         //applicant location
-        $capasApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Capas') . '%')->count();
-        $bambanApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Bamban') . '%')->count();
-        $geronaApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Gerona') . '%')->count();
-        $paniquiApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Paniqui') . '%')->count();
-        $conceptionApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('conception') . '%')->count();
-
+        $arangurenApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Aranguren') . '%')->count();
+        $buenoApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Bueno') . '%')->count();
+        $cristoReyApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Cristo Rey') . '%')->count();
+        $cubcubApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Cubcub') . '%')->count();
+        $cutcut1stApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Cutcut 1st') . '%')->count();
+        $cutcut2ndApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Cutcut 2nd') . '%')->count();
+        $doloresApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Dolores') . '%')->count();
+        $estradaApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Estrada') . '%')->count();
+        $lawyApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Lawy') . '%')->count();
+        $mangaApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Manga') . '%')->count();
+        $manlapigApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Manlapig') . '%')->count();
+        $marugluApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Maruglu') . '%')->count();
+        $oDonnellApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower("O'Donnell") . '%')->count();
+        $santaJulianaApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Santa Juliana') . '%')->count();
+        $santaLuciaApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Santa Lucia') . '%')->count();
+        $santaRitaApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Santa Rita') . '%')->count();
+        $santoDomingo1stApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Santo Domingo 1st') . '%')->count();
+        $santoDomingo2ndApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Santo Domingo 2nd') . '%')->count();
+        $santoRosarioApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Santo Rosario') . '%')->count();
+        $talagaApplicant = User::where(DB::raw('LOWER(address)'), 'LIKE', '%' . strtolower('Talaga') . '%')->count();
 
         //applicant status
         $acceptedStatus = LibApplicationStatus::where('id', 1)->get();
@@ -73,11 +87,26 @@ class DashboardController
                 'rejected' => $rejected,
             ],
             'userLocation' => [
-                'capas' => $capasApplicant,
-                'bamban' => $bambanApplicant,
-                'gerona' => $geronaApplicant,
-                'paniqui' => $paniquiApplicant,
-                'conception' => $conceptionApplicant,
+                'aranguren' => $arangurenApplicant,
+                'bueno' => $buenoApplicant,
+                'cristo_rey' => $cristoReyApplicant,
+                'cubcub' => $cubcubApplicant,
+                'cutcut_1st' => $cutcut1stApplicant,
+                'cutcut_2nd' => $cutcut2ndApplicant,
+                'dolores' => $doloresApplicant,
+                'estrada' => $estradaApplicant,
+                'lawy' => $lawyApplicant,
+                'manga' => $mangaApplicant,
+                'manlapig' => $manlapigApplicant,
+                'maruglu' => $marugluApplicant,
+                'o_donnell' => $oDonnellApplicant,
+                'santa_juliana' => $santaJulianaApplicant,
+                'santa_lucia' => $santaLuciaApplicant,
+                'santa_rita' => $santaRitaApplicant,
+                'santo_domingo_1st' => $santoDomingo1stApplicant,
+                'santo_domingo_2nd' => $santoDomingo2ndApplicant,
+                'santo_rosario' => $santoRosarioApplicant,
+                'talaga' => $talagaApplicant,
             ],
             'capasApplicant' => [
                 'pending' => $pendingInCapas,

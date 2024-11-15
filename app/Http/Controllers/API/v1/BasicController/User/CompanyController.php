@@ -40,7 +40,7 @@ class CompanyController
      */
     public function show(Company $company)
     {
-        $company->load(['owner', 'jobs.skill.skill', 'jobs.level', 'jobs.employer', 'jobs.company']);
+        $company->load(['owner.myReviews', 'jobs.skill.skill', 'jobs.level', 'jobs.employer', 'jobs.company']);
         return CompanyResource::make($company);
     }
 
