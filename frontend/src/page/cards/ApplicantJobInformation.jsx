@@ -5,7 +5,7 @@ import ProfessionLevel from './ProfessionLevel'
 import { NavLink } from 'react-router-dom'
 
 
-export default function ApplicantJobInformation({data, user}) {
+export default function ApplicantJobInformation({data, user, recommend}) {
     // console.log(data)
   return (
     <NavLink 
@@ -13,7 +13,8 @@ export default function ApplicantJobInformation({data, user}) {
         state={{ 
             jobData: data?.job, 
             percentage: data?.percentage,
-            user: user
+            user: user,
+            recommend: recommend
         }}
         className='bg-white flex p-4 rounded-lg text-text mb-2 hover:bg-white hover:bg-opacity-80 cursor-pointer'
     >

@@ -18,6 +18,7 @@ export default function SearchResultComponent() {
     const handleEmployerNav = (id) => {
         if(type === 'company'){nav(`/employer/search/company/${id}`)}
         if(type === 'jobs'){nav(`/employer/search/jobs/${id}`)}
+        if(type === 'user'){nav(`/employer/search/user/${id}`)}
     }
 
     const handleApplicantNav = (id) => {
@@ -30,7 +31,7 @@ export default function SearchResultComponent() {
 
     const singleResult = () => {
         // Check if data has only one result and type is 'user'
-        if (type === 'user' && data.length === 1) {
+        if (type === 'user' && data.length === 1 && role === 'Admin') {
             nav(`/Admin/Accounts/${data[0].id}`); // Navigate to the first item's id
         }
     };

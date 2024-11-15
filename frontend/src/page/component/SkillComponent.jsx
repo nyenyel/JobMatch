@@ -145,10 +145,9 @@ export default function SkillComponent() {
         <div onClick={handleEditModal} className='bg-yellow-500 content-center flex p-2 rounded-md cursor-pointer hover:bg-opacity-70'>
             <span className="icon-[fluent--edit-20-filled] bg-white w-4 h-4 "></span>
         </div>
-        <div onClick={handleDeleteModal} className='bg-red-700 content-center flex p-2 rounded-md cursor-pointer hover:bg-opacity-70'>
+        {/* <div onClick={handleDeleteModal} className='bg-red-700 content-center flex p-2 rounded-md cursor-pointer hover:bg-opacity-70'>
             <span className="icon-[ic--round-delete] bg-white w-4 h-4 "></span>
-        </div>
-  
+        </div> */}
         <div className='bg-text flex-1 content-center h-0.5 bg-opacity-30'></div>
     </div>
     <div className='flex'>

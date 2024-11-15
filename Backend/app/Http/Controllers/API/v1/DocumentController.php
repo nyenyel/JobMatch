@@ -43,19 +43,18 @@ class DocumentController
                 }
             }
         }
-
         $fullname = explode(',', $data[0]);
         $phoneNo = explode(':', $data[3]);
         $email = explode(':', $data[4]);
         $username = explode('@', $email[1]);
         $gender = explode(':', $data[9]);
         $userData = [
-            "email" => $email[1],
+            "email" => trim($email[1]),
             "password" => $request['password'],
             "username" => $username[0],
             "phone_no" => $phoneNo[1],
             "first_name" => $fullname[0],
-            "middle_name" => $fullname[2],
+            "middle_name" => $fullname[2] ?? '',
             "last_name" => $fullname[1],
             "address"=> $data[2],
             "desc" => $data[6],
@@ -64,6 +63,7 @@ class DocumentController
             "lib_gender_id" => 1,
             "lib_profession_id" => 3
         ];
+
 
         $validator = Validator::make($userData, [
             'email' => 'required|email|unique:users,email'

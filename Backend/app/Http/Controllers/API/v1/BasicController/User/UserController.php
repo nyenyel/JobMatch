@@ -13,7 +13,10 @@ class UserController
 {
     protected $relation = [
         'role',
-        'gender'
+        'gender',
+        'skill.skill',
+        'experience',
+        'profession',
     ];
     /**
      * Display a listing of the resource.

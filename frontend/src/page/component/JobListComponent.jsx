@@ -13,7 +13,6 @@ export default function JobListComponent() {
   const { user, token , apiClient} = useContext(AppContext); // Get user and token from context
   const [jobs, setJobs] = useState(null); // State to store the job recommendations
   const [error, setError] = useState(null); // State to store errors if any
-
   const getRecommendation = async () => {
     try {
       const response = await apiClient.get(ruleBased.concat(`recommend/${user?.data.id}`), {
@@ -22,6 +21,8 @@ export default function JobListComponent() {
         }
       });
       setJobs(response.data); // Make sure to set the correct data here
+      console.log(response)
+      console.log(response.data)
     } catch (error) {
       setError(error); // Set the error to state
       if (error.response) {
@@ -53,7 +54,7 @@ export default function JobListComponent() {
   <AdminRedirect />
   <EmployerRedirect />
   <div className='flex'>
-    <div className='sticky h-full top-0'>
+    <div className='sticky h-full top-0 max-[1100px]:hidden'>
       <ApplicantProfileSummary />
     </div>
     <div className='flex-1 ml-3 w-full'>
@@ -79,11 +80,11 @@ export default function JobListComponent() {
               </label>
           </div>
           {jobs?.map((item, index) => (
-            <ApplicantJobInformation key={index} data={item} user={user?.data}/>
+            <ApplicantJobInformation key={index} data={item} user={user?.data} recommend={item?.recommendation}/>
           ))}
       </div>
     </div>
-    <div className='sticky h-full top-0'>
+    <div className='sticky h-full top-0 max-[800px]:hidden'>
           <ContactComponent />
     </div>
   </div>

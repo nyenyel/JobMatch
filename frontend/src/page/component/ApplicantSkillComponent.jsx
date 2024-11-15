@@ -9,6 +9,7 @@ import ApplicantInformation from '../cards/ApplicantInformation'
 import ApplicantProfileSummary from '../cards/ApplicantProfileSummary'
 import { AppContext } from '../context/AppContext'
 import ContactComponent from './ContactComponent'
+import { Success } from '../cards/Warning'
 
 
 export default function ApplicantSkillComponent() {
@@ -16,8 +17,12 @@ export default function ApplicantSkillComponent() {
     const navigate = useNavigate()
     const [applicantSkillForm, setApplicantSkillForm] = useState()
     const [apiResponse, setApiResponse] = useState()
+    const [loading, setLoading] = useState(false)
+    const [dataAdded, setDataAdded] = useState(false)
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const handleModal = () => setModalIsOpen(!modalIsOpen)
+    const handleAdded = () => setDataAdded(!dataAdded)
+
     const handleChange =  (e) => {
         const {name, value} = e.target
         setApplicantSkillForm({
@@ -29,14 +34,16 @@ export default function ApplicantSkillComponent() {
     }
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setLoading(true)
         try {
             const response = await apiClient.post(crud.concat('applicant-skill'), applicantSkillForm, {
                     headers: {
                             'Content-Type': 'application/json'
                         }
                     })
+            handleModal()
+            handleAdded()
             // console.log(applicantSkillForm)
-            navigate(0)
         } catch (error) {
             if (error.response) {
               setApiResponse(error.response.data.errors)
@@ -48,12 +55,23 @@ export default function ApplicantSkillComponent() {
             } else {
               console.error('Error Message:', error.message);
             }
-          }
-        //   console.log(jobSkillForm)
+          } finally{
+            setLoading(false)
+            setTimeout(() => {
+                setDataAdded(false)
+            }, 3000)
         }
-        // console.log(user)
+    }
     return (
         <>
+        {dataAdded && 
+            <div className=' absolute -ml-14 z-50 w-full flex cursor-pointer' onClick={handleAdded}>
+                <div className='flex-1' />
+                <div className='flex-none'>
+                    <Success message={'Skill added succesfully!'}/>
+                </div>
+            </div>
+        }
         <div className='flex'>
             <ApplicantProfileSummary />
             <div className='flex-1 ml-4'>
@@ -97,7 +115,7 @@ export default function ApplicantSkillComponent() {
                     </Box>
                 </Modal>
             </div>
-            <div className='sticky h-full top-0'>
+            <div className='sticky h-full top-0 max-[1100px]:hidden'>
                 <ContactComponent />
             </div>
         </div>

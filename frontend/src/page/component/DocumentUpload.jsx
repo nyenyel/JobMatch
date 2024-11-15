@@ -90,8 +90,8 @@ export default function DocumentUpload() {
                 setResponseData(response.data.data);
                 setError(null);
                 if(response.data){
-                    navigate('/login')
-                    // alert("User Registered")
+                    // navigate('/login')
+                    alert("User Registered")
                     
                 }
             }
@@ -112,13 +112,13 @@ export default function DocumentUpload() {
             style={{ backgroundImage: `url(${bgImage})` }}>
             <div className=' absolute inset-0 backdrop-blur-md flex items-center justify-center'>
                 <div className='flex w-auto rounded-md p-5 drop-shadow-sm'>
-                    <div className='bg-prc to-white rounded-l-md p-10  py-10 flex flex-col'>
+                    <div className='bg-prc max-[1100px]:hidden to-white rounded-l-md p-10  py-10 flex flex-col'>
                         <div className='flex-1 h-auto text-center text-white text-sm'>
                             Welcome to
                         </div>
                         <div className='flex-1'></div>
                         <div className='flex-none flex justify-center items-center'>
-                            <div className='p-1 py-4 bg-white  rounded-lg'>
+                            <div className='p-1 py-4 bg-white  rounded-full'>
                                 <Badge />
                             </div>
                         </div>

@@ -1,11 +1,12 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import icon from '../../assets/icon.png'
 
 export default function Logo() {
   return (
     <div className=' flex'>
         <Badge/>
-        <div className='ml-2 flex-none mt-0.5'>
+        {/* <div className='ml-2 flex-none mt-0.5'>
             <div className='h-1 rounded-full bg-prc'></div>
             <div className='mt-1 flex'>
                 <div className='h-4 w-4 rounded-full bg-prc z-50'></div>
@@ -15,15 +16,15 @@ export default function Logo() {
                 <div className='h-4 w-4 rounded-full bg-prc -ml-1.5 z-10'></div>
             </div>
         <div className='font-extrabold text-prc select-none'>Job-Matching</div>
-        </div>
+      </div> */}
     </div>
   )
 }
 
 export function Badge(){
     return (
-    <NavLink to={'/'} className=' select-none flex-none bg-prc p-3 font-extrabold text-white rounded-lg'>
-            JM
+    <NavLink to={'/'} className=' select-none flex-none font-extrabold text-white rounded-lg'>
+            <img src={`${icon}`} className='h-12 m-3' ></img>
     </NavLink>
     )
 }

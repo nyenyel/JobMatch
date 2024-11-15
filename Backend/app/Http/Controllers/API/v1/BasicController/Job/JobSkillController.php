@@ -33,14 +33,21 @@ class JobSkillController
         $skillExist = LibSkill::where('desc', $validated['desc'])
                             ->where('lib_profession_id',$validated['lib_profession_id'])
                             ->first();
+
+
         if($skillExist){
             $skillID = $skillExist->id;
-            $skill = JobSkill::create([
-                'lib_skill_id' => $skillID,
-                'job_id' => $validated['job_id'],
-            ]);
-
-            return JobSkillResource::make($skill->load($this->relation));
+            $jobSkillExist = JobSkill::where('lib_skill_id',$skillID)
+                            ->where('job_id', $validated['job_id'])
+                            ->exists();
+            if(!$jobSkillExist){
+                $skill = JobSkill::create([
+                    'lib_skill_id' => $skillID,
+                    'job_id' => $validated['job_id'],
+                ]);
+                return JobSkillResource::make($skill->load($this->relation));
+            }
+            return response()->json(['result' => 'Data already exist']);
         }
         else{
             $newSkill = LibSkill::create([

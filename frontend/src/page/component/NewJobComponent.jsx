@@ -126,7 +126,7 @@ export default function NewJobComponent() {
                         <option key={index} value={item.id}>{item.desc}</option>
                     ))}
                 </select>
-                <div className='my-2 flex'>
+                <div className='my-2 flex max-[800px]:flex-col'>
                     <div className='flex-1 mr-2'>
                         <label  className='text-sm'>Job Title</label>
                         <input type='text' name='title' onChange={handleChange} placeholder='Enter the job title' className='px-3 py-2 border-2 w-full rounded-md'/>

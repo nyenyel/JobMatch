@@ -31,15 +31,15 @@ export default function SearchComponent() {
         if(data.type === 'user'){nav(`/Admin/Accounts/${id}`)}
     }
     return (
-    <div className='flex-1'>
+    <div className='flex-1 '>
         <form className='flex flex-col' onSubmit={handleSubmit}>
             <div className='flex'>
                 <select name='type' onChange={handleChange} value={data?.type} className='p-2 bg-black bg-opacity-5 rounded-l-full'>
                     <option value={'company'}>Company</option>
                     <option value={'jobs'}>Jobs</option>
-                    {role === 'Admin' && <option value={'user'}>Users</option>}
+                    {role !== 'Applicant' && <option value={'user'}>Users</option>}
                 </select>
-                <input required name='term' onChange={handleChange} className='bg-black bg-opacity-5 p-2 flex-1 ' placeholder='Search term...'/>
+                <input required name='term' onChange={handleChange} className='bg-black bg-opacity-5 max-[600px]:w-14 p-2 flex-1 ' placeholder='Search term...'/>
                 <div className='bg-black bg-opacity-5 p-2 pr-4 pt-3 rounded-r-full'>
                     <span className="icon-[mingcute--search-fill] bg-prc"></span>
                 </div>
