@@ -38,22 +38,24 @@ export default function TopBar({links}) {
   return (
     <>
     {loading &&  (<Loading />)}
-    <div className='px-5 bg-white flex'>
-      <div className='py-3 flex-1'>
+    <div className='px-5 bg-white flex '>
+      <div className=' flex-1'>
         <Logo />
       </div>
       <div className=' flex mr-4'>
         <div className='  cursor-pointer hover:bg-opacity-5 content-center px-8'>
           <SearchComponent></SearchComponent>
         </div>
-      {links.map((item, index) => (
-        <NavLink key={index} to={item} 
-        className={({ isActive }) => {
-          return ` hover:bg-black hover:bg-opacity-5 content-center px-8 ${isActive ? 'border-b-4 border-prc font-bold text-prc': ''}`
-        }}>
-          {item}
-        </NavLink>
-      ))}
+        <div className='max-[1200px]:hidden flex'>
+          {links.map((item, index) => (
+            <NavLink key={index} to={item} 
+            className={({ isActive }) => {
+              return ` hover:bg-black hover:bg-opacity-5 content-center px-8 ${isActive ? 'border-b-4 border-prc font-bold text-prc': ''}`
+            }}>
+              {item}
+            </NavLink>
+          ))}
+        </div>
       </div>
       <div className='flex h-auto items-center justify-center'>
       <div>
@@ -69,6 +71,22 @@ export default function TopBar({links}) {
             </button>
           </div>
           <div className={`${logoutIsVissible ? 'absolute' : 'hidden'} right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`} role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
+            <div className='min-[1200px]:hidden flex flex-col gap-2 p-4'>
+              {links.map((item, index) => (
+                <NavLink key={index} to={item} 
+                className={({ isActive }) => {
+                  return ` hover:bg-black hover:bg-opacity-5 content-center  ${isActive ? 'border-b-4 border-prc font-bold text-prc': ''}`
+                }}>
+                  {item}
+                </NavLink>
+              ))}
+              <NavLink  to={'contact'} 
+                className={({ isActive }) => {
+                  return ` hover:bg-black hover:bg-opacity-5 content-center  ${isActive ? 'border-b-4 border-prc font-bold text-prc': ''}`
+                }}>
+                  Contact
+                </NavLink>
+            </div>
             <div className="py-1" role="none">
                 <button onClick={handleNavigate} className="block hover:bg-black hover:bg-opacity-5 w-full px-4 py-2 text-left text-sm text-gray-700" role="menuitem" tabIndex="-1" id="menu-item-3">Profile</button>
             </div>

@@ -3,7 +3,7 @@ import React from 'react'
 export default function EmployerProfileSummary({data}) {
     const user = data?.data
   return (
-    <div className=' w-72 rounded-lg h-full flex-none pb-4 drop-shadow-sm bg-white'>
+    <div className=' w-72 rounded-lg h-full flex-none max-[1100px]:hidden pb-4 drop-shadow-sm bg-white'>
         <div className='bg-prc w-full min-h-20 rounded-t-lg'></div>
         <div className=' px-4 -mt-9 text-text'>
             <div className=' w-16 h-16 bg-text rounded-full border-2 border-white' style={{

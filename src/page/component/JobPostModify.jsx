@@ -108,7 +108,7 @@ export default function JobPostModify() {
             <div className=' h-0.5 bg-prc max-w-96 mb-3'></div>
             <form onSubmit={handleSubmit}>
                 <label className='text-sm'>Please Select your Company</label>
-                <ul className="grid w-full gap-1 items-center justify-center grid-cols-4 mb-2">
+                <ul className="grid  w-full gap-1 items-center justify-center grid-cols-4 mb-2">
                     {user?.data?.company.map((item, index) => (
                     <div key={index}>
                         {item.id === data?.company?.id ? (
@@ -159,7 +159,7 @@ export default function JobPostModify() {
                         </option>
                     ))}
                 </select>
-                <div className='my-2 flex'>
+                <div className='my-2 flex max-[800px]:flex-col'>
                     <div className='flex-1 mr-2'>
                         <label  className='text-sm'>Job Title</label>
                         <input type='text' name='title' value={jobForm?.title || ''} onChange={handleChange} placeholder='Enter the job title' className='px-3 py-2 border-2 w-full rounded-md'/>
@@ -183,7 +183,7 @@ export default function JobPostModify() {
                     onChange={handleChange} 
                     value={jobForm?.desc || ''}
                 />
-                <button type='submit' className=' w-full bg-prc py-2 rounded-md text-white mt-2'>Create</button>
+                <button type='submit' className=' w-full bg-prc py-2 rounded-md text-white mt-2'>Update</button>
             </form>
         </div>
     </>

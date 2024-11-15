@@ -26,16 +26,19 @@ export default function SearchCompanyResultComponent({isApplicant = false}) {
     return (
         <>
         {loading && <Loading />}
-        <div className='flex gap-2'>
+        <div className='flex gap-2 max-[800px]:flex-col'>
             <div className='flex-none h-full min-w-96 bg-white p-5 rounded-md text-xl font-bold text-text'>
                 <div className='flex bg-prc rounded-full w-12 h-12' style={{ backgroundImage: `url(${data?.owner?.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
-                {data?.owner?.last_name}, {data?.owner?.first_name} {data?.owner?.middle_name.charAt(0)}.
+                {data?.owner?.last_name}, {data?.owner?.first_name} {data?.owner?.middle_name.charAt(0)}. {`(★${data?.owner?.rating})`}
                 <div className=' flex mt-2 font-normal text-base'>{data?.owner?.email}</div>
                 <div className=' flex font-normal text-base'>{data?.owner?.phone_no}</div>
                 <div className=' flex font-normal text-base'>{data?.owner?.sector}</div>
+                My Reviews
+                {data?.owner?.review.map((item, index) => (
+                    <div key={index} className=' flex font-normal text-base'>{`(★${item.rate}) ${item?.review}`}</div>
+                ))}
             </div>
             <div className='flex-1 h-full'>
-
                 <div className='flex flex-col bg-white p-5 rounded-md text-xl font-bold text-text'>
                     {data?.title}
                     <div className=' flex mt-2 font-normal text-base'>{data?.desc}</div>

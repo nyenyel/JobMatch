@@ -17,7 +17,7 @@ export default function ApplicationComponent() {
     <AdminRedirect />
     <EmployerRedirect />
     <div className='flex'>
-      <div className='sticky h-full top-0'>
+      <div className='sticky h-full top-0 max-[1100px]:hidden'>
         <ApplicantProfileSummary />
       </div>
       <div className='flex-1 ml-3 w-full'>
@@ -28,7 +28,7 @@ export default function ApplicationComponent() {
 
         </div>
       </div>
-      <div className='sticky h-full top-0'>
+      <div className='sticky h-full top-0 max-[1100px]:hidden'>
           <ContactComponent />
       </div>
     </div>

@@ -190,7 +190,7 @@ export default function CompanyComponent() {
             ))}
           </div>
         </div>
-        <div className='sticky h-full top-0'>
+        <div className='sticky h-full top-0 max-[800px]:hidden'>
           <ContactComponent />
         </div>
       </div>

@@ -29,7 +29,7 @@ export default function SearchJobsResultComponent() {
     return (
         <>
         {loading && <Loading />}
-        <div className='flex-1 p-4 bg-white rounded-md h-full mb-2'>
+        <div className='flex-1 p-4 bg-white rounded-md h-auto mb-2'>
                     <div className='font-bold text-xl'>{data?.company?.title}</div>
                     <div className='font-base text-sm'>Employer: {data?.employer?.last_name}, {data?.employer?.first_name} {data?.employer?.middle_name.charAt(0)}. ({data?.employer?.rating}★)</div>
                     <div className='bg-black max-w-80 h-0.5 bg-opacity-20 rounded-full my-1'></div>

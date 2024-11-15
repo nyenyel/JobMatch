@@ -91,13 +91,13 @@ export default function EmployerRegistrationComponent() {
             style={{ backgroundImage: `url(${bgImage})` }}>
             <div className=' absolute inset-0 backdrop-blur-md flex items-center justify-center'>
                 <div className='flex w-auto rounded-md p-5 drop-shadow-sm'>
-                    <div className='bg-prc to-white rounded-l-md p-5 py-10 flex flex-col'>
+                    <div className='bg-prc max-[1100px]:hidden to-white rounded-l-md p-5 py-10 flex flex-col'>
                         <div className='flex-1 h-auto text-center text-white text-sm'>
                             Welcome to
                         </div>
                         <div className='flex-1'></div>
                         <div className='flex-none flex justify-center items-center'>
-                            <div className='p-1 py-4 bg-white  rounded-lg'>
+                            <div className='p-1 py-4 bg-white  rounded-full'>
                                 <Badge />
                             </div>
                         </div>
@@ -109,100 +109,100 @@ export default function EmployerRegistrationComponent() {
                         <div className='flex-1'></div>
                         <div className='flex-none text-center font-thin text-xs text-white'>@ Copyright Emes | More</div>
                     </div>
-                    <div className='bg-white rounded-r-md py-14 px-8 text-text'>
+                    <div className='bg-white rounded-r-md py-14 max-[1100px]:overflow-y-auto max-[1100px]:h-screen px-8 text-text'>
                         <div className='font-extralight text-2xl'>
                             Register
                         </div>
                         <div className='mb-8 text-sm'>Please Enter your Login Information.</div>
 
                         <form onSubmit={handleSubmit}>
+                        <div className='max-[650px]:flex-col flex gap-2'>
+                            <div className='flex flex-1 flex-col'>
+                                <label className='text-sm'> First Name</label>
+                                <input 
+                                    required
+                                    type='text' 
+                                    name='first_name'
+                                    placeholder='First Name'
+                                    onChange={handleChange}
+                                    className='p-2 border-b-2'
+                                />
+                            </div>
+                            <div className='flex flex-col'>
+                                <label className='text-sm'> Middle Name</label>
+                                <input 
+                                    required
+                                    type='text' 
+                                    name='middle_name'
+                                    onChange={handleChange}
+                                    placeholder='Middle Name'
+                                    className='p-2 border-b-2'
+                                />
+                            </div>
+                            <div className='flex flex-col'>
+                                <label className='text-sm'> Last Name</label>
+                                <input 
+                                    type='text' 
+                                    required
+                                    name='last_name'
+                                    onChange={handleChange}
+                                    placeholder='Last Name'
+                                    className='p-2 border-b-2'
+                                />
+                            </div>
+                        </div>
                         <div className='flex gap-2'>
-                                    <div className='flex flex-1 flex-col'>
-                                        <label className='text-sm'> First Name</label>
-                                        <input 
-                                            required
-                                            type='text' 
-                                            name='first_name'
-                                            placeholder='First Name'
-                                            onChange={handleChange}
-                                            className='p-2 border-b-2'
-                                        />
-                                    </div>
-                                    <div className='flex flex-col'>
-                                        <label className='text-sm'> Middle Name</label>
-                                        <input 
-                                            required
-                                            type='text' 
-                                            name='middle_name'
-                                            onChange={handleChange}
-                                            placeholder='Middle Name'
-                                            className='p-2 border-b-2'
-                                        />
-                                    </div>
-                                    <div className='flex flex-col'>
-                                        <label className='text-sm'> Last Name</label>
-                                        <input 
-                                            type='text' 
-                                            required
-                                            name='last_name'
-                                            onChange={handleChange}
-                                            placeholder='Last Name'
-                                            className='p-2 border-b-2'
-                                        />
-                                    </div>
-                                </div>
-                                <div className='flex gap-2'>
-                                    <div className='flex flex-1none flex-col'>
-                                        <label className='text-sm'>Gender</label>
-                                        <select 
-                                            required
-                                            type='text' 
-                                            name='lib_gender_id'
-                                            placeholder='Address'
-                                            onChange={handleChange}
-                                            className='p-2 border-b-2'
-                                        >
-                                            <option value={1}>Male</option>
-                                            <option value={2}>Female</option>
-                                        </select>
-                                    </div>
-                                    <div className='flex flex-1 flex-col'>
-                                        <label className='text-sm'> Address</label>
-                                        <input 
-                                            type='text' 
-                                            required
-                                            name='address'
-                                            placeholder='Address'
-                                            onChange={handleChange}
-                                            className='p-2 border-b-2'
-                                        />
-                                    </div>
-                                </div>
-                                <div className='flex gap-2'>
-                                    <div className='flex flex-1 flex-col'>
-                                        <label className='text-sm'> Email</label>
-                                        <input 
-                                            required
-                                            type='text' 
-                                            name='email'
-                                            placeholder='Email'
-                                            onChange={handleChange}
-                                            className='p-2 border-b-2'
-                                        />
-                                    </div>
-                                    <div className='flex flex-1 flex-col'>
-                                        <label className='text-sm'> Phone No</label>
-                                        <input 
-                                            required
-                                            type='text' 
-                                            name='phone_no'
-                                            onChange={handleChange}
-                                            placeholder='Ex: 094827362941'
-                                            className='p-2 border-b-2'
-                                        />
-                                    </div>
-                                </div>
-                            <div className='flex  flex-col gap-2'>
+                            <div className='flex flex-1none flex-col'>
+                                <label className='text-sm'>Gender</label>
+                                <select 
+                                    required
+                                    type='text' 
+                                    name='lib_gender_id'
+                                    placeholder='Address'
+                                    onChange={handleChange}
+                                    className='p-2 border-b-2'
+                                >
+                                    <option value={1}>Male</option>
+                                    <option value={2}>Female</option>
+                                </select>
+                            </div>
+                            <div className='flex flex-1 flex-col'>
+                                <label className='text-sm'> Address</label>
+                                <input 
+                                    type='text' 
+                                    required
+                                    name='address'
+                                    placeholder='Address'
+                                    onChange={handleChange}
+                                    className='p-2 border-b-2'
+                                />
+                            </div>
+                        </div>
+                        <div className='flex gap-2 max-[650px]:flex-col'>
+                            <div className='flex flex-1 flex-col'>
+                                <label className='text-sm'> Email</label>
+                                <input 
+                                    required
+                                    type='text' 
+                                    name='email'
+                                    placeholder='Email'
+                                    onChange={handleChange}
+                                    className='p-2 border-b-2'
+                                />
+                            </div>
+                            <div className='flex flex-1 flex-col'>
+                                <label className='text-sm'> Phone No</label>
+                                <input 
+                                    required
+                                    type='text' 
+                                    name='phone_no'
+                                    onChange={handleChange}
+                                    placeholder='Ex: 094827362941'
+                                    className='p-2 border-b-2'
+                                />
+                            </div>
+                        </div>
+                        <div className='flex  flex-col gap-2'>
                             <div className='flex flex-1 flex-col'>
                                 <label className='text-sm'> Username</label>
                                 <input 

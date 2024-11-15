@@ -131,6 +131,7 @@ export default function LinkComponent() {
         <ApplicantRedirect />
         <EmployerRedirect />
         {loading && (<Loading />)}
+        
         <div className='bg-white p-4 ml-3 rounded-md min-w-72 max-w-96'>
             <div className='flex'>
                 <div onClick={handleEditModal} className=' content-center flex mt-2 mr-1 rounded-md cursor-pointer hover:bg-opacity-70'>
@@ -143,7 +144,9 @@ export default function LinkComponent() {
                 <div className='content-center underline cursor-pointer' onClick={handleModal}>New link</div>
             </div>
             <div className='w-full h-0.5 bg-text bg-opacity-30'></div>
+            <div className='font-bold mt-2 '>Link Recommendations</div>
             <ul className='underline mt-2'>
+                
                 {data?.links.map((item, index) => (
                     <li key={index} className='truncate flex'>
                         <div 

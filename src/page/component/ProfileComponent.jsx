@@ -108,11 +108,11 @@ export default function ProfileComponent() {
                 My Profile
                 <div className='p-4 bg-white rounded-md mt-2'>
                     <form onSubmit={handleSubmit} className='text-base font-normal flex flex-col gap-10'>
-                        <div className='flex-1 flex gap-4 '>
+                        <div className='flex-1 flex gap-4 max-[900px]:flex-col'>
                             <div className=' flex-1'>
                                 Basic Information
                             </div>
-                            <div className='bg-text opacity-35 w-0.5 flex-none'/>
+                            <div className='bg-text opacity-35 w-0.5 max-[900px]:hidden flex-none'/>
                             <div className='flex flex-col flex-1 gap-2'>
                                 <label 
                                     className='h-24 w-24  rounded-full cursor-pointer'
@@ -136,7 +136,7 @@ export default function ProfileComponent() {
                                     onChange={handleChange}
                                     className='bg-black hidden p-2 cursor-pointer bg-opacity-5' 
                                 />
-                                <div className='flex gap-2'>
+                                <div className='flex gap-2 max-[900px]:flex-col'>
                                     <div className='flex flex-1 flex-col'>
                                         <label className='text-sm'> First Name</label>
                                         <input 
@@ -225,11 +225,11 @@ export default function ProfileComponent() {
                             </div>
                         </div>
 
-                        <div className='flex-1 flex gap-4 '>
+                        <div className='flex-1 flex gap-4 max-[900px]:flex-col'>
                             <div className=' flex-1'>
                                 Account Information
                             </div>
-                            <div className='bg-text opacity-35 w-0.5 flex-none'/>
+                            <div className='bg-text opacity-35 w-0.5 flex-none '/>
                             <div className='flex flex-col flex-1 gap-2'>
                                 <div className='flex gap-2'>
                                     <div className='flex flex-1 flex-col'>
@@ -274,11 +274,11 @@ export default function ProfileComponent() {
                             </div>
                         </div>
 
-                        <div className='flex-1 flex gap-4 '>
-                            <div className=' flex-1'>
+                        <div className='flex-1 flex gap-4 max-[900px]:flex-col '>
+                            <div className=' flex-1 '>
                                 Change Password
                             </div>
-                            <div className='bg-text opacity-35 w-0.5 flex-none'/>
+                            <div className='bg-text opacity-35 w-0.5 flex-none '/>
                             <div className='flex flex-col flex-1 gap-2'>
                                 <div className='flex gap-2'>
                                     <div className='flex flex-1 flex-col'>

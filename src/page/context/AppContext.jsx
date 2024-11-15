@@ -22,7 +22,6 @@ export default function AppProvider( {children} ) {
         }
     });
 
-
     apiClient.interceptors.request.use(
         (config) => {
             const token = localStorage.getItem('token'); // Get token from localStorage

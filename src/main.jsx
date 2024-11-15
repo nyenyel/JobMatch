@@ -47,6 +47,7 @@ import TestingComponent from './page/component/ChatComponent'
 import App from './page/testing/App'
 import PusherProvider, { PusherContext } from './page/context/PusherContext'
 import SearchUserForEmployer from './page/component/SearchUserForEmployer'
+import ContactComponent from './page/component/ContactComponent'
 
 const router = createBrowserRouter([
   
@@ -171,6 +172,11 @@ const router = createBrowserRouter([
       {
         path: 'search/:term',
         element: <SearchResultComponent />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        path: 'contact',
+        element: <ContactComponent />,
         errorElement: <ErrorComponent />,
       },
       {
@@ -303,6 +309,11 @@ const router = createBrowserRouter([
       {
         path:'experience',
         element: <ApplicantExperienceComponent />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        path:'contact',
+        element: <ContactComponent />,
         errorElement: <ErrorComponent />,
       },
       {
