@@ -48,6 +48,8 @@ class DocumentController
         $email = explode(':', $data[4]);
         $username = explode('@', $email[1]);
         $gender = explode(':', $data[9]);
+        $address = explode(':', $data[2]);
+        $professionExplode = explode(':', $data[1]);
         $userData = [
             "email" => trim($email[1]),
             "password" => $request['password'],
@@ -56,7 +58,7 @@ class DocumentController
             "first_name" => $fullname[0],
             "middle_name" => $fullname[2] ?? '',
             "last_name" => $fullname[1],
-            "address"=> $data[2],
+            "address"=>  trim($address[1]),
             "desc" => $data[6],
             "rating" => 0,
             "lib_role_id" => 3,
@@ -72,7 +74,7 @@ class DocumentController
             return response()->json(['errors' => $validator->errors(), 'user' => $userData,], 422); // Return errors as JSON response
         }
 
-        $profession = LibProfession::where('desc' , $data[1])->first();
+        $profession = LibProfession::where('desc' , trim($professionExplode[1]))->first();
         if($profession){
             $userData['lib_profession_id'] = $profession->id;
         } else {
