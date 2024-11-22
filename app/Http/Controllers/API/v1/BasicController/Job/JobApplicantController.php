@@ -81,6 +81,7 @@ class JobApplicantController
         $validated = $request->validate(['lib_status_id' => 'required|integer']);
 
 
+        
         $jobApplicant->update($validated);
         $jobApplicant->load(['applicant', 'job']);
         $sms = new SemaphoreService();
@@ -106,7 +107,7 @@ class JobApplicantController
             Better luck next time!';
         }
 
-        $smsResponse = $sms->sendSMS($jobApplicant->applicant->phone_no, 'Test Message' . $message);
+        $smsResponse = $sms->sendSMS($jobApplicant->applicant->phone_no, $message);
         // $smsResponse = "im fuckin testing you dumbass";
 
         $res = 'rejected';
@@ -134,10 +135,12 @@ class JobApplicantController
                 'chatroom' => $res,
                 'sms' => $smsResponse,
             ],201);
+        } else{
+            $jobApplicant->delete();
+            return response()->json([
+                'chatroom' => $res,
+                'sms' => $smsResponse,
+            ]);
         }
-        return response()->json([
-            'chatroom' => $res,
-            'sms' => $smsResponse,
-        ]);
     }
 }

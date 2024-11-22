@@ -18,6 +18,7 @@ use App\Http\Controllers\API\v1\BasicController\User\ReviewController;
 use App\Http\Controllers\API\v1\BasicController\User\UserController;
 use App\Http\Controllers\API\v1\BroadcastController;
 use App\Http\Controllers\API\v1\DocumentController;
+use App\Http\Controllers\API\v1\ForgotPasswordController;
 use App\Http\Controllers\API\v1\MessageController;
 use App\Http\Controllers\API\v1\RuleBased\DashboardController;
 use App\Http\Controllers\API\v1\RuleBased\PersonalizeRecommendationController;
@@ -62,7 +63,7 @@ Route::prefix('v1')->group( function (){
         Route::post('send-message', [MessageController::class, 'sendMessage'])->name('sendMessage');
         Route::post('message', [MessageController::class, 'message'])->name('message');
         Route::get('get-contact/{user}', [ContactController::class, 'getContact'])->name('getContact');
-        // Route::post('send-message', [MessageController::class, 'sendMessage'])->name('sendMessage')->middleware('auth:sanctum');
+        Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLink']);
     });
     Route::prefix('rule-base')->group(function(){
         Route::get('recommend/{user}', [PersonalizeRecommendationController::class, 'recommend'])->middleware('auth:sanctum');
