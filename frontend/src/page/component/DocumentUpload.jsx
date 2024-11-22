@@ -21,7 +21,7 @@ export default function DocumentUpload() {
     const [error, setError] = useState(null);
     const [passwordValidation, setPasswordValidation] =useState()
     const [passwordIsVissible, setPasswordIsVissible]  = useState('password')
-    const fileName = 'template.docx'
+    const fileName = 'templates.docx' <div className=""></div>
     const documentURL = `${baseURL}storage/download/${fileName}`
     const handlePassword = (e) => {
         if (e.target.checked) {
