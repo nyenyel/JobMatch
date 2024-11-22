@@ -1,16 +1,23 @@
 import { Box, Modal } from '@mui/material'
 import axios from 'axios'
 import React, { useContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { crud } from '../resource/api'
 import { AppContext } from '../context/AppContext'
+import Loading from './Loading'
+import { Success } from './Warning'
 
 export default function Skill({data , isEmployer = false, isApplicant = false}) {
   const navigate = useNavigate()
+  const location = useLocation()
+  
   const {apiClient} = useContext(AppContext)
-
+  const [loading, setLoading] = useState(false)
+  const [dataAdded, setDataAdded] = useState(false)
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const handleModal = () => setModalIsOpen(!modalIsOpen)
+  const handleAdded = () => setDataAdded(!dataAdded)
+
   const handleSubmit = async (e) =>{
     e.preventDefault()
     try{
@@ -19,7 +26,10 @@ export default function Skill({data , isEmployer = false, isApplicant = false}) 
         }else if (isApplicant){
           const response = await apiClient.delete(crud.concat(`applicant-skill/${data.id}`))
         }
-        navigate(0)
+        // navigate(`${location?.pathname}`)
+        // window.location.reload()
+        handleModal()
+        handleAdded()
     }catch (error) {
       if (error.response) {
         console.error('Error Response Data:', error.response.data);
@@ -30,12 +40,28 @@ export default function Skill({data , isEmployer = false, isApplicant = false}) 
       } else {
         console.error('Error Message:', error.message);
       }
+    } finally {
+      setLoading(false)
+      setTimeout(() => {
+          setDataAdded(false)
+      }, 3000)
     }
   }
     
   // console.log(data)
   return (
     <>
+    {dataAdded && 
+        <div 
+            className="absolute top-4 right-4 z-50 cursor-pointer flex items-center" 
+            onClick={handleAdded}
+        >
+            <div className="flex-none">
+                <Success message={'Skill Deleted successfully!'} />
+            </div>
+        </div>
+    }
+    {loading && <Loading />}
     {isEmployer || isApplicant ? (
     <>
     <div className='flex-grow flex bg-text text-white rounded-full px-5 py-2 text-xs font-bold'>

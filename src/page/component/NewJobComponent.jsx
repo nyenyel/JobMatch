@@ -149,7 +149,7 @@ export default function NewJobComponent() {
                     className='mb-2 rounded-md py-2 px-3 border-2 w-full' 
                     onChange={handleChange} 
                 />
-                <button type='submit' className=' w-full bg-prc py-2 rounded-md text-white mt-2'>Create</button>
+                <button type='submit' className=' w-full bg-prc py-2 rounded-md text-white mt-2'>Save as Draft</button>
             </form>
         </div>
         <div className=' flex-1'></div>

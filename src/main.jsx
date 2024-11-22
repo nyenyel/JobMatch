@@ -48,12 +48,18 @@ import App from './page/testing/App'
 import PusherProvider, { PusherContext } from './page/context/PusherContext'
 import SearchUserForEmployer from './page/component/SearchUserForEmployer'
 import ContactComponent from './page/component/ContactComponent'
+import PasswordResetComponent from './page/component/PasswordResetComponent'
 
 const router = createBrowserRouter([
   
   {
     path: '/',
     element: <Home />,
+    errorElement: <ErrorComponent />
+  },
+  {
+    path: '/password-reset',
+    element: <PasswordResetComponent />,
     errorElement: <ErrorComponent />
   },
   {
@@ -160,7 +166,7 @@ const router = createBrowserRouter([
       },
       {
         index: true,
-        element: <Navigate to={'verify'} replace/>
+        element: <Navigate to={'dashboard'} replace/>
       }
     ]
   },

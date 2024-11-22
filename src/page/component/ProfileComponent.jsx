@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function ProfileComponent() {
     const navigate = useNavigate()
-    const { user, apiClient, token } = useContext(AppContext);
+    const { user, apiClient, token, role } = useContext(AppContext);
     const [selectedImage, setSelectedImage] = useState('');
     const [newForm, setNewForm] = useState({});
     const [loading, setLoading] = useState(false);
@@ -171,7 +171,7 @@ export default function ProfileComponent() {
                                         />
                                     </div>
                                 </div>
-                                <div className='flex gap-2'>
+                                <div className='flex gap-2 max-[370px]:flex-col'>
                                     <div className='flex flex-1none flex-col'>
                                         <label className='text-sm'>Gender</label>
                                         <select 
@@ -198,7 +198,7 @@ export default function ProfileComponent() {
                                         />
                                     </div>
                                 </div>
-                                <div className='flex gap-2'>
+                                <div className='flex gap-2 max-[470px]:flex-col'>
                                     <div className='flex flex-1 flex-col'>
                                         <label className='text-sm'> Email</label>
                                         <input 
@@ -231,7 +231,7 @@ export default function ProfileComponent() {
                             </div>
                             <div className='bg-text opacity-35 w-0.5 flex-none '/>
                             <div className='flex flex-col flex-1 gap-2'>
-                                <div className='flex gap-2'>
+                                <div className='flex gap-2 hidden'>
                                     <div className='flex flex-1 flex-col'>
                                         <label className='text-sm'> Username</label>
                                         <input 
@@ -244,6 +244,7 @@ export default function ProfileComponent() {
                                         />
                                     </div>
                                 </div>
+                                {role != 'Applicant' && 
                                 <div className='flex gap-2'>
                                     <div className='flex flex-1 flex-col'>
                                         <label className='text-sm'> Sector</label>
@@ -257,6 +258,7 @@ export default function ProfileComponent() {
                                         />
                                     </div>
                                 </div>
+                                }
                                 <div className='flex gap-2'>
                                     <div className='flex flex-1 flex-col'>
                                         <label className='text-sm'> Objective / Description</label>

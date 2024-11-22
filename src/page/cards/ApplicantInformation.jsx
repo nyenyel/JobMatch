@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 
 export default function ApplicantInformation({data}) {
     const applicant = data?.applicant
+    const isBanned = applicant?.ban
     return (
     <>
     <NavLink 
@@ -12,10 +13,10 @@ export default function ApplicantInformation({data}) {
             applicantData: data?.applicant,
             applicationID: data?.id
         }} 
-        className='bg-white flex p-4 rounded-lg text-text mb-2 hover:bg-white hover:bg-opacity-80 cursor-pointer'
+        className={`${isBanned ? 'bg-red-700 bg-opacity-50' : 'bg-white'}  flex p-4 rounded-lg text-text mb-2 hover:bg-white hover:bg-opacity-80 cursor-pointer`}
     >
         <div className=' flex-1'>
-            <div className='font-bold text-xl'>{applicant?.last_name}, {applicant?.first_name}</div>
+            <div className='font-bold text-xl'>{applicant?.last_name}, {applicant?.first_name} {isBanned ? '(Banned Account)' : ''}</div>
             <div className='font-base text-sm'>Profession: {applicant?.profession?.desc}</div>
             <div className='bg-black max-w-80 h-0.5 bg-opacity-20 rounded-full my-2'></div>
             <div className='font-bold text-sm'>Description</div>

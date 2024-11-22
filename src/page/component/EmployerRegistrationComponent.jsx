@@ -75,7 +75,7 @@ export default function EmployerRegistrationComponent() {
 
             }
         } catch (err) {
-            console.log(err.response.data.errors)
+            console.error(err)
             setError(err.response.data.errors);
             setResponseData(null);
         } finally {
@@ -151,7 +151,7 @@ export default function EmployerRegistrationComponent() {
                                 />
                             </div>
                         </div>
-                        <div className='flex gap-2'>
+                        <div className='flex gap-2 max-[650px]:flex-col'>
                             <div className='flex flex-1none flex-col'>
                                 <label className='text-sm'>Gender</label>
                                 <select 
@@ -162,6 +162,7 @@ export default function EmployerRegistrationComponent() {
                                     onChange={handleChange}
                                     className='p-2 border-b-2'
                                 >
+                                    <option value={10}>Select Gender</option>
                                     <option value={1}>Male</option>
                                     <option value={2}>Female</option>
                                 </select>
@@ -220,7 +221,7 @@ export default function EmployerRegistrationComponent() {
                                     required
                                     type='text' 
                                     name='desc'
-                                    placeholder='describe your sel'
+                                    placeholder='Describe your self'
                                     onChange={handleChange}
                                     className='p-2 border-b-2 resize-none'
                                 />

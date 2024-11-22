@@ -183,7 +183,7 @@ export default function JobPostModify() {
                     onChange={handleChange} 
                     value={jobForm?.desc || ''}
                 />
-                <button type='submit' className=' w-full bg-prc py-2 rounded-md text-white mt-2'>Update</button>
+                <button type='submit' className=' w-full bg-prc py-2 rounded-md text-white mt-2'>Publish</button>
             </form>
         </div>
     </>
