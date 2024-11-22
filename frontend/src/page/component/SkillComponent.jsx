@@ -152,11 +152,11 @@ export default function SkillComponent() {
     </div>
     <div className='flex'>
         <div className='flex flex-1 h-full'>
-            <div className='flex-1 flex flex-wrap gap-2 mt-3'>
-                {data.skill?.map((item, index) => (
-                    <SkillWithLinks key={index} data={item} />
-                ))}
-            </div>
+        <div className="flex-1 grid grid-cols-5 gap-2 mt-3">
+        {data.skill?.map((item, index) => (
+            <SkillWithLinks key={index} data={item} />
+        ))}
+        </div>
         </div>
         <div className=' flex-none mt-3'>
             <Outlet />

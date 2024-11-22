@@ -39,12 +39,12 @@ export default function TopBar({links}) {
     <>
     {loading &&  (<Loading />)}
     <div className='px-5 bg-white flex '>
-      <div className=' flex-1'>
+      <div className=' flex-none'>
         <Logo />
       </div>
-      <div className=' flex mr-4'>
-        <div className='  cursor-pointer hover:bg-opacity-5 content-center px-8'>
-          <SearchComponent></SearchComponent>
+      <div className=' flex flex-1 mr-4'>
+        <div className='  cursor-pointer flex-1 hover:bg-opacity-5 content-center px-8'>
+          <SearchComponent/>
         </div>
         <div className='max-[1200px]:hidden flex'>
           {links.map((item, index) => (

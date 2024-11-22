@@ -15,12 +15,14 @@ export default function EmployerApplicant() {
     const {apiClient, user} = useContext(AppContext)
     const [data,setData] = useState()
     const [loading,setLoading] = useState(false)
+    const [isShorlisted,setIsShorlisted] = useState(false)
 
     const getData = async () => {
         setLoading(true)
         try{
             const response = await apiClient.get(crud.concat('my-applicant'))
             setData(response.data)
+            setIsShorlisted(false)
             // console.log(response.data)
         } catch (error) {
             console.log(error)
@@ -28,12 +30,15 @@ export default function EmployerApplicant() {
             setLoading(false)
         }
     }
+
     const getShortListed = async () => {
         setLoading(true)
         try{
             const response = await apiClient.get(crud.concat('short-listed-applicant'))
             setData(response.data)
-            console.log(response.data)
+            setIsShorlisted(true)
+
+            // console.log(response.data)
         } catch (error) {
             console.log(error)
         } finally {
@@ -57,7 +62,8 @@ export default function EmployerApplicant() {
             <div className='flex-1 ml-3 w-full'>
                 <div>
                     <div className='flex gap-2 mb-2'>
-                        <div onClick={getShortListed} className='flex-none text-sm content-center border-2 border-prc px-2 text-prc rounded-full cursor-pointer hover:bg-white hover:bg-opacity-35'>Short List</div>
+                        <div onClick={getData} className={`${isShorlisted ? 'text-prc' : 'bg-prc text-white'} border-prc flex-none text-sm content-center border-2  px-2  rounded-full cursor-pointer hover:bg-white hover:bg-opacity-35`}>All</div>
+                        <div onClick={getShortListed} className={`${isShorlisted ? 'bg-prc text-white' : ' text-prc'} border-prc flex-none text-sm content-center border-2  px-2  rounded-full cursor-pointer hover:bg-white hover:bg-opacity-35`}>Short List</div>
                         <div className='bg-black w-full h-0.5 bg-opacity-20 rounded-full my-3'></div>
                     </div>
                     {data?.map((item,index) => (

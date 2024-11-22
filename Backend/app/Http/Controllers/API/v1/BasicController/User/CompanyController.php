@@ -72,7 +72,7 @@ class CompanyController
         with more proof or eveidence that the company is legitimate.';
         
         // $smsResponse = "im fuckin testing you dumbass";
-        $smsResponse = $sms->sendSMS($phoneNo, 'Test Message' . $message);
+        $smsResponse = $sms->sendSMS($phoneNo, $message);
         $company->image()->delete();
         $company->delete();
         return response()->json([
@@ -137,7 +137,6 @@ class CompanyController
         // Return the data as a resource collection
         return CompanyResource::collection($data);
     }
-
     public function toVerifyCompany(){
 
         $data = Company::whereNull('verified')->get();
@@ -145,7 +144,6 @@ class CompanyController
         return CompanyResource::collection($data);
     }
     public function notifyTheVerification(Company $company){
-
         $data = 'You Company (Company name) has been verified';
         $company->update(['verified' => 1]);
         return response()->json([

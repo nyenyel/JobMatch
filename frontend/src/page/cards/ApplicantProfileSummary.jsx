@@ -37,7 +37,7 @@ export default function ApplicantProfileSummary() {
         </div>
         <div className='bg-black w-full h-0.5 bg-opacity-5 rounded-full my-3'></div>
         <div className=' px-4 text-text'>
-            <div className=' font-normal text-sm mb-1'>Decription</div>
+            <div className=' font-normal text-sm mb-1'>Description</div>
             <div className=' font-bold'>{user?.data.desc}</div>
         </div>
     </div>

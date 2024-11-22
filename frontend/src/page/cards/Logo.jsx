@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import icon from '../../assets/icon.png'
+import { AppContext } from '../context/AppContext'
 
 export default function Logo() {
   return (
@@ -11,7 +12,7 @@ export default function Logo() {
             <div className='mt-1 flex'>
                 <div className='h-4 w-4 rounded-full bg-prc z-50'></div>
                 <div className='h-4 w-4 rounded-full bg-white border-3 -ml-1.5 border-prc z-40'></div>
-                <div className='h-4 w-4 rounded-full bg-prc -ml-1.5 z-30'></div>
+                <div className='h-4 w-4 r0-ounded-full bg-prc -ml-1.5 z-30'></div>
                 <div className='h-4 w-4 rounded-full bg-white border-3 -ml-1.5 border-prc z-20'></div>
                 <div className='h-4 w-4 rounded-full bg-prc -ml-1.5 z-10'></div>
             </div>
@@ -22,8 +23,10 @@ export default function Logo() {
 }
 
 export function Badge(){
+    const {role} = useContext(AppContext)
+    const currentRole = role ? `/${role}` : '/';
     return (
-    <NavLink to={'/'} className=' select-none flex-none font-extrabold text-white rounded-lg'>
+    <NavLink to={`${currentRole}`} className=' select-none flex-none font-extrabold text-white rounded-lg'>
             <img src={`${icon}`} className='h-12 m-3' ></img>
     </NavLink>
     )

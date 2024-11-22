@@ -196,7 +196,7 @@ export default function AdminEmployerRegister() {
                         required
                         type='text' 
                         name='desc'
-                        placeholder='describe your sel'
+                        placeholder='Describe your self'
                         onChange={handleChange}
                         className='p-2 border-b-2 resize-none'
                     />
