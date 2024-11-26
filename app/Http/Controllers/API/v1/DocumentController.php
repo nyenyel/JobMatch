@@ -65,7 +65,7 @@ class DocumentController
             "lib_gender_id" => 1,
             "lib_profession_id" => 3
         ];
-
+        return $data;
 
         $validator = Validator::make($userData, [
             'email' => 'required|email|unique:users,email'
