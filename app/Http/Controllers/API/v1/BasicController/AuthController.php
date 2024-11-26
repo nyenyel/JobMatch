@@ -78,7 +78,7 @@ class AuthController
         $user->save();
         $sms = new SemaphoreService();
         $num = $user->phone_no;
-        $message = 'Good day, We woul like to enform you that your account is banned from the website. You can appeal against the action to the main office.' ;
+        $message = 'Good day, We would like to inform you that your account is banned from the website. You can appeal against the action to the main office.' ;
         $smsResponse = $sms->sendSMS($num, $message);
         
         return response()->json(['message' => 'Account Banned']);
