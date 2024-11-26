@@ -14,6 +14,7 @@ export default function SearchCompanyResultComponent({isApplicant = false}) {
         try{
             const response = await apiClient.get(crud.concat(`company/${id}`))
             setData(response.data.data)
+            console.log(response.data.data.partnered)
         } catch (error){
             console.log(error)
         } finally {
@@ -42,15 +43,17 @@ export default function SearchCompanyResultComponent({isApplicant = false}) {
                 <div className='flex flex-col bg-white p-5 rounded-md text-xl font-bold text-text'>
                     {data?.title}
                     <div className=' flex mt-2 font-normal text-base'>{data?.desc}</div>
-                    {data?.partnered === 0 ? (
-                        <div className='flex'> 
-                            <div className=' flex font-normal text-base'>Not Partnered</div>
-                        </div>
-                    ): (
+                    {data?.partnered === 1 ? (
                         <div className='flex mt-2 '> 
                             <div className=' flex-none font-normal  text-base bg-prc rounded-md p-2 text-white '>Partnered</div>
                             <div className='flex-1'/>
                         </div>
+                    ): (
+                        <div className='flex mt-2 '> 
+                            <div className=' flex-none font-normal  text-base bg-red-700 rounded-md p-2 text-white '>Not Partnered</div>
+                            <div className='flex-1'/>
+                        </div>
+
                     )}
 
                 </div>
