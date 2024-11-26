@@ -23,7 +23,7 @@ class SemaphoreService
 
         $data = [
             'apikey' => $this->apiKey,
-            'number' => $number,
+            'number' => trim($number),
             'message' => $message,
             'sendername' => $this->senderName,
         ];

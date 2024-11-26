@@ -107,7 +107,7 @@ class JobApplicantController
             Better luck next time!';
         }
 
-        $smsResponse = $sms->sendSMS(trim($jobApplicant->applicant->phone_no), $message);
+        $smsResponse = $sms->sendSMS($jobApplicant->applicant->phone_no, $message);
         // $smsResponse = "im fuckin testing you dumbass";
         $contactExist = Contact::where('second_user', $jobApplicant->job->employer->id)
                                 ->where('first_user', $jobApplicant->applicant->id)
