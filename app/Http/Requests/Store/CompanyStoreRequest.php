@@ -24,7 +24,6 @@ class CompanyStoreRequest extends FormRequest
         return [
             'desc' => 'required',
             'title' => 'required',
-            'sector' => 'required',
             'owner_id' => 'required|exists:users,id'
         ];
     }
