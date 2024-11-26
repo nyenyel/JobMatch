@@ -10,7 +10,7 @@ export default function CompanyInformation({data}) {
         <div className=' flex-1'>
             <div className='font-bold text-xl'>{data?.title}</div>
             <div className='font-base text-sm'>Owner: {data.owner?.last_name}, {data.owner?.first_name}</div>
-            <div className='font-base text-sm'>Status: {isNotVerified ? 'Pending' : 'Verifeid'}</div>
+            <div className='font-base text-sm'>Status: {isNotVerified ? 'Pending' : 'Verified'}</div>
             <div className='bg-black max-w-80 h-0.5 bg-opacity-20 rounded-full my-2'></div>
             <div className='font-bold text-sm'>Description</div>
             <div className='font-base text-sm mb-2'>{data?.desc}</div>

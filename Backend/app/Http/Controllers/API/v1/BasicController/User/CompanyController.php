@@ -74,7 +74,7 @@ class CompanyController
         // $smsResponse = "im fuckin testing you dumbass";
         $smsResponse = $sms->sendSMS($phoneNo, $message);
         $company->image()->delete();
-        $company->delete();
+        $company->update(['verified' => 4]);
         return response()->json([
             'phone_no' => $phoneNo,
             'sms_response' => $smsResponse,
@@ -148,6 +148,14 @@ class CompanyController
     public function notifyTheVerification(Company $company){
         $data = 'You Company (Company name) has been verified';
         $company->update(['verified' => 1]);
+        $sms = new SemaphoreService();
+
+        $num = $company->owner->phone_no;
+        $message = 'We are grateful to inform you that your company, ' 
+        . $company->title 
+        . ' , has been successfully verified. You can now start posting jobs under this company.';
+        
+        $smsResponse = $sms->sendSMS($num, $message);
         return response()->json([
             'message' => $data,
             'company' => $company

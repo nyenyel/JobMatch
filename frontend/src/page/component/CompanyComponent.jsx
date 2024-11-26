@@ -148,7 +148,7 @@ export default function CompanyComponent() {
               <input 
                 type="text" 
                 name='sector' 
-                placeholder="Company Name" 
+                placeholder="Sector Name" 
                 className='mb-2 rounded-md py-2 px-3 border-2' 
                 onChange={handleChange} 
                 value={sector} 

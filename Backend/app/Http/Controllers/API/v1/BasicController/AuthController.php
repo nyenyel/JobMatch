@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\v1\BasicController;
 
 use App\Http\Requests\AuthRequest;
 use App\Http\Resources\UserResource;
+use App\Http\Service\SemaphoreService;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
@@ -75,6 +76,11 @@ class AuthController
     public function ban(User $user) {
         $user->ban = true;
         $user->save();
+        $sms = new SemaphoreService();
+        $num = $user->phone_no;
+        $message = 'Good day, We would like to inform you that your account is banned from the website. You can appeal against the action to the main office.' ;
+        $smsResponse = $sms->sendSMS($num, $message);
+        
         return response()->json(['message' => 'Account Banned']);
     }
 }
