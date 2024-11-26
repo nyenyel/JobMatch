@@ -78,7 +78,7 @@ class DocumentController
         if($profession){
             $userData['lib_profession_id'] = $profession->id;
         } else {
-            $addProfession = LibProfession::create(['desc' => $data[1]]);
+            $addProfession = LibProfession::create(['desc' => $professionExplode[1]]);
             $userData['lib_profession_id'] = $addProfession->id;
         }
         if($gender[1] === 'FEMALE'){
