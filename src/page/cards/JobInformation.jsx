@@ -5,11 +5,17 @@ import ProfessionLevel from './ProfessionLevel'
 import { NavLink } from 'react-router-dom'
 
 export default function JobInformation({data, isNotAdmin = false}) {
-  // console.log(data)
+  const isUnpublished = data.skill.length === 0 
+  const isExpired = (data?.post_duration && new Date(data?.post_duration) < new Date());
+  console.log(data)
+  console.log(isUnpublished)
   return (
     
     // to={isNotAdmin ? 'login': `${data?.id}`}
-    <NavLink to={isNotAdmin ? 'login': `${data?.id}`} state={{ jobID : data?.id }}  className='bg-white flex p-4 rounded-lg text-text mb-2 hover:bg-white hover:bg-opacity-80 cursor-pointer'>
+    <NavLink to={isNotAdmin ? 'login': `${data?.id}`} state={{ jobID : data?.id }}  className={`${isUnpublished ? 'bg-orange-100' : 'bg-white'} relative flex p-4 rounded-lg text-text mb-2 hover:bg-white hover:bg-opacity-80 cursor-pointer`}>
+        <div className={`${!isExpired && 'hidden'} absolute inset-0 bg-red-800 bg-opacity-20 rounded-md flex items-center justify-center z-10 pointer-events-none`}>
+          <span className="text-6xl font-bold text-black text-opacity-20">Ended</span>
+        </div>
         <div className=' flex-1'>
             <div className='font-bold text-xl'>{data?.title}</div>
             <div className='font-base text-sm'>Duration untill: {data?.post_duration}</div>
@@ -22,6 +28,11 @@ export default function JobInformation({data, isNotAdmin = false}) {
                 {data?.skill.map((item, index) => (
                   <Skill key={index} data={item}/>
                 ))}
+                {isUnpublished && 
+                  <div className='flex-grow bg-red-600 text-white rounded-full px-5 py-1 text-xs font-bold'>
+                    <div className='flex-1 content-center'>Not Publish</div>
+                  </div>
+                }
             </div>
         </div>
         <div className="flex-none  flex flex-col items-center justify-center p-4">

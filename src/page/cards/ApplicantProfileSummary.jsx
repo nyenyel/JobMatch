@@ -4,7 +4,8 @@ import { AppContext } from '../context/AppContext'
 
 export default function ApplicantProfileSummary() {
     const {user} = useContext(AppContext)
-  return (
+    console.log(user?.data)
+    return (
     <div className=' w-72 rounded-lg h-full flex-none pb-4 drop-shadow-sm bg-white max-[1100px]:hidden'>
         <div className='bg-prc w-full min-h-20 rounded-t-lg'></div>
         <div className=' px-4 -mt-9 text-text'>
@@ -15,7 +16,7 @@ export default function ApplicantProfileSummary() {
                     backgroundPosition: 'center', // Optional: Center the image
                   }}></div>
             <div className='mt-2 font-bold text-xl'>{user?.data?.last_name}, {user?.data?.first_name} </div>
-            <div className=' font-normal text-sm'>Applicant</div>
+            <div className=' font-normal text-sm'>{user?.data?.profession?.desc}</div>
         </div>
         <div className='bg-black w-full h-0.5 bg-opacity-5 rounded-full my-3'></div>
         <div className=' px-4 text-text'>

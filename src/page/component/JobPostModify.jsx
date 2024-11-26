@@ -7,7 +7,7 @@ import Redirect, { AdminRedirect, ApplicantRedirect } from '../context/Redirect'
 import { useNavigate, useOutletContext } from 'react-router-dom'
 
 export default function JobPostModify() {
-    const {user , apiClient} = useContext(AppContext)
+    const {user , apiClient,role} = useContext(AppContext)
     const data = useOutletContext()
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
@@ -48,7 +48,7 @@ export default function JobPostModify() {
                 console.log("error", e)
             } finally {
                 setLoading(false)
-                navigate(0)
+                navigate(`/${role}`)
             }
         }
         storeData()

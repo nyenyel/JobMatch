@@ -21,7 +21,7 @@ export default function DocumentUpload() {
     const [error, setError] = useState(null);
     const [passwordValidation, setPasswordValidation] =useState()
     const [passwordIsVissible, setPasswordIsVissible]  = useState('password')
-    const fileName = 'template.docx'
+    const fileName = 'templates.docx'
     const documentURL = `${baseURL}storage/download/${fileName}`
     const handlePassword = (e) => {
         if (e.target.checked) {
@@ -89,10 +89,10 @@ export default function DocumentUpload() {
                 });
                 setResponseData(response.data.data);
                 setError(null);
+                console.log(response)
                 if(response.data){
-                    // navigate('/login')
                     alert("User Registered")
-                    
+                    navigate('/login')   
                 }
             }
         } catch (err) {

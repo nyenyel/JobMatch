@@ -2,15 +2,20 @@ import React from 'react'
 import Skill from './Skill'
 
 export default function CompanyInformation({data}) {
+  const isNotVerified = data.verified === null
+  console.log(data)
   return (
     <>
-    <div className='bg-white flex p-4 rounded-lg text-text mb-2 hover:bg-white hover:bg-opacity-80 cursor-pointer'>
+    <div className={`${isNotVerified? 'bg-orange-100 hover:bg-orange-100': 'bg-white hover:bg-white'}  flex p-4 rounded-lg text-text mb-2  hover:bg-opacity-80 cursor-pointer`}>
         <div className=' flex-1'>
             <div className='font-bold text-xl'>{data?.title}</div>
             <div className='font-base text-sm'>Owner: {data.owner?.last_name}, {data.owner?.first_name}</div>
+            <div className='font-base text-sm'>Status: {isNotVerified ? 'Pending' : 'Verifeid'}</div>
             <div className='bg-black max-w-80 h-0.5 bg-opacity-20 rounded-full my-2'></div>
             <div className='font-bold text-sm'>Description</div>
             <div className='font-base text-sm mb-2'>{data?.desc}</div>
+            <div className='font-bold text-sm'>Sector</div>
+            <div className='font-base text-sm mb-2'>{data?.sector}</div>
             
         </div>
         <div className="flex-none  flex flex-col items-center justify-center p-4">
