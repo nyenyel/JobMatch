@@ -68,12 +68,12 @@ class DashboardController
         $rejectedInCapas = $rejectedStatus->load($relation);
 
         //sectors
-        $tech = User::where(DB::raw('LOWER(sector)'), 'LIKE', '%' . strtolower('Tech') . '%')->count();
-        $finance = User::where(DB::raw('LOWER(sector)'), 'LIKE', '%' . strtolower('Finance') . '%')->count();
-        $healthcare = User::where(DB::raw('LOWER(sector)'), 'LIKE', '%' . strtolower('Healthcare') . '%')->count();
-        $educ = User::where(DB::raw('LOWER(sector)'), 'LIKE', '%' . strtolower('Educ') . '%')->count();
+        $tech = Company::where(DB::raw('LOWER(sector)'), 'LIKE', '%' . strtolower('Tech') . '%')->count();
+        $finance = Company::where(DB::raw('LOWER(sector)'), 'LIKE', '%' . strtolower('Finance') . '%')->count();
+        $healthcare = Company::where(DB::raw('LOWER(sector)'), 'LIKE', '%' . strtolower('Healthcare') . '%')->count();
+        $educ = Company::where(DB::raw('LOWER(sector)'), 'LIKE', '%' . strtolower('Educ') . '%')->count();
         // $others = User::whereNotIn(DB::raw('LOWER(sector)'), ['tech', 'finance', 'healthcare', 'educ'])->count();
-        $others = User::whereRaw("
+        $others = Company::whereRaw("
                         LOWER(sector) NOT LIKE '%tech%' AND
                         LOWER(sector) NOT LIKE '%finance%' AND
                         LOWER(sector) NOT LIKE '%healthcare%' AND

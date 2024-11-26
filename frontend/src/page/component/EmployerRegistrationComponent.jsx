@@ -75,7 +75,7 @@ export default function EmployerRegistrationComponent() {
 
             }
         } catch (err) {
-            console.error(err)
+            console.error(err.response.data.errors)
             setError(err.response.data.errors);
             setResponseData(null);
         } finally {
@@ -166,6 +166,8 @@ export default function EmployerRegistrationComponent() {
                                     <option value={1}>Male</option>
                                     <option value={2}>Female</option>
                                 </select>
+                                {error?.lib_gender_id?.map((item, index) => <div className='error text-red-600 text-sm opacity-50' key={index}>{item}</div>)}
+
                             </div>
                             <div className='flex flex-1 flex-col'>
                                 <label className='text-sm'> Address</label>
@@ -214,6 +216,8 @@ export default function EmployerRegistrationComponent() {
                                     onChange={handleChange}
                                     className='p-2 border-b-2'
                                 />
+                                {error?.username?.map((item, index) => <div className='error text-red-600 text-sm opacity-50' key={index}>{item}</div>)}
+
                             </div>
                             <div className='flex flex-1 flex-col'>
                                 <label className='text-sm'> Description</label>
@@ -251,7 +255,6 @@ export default function EmployerRegistrationComponent() {
                             </div>
                             {error?.password?.map((item, index) => <div className='error text-red-600 text-sm opacity-50' key={index}>{item}</div>)}
                             {passwordValidation?.map((item, index) => <div className='error text-red-600 text-sm opacity-50' key={index}>{item}</div>)}
-
                             <button className='font-bold text-white w-full px-5 py-2 rounded-full bg-prc mt-2' type="submit">Register</button>
                         </form>
                         <div className='font-sans font-normal opacity-70 text-xs mb-5 mt-1 flex'>

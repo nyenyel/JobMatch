@@ -88,6 +88,7 @@ class CompanyController
             'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'company' => 'required|string',
             'desc' => 'required|string',
+            'sector' => 'required|string',
             'owner_id' => 'required|integer' // Ensure you also validate owner_id
         ]);
 
@@ -98,6 +99,7 @@ class CompanyController
             $company = Company::create([
                 'title' => $request['company'], 
                 'desc' => $request['desc'],
+                'sector' => $request['sector'],
                 'owner_id' => $request['owner_id'],
             ]); // Adjust according to your Company model
 

@@ -76,7 +76,7 @@ export default function ProfessionComponent() {
                 Add Profession
             </div>        
         </div>
-        <div className='flex flex-wrap gap-2 mt-3'>
+        <div className="grid grid-cols-5 gap-2 mt-3">
             {data?.map((item, index) => (
                 <Profession key={index} data={item} />
             ))}

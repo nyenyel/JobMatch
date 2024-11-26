@@ -109,12 +109,13 @@ class JobApplicantController
 
         $smsResponse = $sms->sendSMS($jobApplicant->applicant->phone_no, $message);
         // $smsResponse = "im fuckin testing you dumbass";
+        $contactExist = Contact::where('second_user', $jobApplicant->job->employer->id)
+                                ->where('first_user', $jobApplicant->applicant->id)
+                                ->exists();
 
         $res = 'rejected';
         if($validated['lib_status_id'] != 3){
-            $contactExist = Contact::where('second_user', $jobApplicant->job->employer->id)
-                                    ->where('first_user', $jobApplicant->applicant->id)
-                                    ->exists();
+            
             if(!$contactExist){
                 $chatroom = Str::random(15);
                 $data = [
@@ -137,6 +138,11 @@ class JobApplicantController
             ],201);
         } else{
             $jobApplicant->delete();
+            if($contactExist){
+                Contact::where('second_user', $jobApplicant->job->employer->id)
+                    ->where('first_user', $jobApplicant->applicant->id)
+                    ->delete();
+            }
             return response()->json([
                 'chatroom' => $res,
                 'sms' => $smsResponse,

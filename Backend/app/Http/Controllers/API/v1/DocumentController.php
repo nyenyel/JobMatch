@@ -47,7 +47,7 @@ class DocumentController
         $phoneNo = explode(':', $data[3]);
         $email = explode(':', $data[4]);
         $username = explode('@', $email[1]);
-        $gender = explode(':', $data[9]);
+        $gender = explode(':', $data[8]);
         $address = explode(':', $data[2]);
         $professionExplode = explode(':', $data[1]);
         $userData = [
@@ -65,7 +65,7 @@ class DocumentController
             "lib_gender_id" => 1,
             "lib_profession_id" => 3
         ];
-
+        // return $data;
 
         $validator = Validator::make($userData, [
             'email' => 'required|email|unique:users,email'
@@ -78,7 +78,7 @@ class DocumentController
         if($profession){
             $userData['lib_profession_id'] = $profession->id;
         } else {
-            $addProfession = LibProfession::create(['desc' => $data[1]]);
+            $addProfession = LibProfession::create(['desc' => $professionExplode[1]]);
             $userData['lib_profession_id'] = $addProfession->id;
         }
         if($gender[1] === 'FEMALE'){

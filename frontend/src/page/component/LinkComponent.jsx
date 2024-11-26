@@ -137,7 +137,7 @@ export default function LinkComponent() {
                 <div onClick={handleEditModal} className=' content-center flex mt-2 mr-1 rounded-md cursor-pointer hover:bg-opacity-70'>
                     <span className="icon-[fluent--edit-20-filled] bg-yellow-500 w-4 h-4 "></span>
                 </div>
-                <div className='font-semibold text-lg flex-none content-center'>
+                <div className='font-semibold text-lg flex-none content-center max-w-64 truncate'>
                     {data?.desc}
                 </div>
                 <div className='flex-1' />

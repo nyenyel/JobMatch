@@ -19,6 +19,7 @@ class CompanyResource extends JsonResource
             'title' => $this->title,
             'partnered' => $this->partnered,
             'desc' => $this->desc,
+            'sector' => $this->sector,
             'length' => $this->length,
             'verified' => $this->verified,
             'owner' => new UserResource(resource: $this->whenLoaded('owner')),

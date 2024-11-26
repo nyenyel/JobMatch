@@ -214,8 +214,8 @@ export default function OtherProfileComponent() {
                                     </div>
                                 </div>
                                 <div className='flex gap-2'>
-                                    <div className='flex flex-1 flex-col'>
-                                        <label className='text-sm'> Email</label>
+                                    <div className='flex flex-1 flex-col hidden'>
+                                        <label className='text-sm'>Email</label>
                                         <input 
                                             type='text' 
                                             name='email'

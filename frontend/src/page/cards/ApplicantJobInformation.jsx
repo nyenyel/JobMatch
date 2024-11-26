@@ -6,8 +6,9 @@ import { NavLink } from 'react-router-dom'
 
 
 export default function ApplicantJobInformation({data, user, recommend}) {
-    // console.log(data)
+    const isExpired = (data?.job?.post_duration && new Date(data?.job?.post_duration) < new Date());
   return (
+    <>
     <NavLink 
         to={`${data?.job?.id}`} 
         state={{ 
@@ -16,8 +17,11 @@ export default function ApplicantJobInformation({data, user, recommend}) {
             user: user,
             recommend: recommend
         }}
-        className='bg-white flex p-4 rounded-lg text-text mb-2 hover:bg-white hover:bg-opacity-80 cursor-pointer'
+        className='bg-white relative flex p-4 rounded-lg text-text mb-2 hover:bg-white hover:bg-opacity-80 cursor-pointer'
     >
+        <div className={`${!isExpired && 'hidden'} absolute inset-0 bg-red-800 bg-opacity-20 rounded-md flex items-center justify-center z-10 pointer-events-none`}>
+            <span className="text-6xl font-bold text-black text-opacity-20">Ended</span>
+        </div>
         <div className=' flex-1'>
             <div className='font-bold text-xl'>{data?.job?.title}</div>
             <div className='font-base text-sm'>Duration untill: {data?.job?.post_duration}</div>
@@ -37,5 +41,6 @@ export default function ApplicantJobInformation({data, user, recommend}) {
             <div className="text-center">Match</div>
         </div>
     </NavLink>
+    </>
   )
 }

@@ -18,7 +18,9 @@ export default function CompanyComponent() {
   const [imagePreviews, setImagePreviews] = useState([]); // State for image previews
   const [companyName, setCompanyName] = useState(''); // State for company name
   const [companyDesc, setCompanyDesc] = useState(''); // State for company description
+  const [sector, setSector] = useState(''); // State for company description
   const [data, setData] = useState()  
+  const [error, setError] = useState()  
   // Toggle modal visibility
   const handleModal = () => setModalIsOpen(!modalIsOpen);
 
@@ -29,6 +31,8 @@ export default function CompanyComponent() {
       setCompanyName(value); // Update company name state
     } else if (name === 'desc') {
       setCompanyDesc(value); // Update company description state
+    }else if (name === 'sector') {
+      setSector(value); // Update company description state
     }
   };
 
@@ -45,12 +49,15 @@ export default function CompanyComponent() {
   // Submit images and company data to the API
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(loading) return
     setLoading(true);
+    console.log('sending')
     const formData = new FormData();
     
     // Append company name and description to form data
     formData.append('company', companyName);
     formData.append('desc', companyDesc); // Append description
+    formData.append('sector', sector); // Append description
     formData.append('owner_id', user.data.id); // Append description
   
     // Append each image file to the form data
@@ -66,12 +73,12 @@ export default function CompanyComponent() {
 
         },
       });
+      handleModal(); // Close modal after submission
       console.log(response.data);
     } catch (error) {
-      console.error('Error uploading images', error);
+      console.error('Error uploading images', error.response.data.errors);
     } finally {
       setLoading(false);
-      handleModal(); // Close modal after submission
     }
   };
 
@@ -125,6 +132,7 @@ export default function CompanyComponent() {
                 className='mb-2 rounded-md py-2 px-3 border-2' 
                 onChange={handleChange} 
                 value={companyName} 
+                required
               />
               <label className=' text-text text-sm mb-1'>Description</label>
               <textarea 
@@ -136,12 +144,23 @@ export default function CompanyComponent() {
                 onChange={handleChange} 
                 value={companyDesc} 
               />
+              <label className=' text-text text-sm mb-1'>Sector</label>
+              <input 
+                type="text" 
+                name='sector' 
+                placeholder="Company Name" 
+                className='mb-2 rounded-md py-2 px-3 border-2' 
+                onChange={handleChange} 
+                value={sector} 
+                required
+              />
               <label className=' text-text text-sm mb-1'>Proof of Company</label>
               <input 
                 type="file" 
                 multiple 
                 accept="image/*" 
                 className='mb-2' 
+                required
                 onChange={handleImageChange} 
               />
               <div className="image-previews grid grid-cols-3">
