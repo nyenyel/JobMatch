@@ -47,7 +47,7 @@ class DocumentController
         $phoneNo = explode(':', $data[3]);
         $email = explode(':', $data[4]);
         $username = explode('@', $email[1]);
-        $gender = explode(':', $data[9]);
+        $gender = explode(':', $data[8]);
         $address = explode(':', $data[2]);
         $professionExplode = explode(':', $data[1]);
         $userData = [
@@ -65,7 +65,7 @@ class DocumentController
             "lib_gender_id" => 1,
             "lib_profession_id" => 3
         ];
-        return $data;
+        // return $data;
 
         $validator = Validator::make($userData, [
             'email' => 'required|email|unique:users,email'
