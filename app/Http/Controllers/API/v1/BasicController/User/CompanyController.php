@@ -99,6 +99,7 @@ class CompanyController
             $company = Company::create([
                 'title' => $request['company'], 
                 'desc' => $request['desc'],
+                'sector' => $request['sector'],
                 'owner_id' => $request['owner_id'],
             ]); // Adjust according to your Company model
 
