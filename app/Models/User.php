@@ -45,7 +45,6 @@ class User extends Authenticatable
         'lib_role_id',
         'image',
         'ban',
-        'sector'
     ];
 
     /**
