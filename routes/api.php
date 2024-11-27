@@ -86,7 +86,7 @@ Route::prefix('auth')->group(function(){
         $user->load([
             'gender',
             'company' => function ($query) {
-                $query->where('verified', '!=', 5);
+                $query->where('verified', '!=', 4);
             },
             'company.jobs',
             'company.owner',
