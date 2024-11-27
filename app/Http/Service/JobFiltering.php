@@ -225,7 +225,7 @@ class JobFiltering{
         }])->get()->sum('application_count');
 
         $den = $accepted + $interview;
-        $acceptancePercentage = $den > 0 ? $accepted / $den : 0;
+        $acceptancePercentage = $den > 0 ? ($accepted / $den)*100 : 0;
 
         return response()->json([
             'percentage' => number_format($matchPercentage, 2),
