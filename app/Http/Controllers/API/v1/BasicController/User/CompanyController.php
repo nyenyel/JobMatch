@@ -20,7 +20,7 @@ class CompanyController
      */
     public function index()
     {
-        $company = Company::all();
+        $company = Company::where('verified'. '!=', 5)->get();
         $company->load(['owner', 'jobs']);
         return CompanyResource::collection($company);
     }

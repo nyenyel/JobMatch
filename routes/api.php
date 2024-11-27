@@ -85,10 +85,10 @@ Route::prefix('auth')->group(function(){
         $user = $request->user();
         $user->load([
             'gender',
+            'company' => function ($query) {
+                $query->where('verified', '!=', 5);
+            },
             'company.jobs',
-            // 'company' => function ($query) {
-            //     $query->whereNotNull('verified');
-            // },
             'company.owner',
             'jobPost.level', // Correct way to load the owner of the company
             'jobPost.skill',
