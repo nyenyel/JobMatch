@@ -32,7 +32,7 @@ class AuthRequest extends FormRequest
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8|max:16',
             'username' => 'required|string|min:3|max:16',
-            'phone_no' => 'required|numeric',
+            'phone_no' => 'required|numeric|digits:11',
             'first_name' => 'required|regex:/^[A-Za-z\s]+$/',
             'last_name' => 'required|string|regex:/^[A-Za-z\s]+$/',
             'middle_name' => 'sometimes|string|regex:/^[A-Za-z\s]+$/',
