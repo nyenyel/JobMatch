@@ -94,7 +94,8 @@ Route::prefix('auth')->group(function(){
             'jobPost.skill',
             'jobPost.skill.skill',
             'jobPost.application' => function ($query) {
-                $query->where('lib_status_id', 2);
+                $query->where('lib_status_id', 2)
+                        ->orWhereNull('verified');
             },
             'skill.skill',
             'experience.profession',
