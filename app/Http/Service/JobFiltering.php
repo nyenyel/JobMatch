@@ -213,6 +213,13 @@ class JobFiltering{
 
         // Experience match
         foreach ($user->experience as $experience) {
+            Log::info("applicant", [
+                'data' => trim($experience->profession->desc)
+            ]);
+
+            Log::info("employer", [
+                'data' => $proifessionTitle
+            ]);
             if (trim($experience->profession->desc) === $proifessionTitle) {
                 $ae += $experience->duration;
             }
