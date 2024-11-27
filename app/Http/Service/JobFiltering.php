@@ -220,10 +220,17 @@ class JobFiltering{
             $query->where('lib_status_id', 1);
         }])->get()->sum('application_count');
 
+        $interview = $job->employer->jobPost()->withCount(['application' => function ($query) {
+            $query->where('lib_status_id', 4);
+        }])->get()->sum('application_count');
+
+        $den = $accepted + $interview;
+        $acceptancePercentage = $den > 0 ? $accepted / $den : 0;
+
         return response()->json([
             'percentage' => number_format($matchPercentage, 2),
             'recommendation' => $skillReq,
-            'accepted' => $accepted
+            'accepted' => $acceptancePercentage
         ]);
     }
     
