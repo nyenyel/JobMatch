@@ -85,7 +85,7 @@ Route::prefix('auth')->group(function(){
         $user = $request->user();
         $user->load([
             'gender',
-            'company',
+            'company.jobs',
             // 'company' => function ($query) {
             //     $query->whereNotNull('verified');
             // },
