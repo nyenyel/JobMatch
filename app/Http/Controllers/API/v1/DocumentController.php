@@ -68,7 +68,8 @@ class DocumentController
         // return $data;
 
         $validator = Validator::make($userData, [
-            'email' => 'required|email|unique:users,email'
+            'email' => 'required|email|unique:users,email',
+            'phone_no' => 'required|numeric|digits:11',
         ]);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors(), 'user' => $userData,], 422); // Return errors as JSON response
