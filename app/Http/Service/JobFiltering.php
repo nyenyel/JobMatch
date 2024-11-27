@@ -192,9 +192,7 @@ class JobFiltering{
                 }
             }
             if (!$skillExist) {
-                if($jobSkills->skill->links->length() === 0){
-                    $skillReq[] = 'empty';
-                }
+                $skillReq[] = 'empty';
                 foreach($jobSkills->skill->links as $link){
                     $skillReq[] = $link;
                 }
