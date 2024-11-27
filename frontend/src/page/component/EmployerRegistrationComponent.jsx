@@ -186,7 +186,7 @@ export default function EmployerRegistrationComponent() {
                                 <label className='text-sm'> Email</label>
                                 <input 
                                     required
-                                    type='text' 
+                                    type='email' 
                                     name='email'
                                     placeholder='Email'
                                     onChange={handleChange}
@@ -203,6 +203,7 @@ export default function EmployerRegistrationComponent() {
                                     placeholder='Ex: 094827362941'
                                     className='p-2 border-b-2'
                                 />
+                                {error?.phone_no?.map((item, index) => <div className='error text-red-600 text-sm opacity-50' key={index}>{item}</div>)}
                             </div>
                         </div>
                         <div className='flex  flex-col gap-2'>

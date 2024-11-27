@@ -148,6 +148,7 @@ export default function DocumentUpload() {
                                 <input className='border-b-2 mt-1 p-1 cursor-pointer' type="file" accept=".docx" onChange={handleFileChange} />
                                 {error?.file?.map((item, index) => <div className='error text-red-600 text-sm opacity-50' key={index}>{item}</div>)}
                                 {error?.email?.map((item, index) => <div className='error text-red-600 text-sm opacity-50' key={index}>{item}</div>)}
+                                {error?.phone_no?.map((item, index) => <div className='error text-red-600 text-sm opacity-50' key={index}>{item}</div>)}
                             </div>
                             <div className='flex  flex-col gap-2'>
                             <label className='font-sans font-medium text-sm'>Password</label>

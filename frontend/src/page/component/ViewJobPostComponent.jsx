@@ -25,7 +25,7 @@ export default function ViewJobPostComponent() {
         applicant_id: user?.id,
         lib_status_id:2
     }
-    if(percentage == 0){
+    // if(percentage == 0){
         const getPercent = async () => {
             setLoading(true)
             try{
@@ -33,6 +33,7 @@ export default function ViewJobPostComponent() {
                 setPerc(response.data.percentage)
                 setRecom(response.data.recommendation)
                 setAccepted(response.data.accepted)
+                console.log(accepted)
             } catch (error) {
                 console.error(error)
             } finally {
@@ -43,7 +44,7 @@ export default function ViewJobPostComponent() {
         useEffect(()=> {
             getPercent()
         }, [perc, location])
-    }
+    // }
     const handleSubmit = async (e) => {
         e.preventDefault()
         setLoading(true)
@@ -88,7 +89,7 @@ export default function ViewJobPostComponent() {
                 <div className='flex-1 p-4 bg-white rounded-md h-full'>
                     <div className='font-bold text-xl'>{jobData?.company?.title}</div>
                     <div className='font-base text-sm'>Employer: {jobData?.employer?.last_name}, {jobData?.employer?.first_name} {jobData?.employer?.middle_name.charAt(0)}. ({jobData?.employer?.rating}★)</div>
-                    <div className='font-base text-sm'>Employer accepted Applcants: {accepted}</div>
+                    <div className='font-base text-sm'>Employer accepted Applcants: {accepted}%</div>
                     <div className='bg-black max-w-80 h-0.5 bg-opacity-20 rounded-full my-1'></div>
                     <div className='font-bold text-sm'>Description</div>
                     <div className='font-base text-sm mb-2'>{jobData?.company?.desc}</div>

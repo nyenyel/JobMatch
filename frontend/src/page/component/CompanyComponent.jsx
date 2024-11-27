@@ -116,7 +116,9 @@ export default function CompanyComponent() {
       {loading && (<Loading />)}
       <Modal open={modalIsOpen} onClose={handleModal} aria-labelledby="modal-title" aria-describedby="modal-description"
              className="flex justify-center z-30 items-center h-screen">
-        <Box className="bg-white rounded-lg shadow-lg text-def-t">
+        <Box className="bg-white rounded-lg shadow-lg text-def-t max-h-[90%] overflow-y-auto">
+          {loading && (<Loading />)}
+
           <h3 id="modal-title" className='font-semibold text-xl rounded-t-lg text-text px-6 pt-4'>Company</h3>
           <div className='h-0.5 bg-prc rounded-xl mt-1 mx-6 max-w-40'></div>
           <div className='px-6 pb-3 pt-1'>

@@ -6,6 +6,7 @@ use App\Http\Resources\JobPostResource;
 use App\Http\Resources\SkillResource;
 use App\Http\Resources\UserResource;
 use App\Models\Employer\JobPost;
+use App\Models\Library\LibSkill;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
 
@@ -95,6 +96,8 @@ class JobFiltering{
     
         foreach($jobPost as $job){
             $jobProfession = $job->lib_profession_id;
+            $proifessionTitle= trim($job->profession->desc);
+
             $pa = 0;
             $sa = 0;
             $sj = $job->skill->count();        
@@ -124,7 +127,7 @@ class JobFiltering{
                 }
             }
             foreach($user->experience as $experience){
-                if($experience->profession_id == $jobProfession){
+                if (str_contains(trim($experience->profession->desc), $proifessionTitle)) {
                     $ae += $experience->duration;
                 }
             }
@@ -170,6 +173,7 @@ class JobFiltering{
         $pj = 2;
         
         $jobProfession = $job->lib_profession_id;
+        $proifessionTitle= trim($job->profession->desc);
         $pa = 0;
         $sa = 0;
         $sj = $job->skill->count();
@@ -192,15 +196,33 @@ class JobFiltering{
                 }
             }
             if (!$skillExist) {
-                foreach($jobSkills->skill->links as $link){
-                    $skillReq[] = $link;
+                if($jobSkills->skill->links->count() === 0){
+                    $title = $jobSkills->skill->desc;
+                    $data = LibSkill::where('desc', $title)->get();
+                    foreach($data as $skillSearch){
+                        foreach($skillSearch->links as $link){
+                            $skillReq[] = $link;
+                        }
+                    }
+                    // $skillReq[] = ['link' => $jobSkills->skill->desc];
+                } else{
+                    foreach($jobSkills->skill->links as $link){
+                        $skillReq[] = $link;
+                    }
                 }
             }
         }
 
         // Experience match
         foreach ($user->experience as $experience) {
-            if ($experience->profession_id == $jobProfession) {
+            Log::info("applicant", [
+                'data' => trim($experience->profession->desc)
+            ]);
+
+            Log::info("employer", [
+                'data' => $proifessionTitle
+            ]);
+            if (str_contains(trim($experience->profession->desc), $proifessionTitle)) {
                 $ae += $experience->duration;
             }
         }
@@ -220,10 +242,17 @@ class JobFiltering{
             $query->where('lib_status_id', 1);
         }])->get()->sum('application_count');
 
+        $interview = $job->employer->jobPost()->withCount(['application' => function ($query) {
+            $query->where('lib_status_id', 4);
+        }])->get()->sum('application_count');
+
+        $den = $accepted + $interview;
+        $acceptancePercentage = $den > 0 ? ($accepted / $den)*100 : 0;
+
         return response()->json([
             'percentage' => number_format($matchPercentage, 2),
             'recommendation' => $skillReq,
-            'accepted' => $accepted
+            'accepted' => $acceptancePercentage
         ]);
     }
     
