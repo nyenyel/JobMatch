@@ -220,7 +220,7 @@ class JobFiltering{
             Log::info("employer", [
                 'data' => $proifessionTitle
             ]);
-            if (trim($experience->profession->desc) === $proifessionTitle) {
+            if (str_contains(trim($experience->profession->desc), $proifessionTitle)) {
                 $ae += $experience->duration;
             }
         }
