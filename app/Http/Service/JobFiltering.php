@@ -6,6 +6,7 @@ use App\Http\Resources\JobPostResource;
 use App\Http\Resources\SkillResource;
 use App\Http\Resources\UserResource;
 use App\Models\Employer\JobPost;
+use App\Models\Library\LibSkill;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
 
@@ -184,6 +185,7 @@ class JobFiltering{
         // Skill match
         foreach ($job->skill as $jobSkills) {
             $skillExist = false;
+            $skillReq[] = ['empty' => 'data'];
             foreach ($user->skill as $userSkills) {
                 if ($jobSkills->lib_skill_id == $userSkills->lib_skill_id || $jobSkills->skill->desc === $userSkills->skill->desc) {
                     $sa += 1;
@@ -192,9 +194,19 @@ class JobFiltering{
                 }
             }
             if (!$skillExist) {
-                $skillReq[] = 'empty';
-                foreach($jobSkills->skill->links as $link){
-                    $skillReq[] = $link;
+                if($jobSkills->skill->links->count() === 0){
+                    $title = $jobSkills->skill->desc;
+                    $data = LibSkill::where('desc', $title)->get();
+                    foreach($data as $skillSearch){
+                        foreach($skillSearch->links as $link){
+                            $skillReq[] = $link;
+                        }
+                    }
+                    // $skillReq[] = ['link' => $jobSkills->skill->desc];
+                } else{
+                    foreach($jobSkills->skill->links as $link){
+                        $skillReq[] = $link;
+                    }
                 }
             }
         }
