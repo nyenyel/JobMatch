@@ -171,6 +171,7 @@ class JobFiltering{
         $pj = 2;
         
         $jobProfession = $job->lib_profession_id;
+        $proifessionTitle= trim($job->profession->desc);
         $pa = 0;
         $sa = 0;
         $sj = $job->skill->count();
@@ -212,7 +213,7 @@ class JobFiltering{
 
         // Experience match
         foreach ($user->experience as $experience) {
-            if ($experience->profession_id == $jobProfession) {
+            if (trim($experience->profession->desc) === $proifessionTitle) {
                 $ae += $experience->duration;
             }
         }
