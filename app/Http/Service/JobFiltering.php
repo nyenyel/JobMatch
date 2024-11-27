@@ -185,7 +185,6 @@ class JobFiltering{
         // Skill match
         foreach ($job->skill as $jobSkills) {
             $skillExist = false;
-            $skillReq[] = ['empty' => 'data'];
             foreach ($user->skill as $userSkills) {
                 if ($jobSkills->lib_skill_id == $userSkills->lib_skill_id || $jobSkills->skill->desc === $userSkills->skill->desc) {
                     $sa += 1;
