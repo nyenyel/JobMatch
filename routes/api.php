@@ -86,7 +86,8 @@ Route::prefix('auth')->group(function(){
         $user->load([
             'gender',
             'company' => function ($query) {
-                $query->where('verified', '!=', 4);
+                $query->where('verified', '!=', 4)
+                ->orWhereNull('verified');
             },
             'company.jobs',
             'company.owner',
@@ -94,8 +95,7 @@ Route::prefix('auth')->group(function(){
             'jobPost.skill',
             'jobPost.skill.skill',
             'jobPost.application' => function ($query) {
-                $query->where('lib_status_id', 2)
-                        ->orWhereNull('verified');
+                $query->where('lib_status_id', 2);
             },
             'skill.skill',
             'experience.profession',
