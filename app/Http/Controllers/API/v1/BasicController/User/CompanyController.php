@@ -92,6 +92,10 @@ class CompanyController
             'owner_id' => 'required|integer' // Ensure you also validate owner_id
         ]);
 
+        $exist = Company::where('owner_id', $request['owner_id'])->exists();
+        
+        if($exist) return response()->json(['message' => 'Company Exists'], 400);
+        
         Log::info('Validation passed', $validatedData);
 
         if ($request->hasFile('images')) {
