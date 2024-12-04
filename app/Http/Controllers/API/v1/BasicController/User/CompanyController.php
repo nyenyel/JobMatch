@@ -94,8 +94,8 @@ class CompanyController
 
         $exist = Company::where('owner_id', $request['owner_id'])->exists();
         
-        if($exist) return response()->json(['message' => 'Company Exists'], 400);
-        
+        if($exist) return response()->json(['message' => 'You already have a company!'], 400);
+
         Log::info('Validation passed', $validatedData);
 
         if ($request->hasFile('images')) {
