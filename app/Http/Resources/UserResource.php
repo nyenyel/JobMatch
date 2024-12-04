@@ -29,6 +29,7 @@ class UserResource extends JsonResource
             'rating'=> $this->rating,
             'sector'=> $this->sector,
             'ban'=> $this->ban,
+            'super_admin'=> $this->super_admin,
             'role'=> new LibraryResource($this->whenLoaded('role')),
             'gender'=> new LibraryResource($this->whenLoaded('gender')),
             'profession'=> new LibraryResource($this->whenLoaded('profession')),
