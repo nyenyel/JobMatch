@@ -52,7 +52,7 @@ Route::prefix('v1')->group( function (){
         Route::apiResource('user', UserController::class)->middleware('auth:sanctum');
         Route::put('update-application/{jobApplicant}', [JobApplicantController::class, 'updateApplicationStatus'])->name('updateApplicationStatus');
         Route::post('verify-company', [CompanyController::class, 'storeCompany'])->name('storeCompany');
-        Route::post('user-update/{user}', [UserController::class, 'userUpdate'])->name('userUpdate')->middleware('auth:sanctum');
+        Route::post('user-update/{user}', action: [UserController::class, 'userUpdate'])->name('userUpdate')->middleware('auth:sanctum');
         Route::get('my-verified-company', [CompanyController::class, 'verifiedCompany'])->name('verifiedCompany');
         Route::get('to-verify-company', [CompanyController::class, 'toVerifyCompany'])->name('toVerifyCompany');
         Route::post('notify-owner/{company}', [CompanyController::class, 'notifyTheVerification'])->name('notifyTheVerification');
@@ -64,6 +64,10 @@ Route::prefix('v1')->group( function (){
         Route::post('message', [MessageController::class, 'message'])->name('message');
         Route::get('get-contact/{user}', [ContactController::class, 'getContact'])->name('getContact');
         Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLink']);
+
+        Route::get('get-applicant-account', [UserController::class, 'getApplicant'])->name('getApplicant');
+        Route::get('get-employer-account', [UserController::class, 'getEmployer'])->name('getEmployer');
+        Route::get('get-admin-account', [UserController::class, 'getAdmin'])->name('getAdmin');
     });
     Route::prefix('rule-base')->group(function(){
         Route::get('recommend/{user}', [PersonalizeRecommendationController::class, 'recommend'])->middleware('auth:sanctum');

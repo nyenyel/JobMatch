@@ -164,4 +164,28 @@ class UserController
 
         return response()->json($shortlistedApplicants);
     }
+
+    public function getEmployer()
+    {
+        $data = User::where('lib_role_id', 2)
+                    ->where('ban', false)->get();
+        $data->load($this->relation);
+        return UserResource::collection($data);
+    }
+
+    public function getApplicant()
+    {
+        $data = User::where('lib_role_id', 3)
+                    ->where('ban', false)->get();
+        $data->load($this->relation);
+        return UserResource::collection($data);
+    }
+
+    public function getAdmin()
+    {
+        $data = User::where('lib_role_id', 1)
+                    ->where('ban', false)->get();
+        $data->load($this->relation);
+        return UserResource::collection($data);
+    }
 }
