@@ -32,7 +32,7 @@ class UpdateUserRequest extends FormRequest
             'last_name'=> 'sometimes',
             'middle_name'=> 'sometimes',
             'phone_no'=> 'sometimes',
-            'username'=> 'sometimes|unique:users,username,' . $this->user->id,
+            'username'=> 'sometimes',
             'desc'=> 'sometimes',
             'sector'=> 'sometimes',
         ];
