@@ -209,7 +209,7 @@ class CompanyController
         if ($request->hasFile('images')) {
             $imageUrls = []; // Change the variable name to be more descriptive
             $company->update([
-                'title' => $request['company'], 
+                'title' => $request['title'], 
                 'desc' => $request['desc'],
                 'sector' => $request['sector'],
                 'owner_id' => $request['owner_id'],
