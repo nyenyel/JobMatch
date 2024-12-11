@@ -57,7 +57,7 @@ class CompanyController
             'verified' => 'required',
             'owner_id' => 'required|exists:users,id'
         ]);
-        $company->update($validated());
+        $company->update($validated);
         $company->load(['owner']);
         return CompanyResource::make($company);
     }
