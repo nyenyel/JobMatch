@@ -190,8 +190,9 @@ class CompanyController
 
     public function editCompany(Request $request, Company $company)
     {  
+        try {
         $validatedData = $request->validate([
-            // 'images' => 'required|array',
+            'images' => 'required|array',
             'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'desc' => 'required',
             'title' => 'required',
@@ -235,6 +236,9 @@ class CompanyController
         }
         $company->load(['owner']);
         return CompanyResource::make($company);
-        
+        } catch (\Exception $e) {
+            Log::error('Error editing company', ['message' => $e->getMessage()]);
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 }
