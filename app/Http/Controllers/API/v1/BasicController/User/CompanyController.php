@@ -71,7 +71,6 @@ class CompanyController
             'owner',
         ]);
         $sms = new SemaphoreService();
-
         $phoneNo = $company->owner->phone_no;
         $message = 'Good day,   We regret to inform you that your company ' 
         . $company->title 
@@ -81,11 +80,18 @@ class CompanyController
         // $smsResponse = "im fuckin testing you dumbass";
         $smsResponse = $sms->sendSMS($phoneNo, $message);
         // $company->image()->delete();
-        $company->update(['verified' => 4]);
+        if($company->edit){
+
+            $company->update(['verified' => false]);
+        } else {
+
+            $company->update(['verified' => 4]);
+        }
         return response()->json([
             'phone_no' => $phoneNo,
             'sms_response' => $smsResponse,
         ]);
+
     }
 
     public function storeCompany(Request $request)
