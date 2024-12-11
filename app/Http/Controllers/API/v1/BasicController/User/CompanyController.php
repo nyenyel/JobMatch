@@ -213,7 +213,7 @@ class CompanyController
                 'desc' => $request['desc'],
                 'sector' => $request['sector'],
                 'owner_id' => $request['owner_id'],
-                'edit' => $request['edit'],
+                'edit' => true,
                 'verified' => null,
             ]); // Adjust according to your Company model
 
