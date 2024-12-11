@@ -54,7 +54,7 @@ class CompanyController
             'desc' => 'required',
             'title' => 'required',
             'edit' => 'required',
-            'verified' => 'required',
+            'verified' => 'required|nullable',
             'owner_id' => 'required|exists:users,id'
         ]);
         $company->update($validated);
