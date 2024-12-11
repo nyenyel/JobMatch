@@ -48,9 +48,16 @@ class CompanyController
     /**
      * Update the specified resource in storage.
      */
-    public function update(CompanyUpdateRequest $request, Company $company)
+    public function update(Request $request, Company $company)
     {  
-        $company->update($request->validated());
+        $validated = $request->validate([
+            'desc' => 'required',
+            'title' => 'required',
+            'edit' => 'required',
+            'verified' => 'required',
+            'owner_id' => 'required|exists:users,id'
+        ]);
+        $company->update($validated());
         $company->load(['owner']);
         return CompanyResource::make($company);
     }
