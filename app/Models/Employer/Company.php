@@ -19,7 +19,8 @@ class Company extends Model
         'owner_id',
         'verified',
         'partnered',
-        'sector'
+        'sector',
+        'edit'
     ];
     
     public function jobApplication() : HasMany  {
