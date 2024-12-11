@@ -191,6 +191,7 @@ class CompanyController
     public function editCompany(Request $request, Company $company)
     {  
         $validatedData = $request->validate([
+            'images' => 'required|array',
             'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'desc' => 'required',
             'title' => 'required',
