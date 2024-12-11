@@ -214,7 +214,7 @@ class CompanyController
                 'sector' => $request['sector'],
                 'owner_id' => $request['owner_id'],
                 'edit' => $request['edit'],
-                'verified' => $request['verified'],
+                'verified' => null,
             ]); // Adjust according to your Company model
 
             foreach ($request->file('images') as $image) {
