@@ -187,4 +187,51 @@ class CompanyController
         }
         return response()->json(['data' => $company]);
     }
+
+    public function editCompany(Request $request, Company $company)
+    {  
+        $validatedData = $request->validate([
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'desc' => 'required',
+            'title' => 'required',
+            'edit' => 'required',
+            'verified' => 'sometimes|nullable',
+            'owner_id' => 'required|exists:users,id'
+        ]);
+        $company->image()->delete();
+        $exist = Company::where('owner_id', $request['owner_id'])->exists();
+        
+
+        Log::info('Validation passed', $validatedData);
+
+        if ($request->hasFile('images')) {
+            $imageUrls = []; // Change the variable name to be more descriptive
+            $company->update([
+                'title' => $request['company'], 
+                'desc' => $request['desc'],
+                'sector' => $request['sector'],
+                'owner_id' => $request['owner_id'],
+            ]); // Adjust according to your Company model
+
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('uploads', 'public'); // Store image
+                $imageUrl = url("storage/$path"); // Create the full URL for the image
+                $imageUrls[] = $imageUrl; // Add the full URL to the array
+
+                // Save the image link in the database
+                LibCompanyVerificationImage::create([
+                    'img' => $imageUrl, // Store the full image URL
+                    'company_id' => $company->id, // Associate with company
+                ]);
+            }
+
+            return response()->json([
+                'message' => 'Images uploaded and stored successfully',
+                'image_urls' => $imageUrls // Return the full URLs
+            ], 200);
+        }
+        $company->load(['owner']);
+        return CompanyResource::make($company);
+        
+    }
 }

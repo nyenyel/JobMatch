@@ -64,6 +64,7 @@ Route::prefix('v1')->group( function (){
         Route::post('message', [MessageController::class, 'message'])->name('message');
         Route::get('get-contact/{user}', [ContactController::class, 'getContact'])->name('getContact');
         Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLink']);
+        Route::post('edit-company', [CompanyController::class, 'editCompany']);
 
         Route::get('get-applicant-account', [UserController::class, 'getApplicant'])->name('getApplicant');
         Route::get('get-employer-account', [UserController::class, 'getEmployer'])->name('getEmployer');
